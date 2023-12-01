@@ -79,7 +79,6 @@ export const createCategoryAction = (categoryData) => async (dispatch) => {
   dispatch(categoryModalLoading(true));
   try {
     const { data } = await API.post("/", categoryData);
-    console.log(data,"category")
     dispatch(categoryModalOpen(false));
     dispatch(getCategoryAction())
 

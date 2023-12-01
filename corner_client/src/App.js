@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { WarehouseModal } from "./globalComponents/Modals/WarehouseModal/WarehouseModal";
 import { MenuModal } from "./globalComponents/Modals/MenuModal/MenuModal";
 import {TablesModal} from "./globalComponents/Modals/TablesModal/TablesModal"
+import {UserModal} from "./globalComponents/Modals/UserModal/UserModal"
 
 function App() {
   const { expensesOpenModal } = useSelector((state) => state.expensesModal);
@@ -15,6 +16,7 @@ function App() {
   const { menuOpenModal } = useSelector((state) => state.menuModal);
   const {tablesOpenModal} = useSelector(state=>state.tablesModal)
   const {categoryOpenModal} = useSelector(state=>state.categoryModal)
+  const {userOpenModal} = useSelector(state=>state.userModal)
 
 
 
@@ -45,6 +47,7 @@ function App() {
       {menuOpenModal && <MenuModal />}
       {tablesOpenModal && <TablesModal/>}
       {categoryOpenModal && <CategoryModal/>}
+      {userOpenModal && <UserModal/>}
       <ToastContainer />
     </div>
   );

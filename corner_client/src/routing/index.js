@@ -23,14 +23,7 @@ export const Routing = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const token = localStorage.getItem("auth");
 
-
-  const {userAuth} = useSelector(state=>state.userAuth);
-  // console.log(userAuth,"")
-
-
-
   // console.log(user)
-
 
   useEffect(() => {
     if (token) {
@@ -44,7 +37,7 @@ export const Routing = () => {
         } else {
           return () => {};
         }
-      } 
+      }
     } else if (forgetPassword.login) {
       navigate("/login");
     } else {
@@ -59,7 +52,6 @@ export const Routing = () => {
   }, [auth, user, forgetPassword]);
   const [notFound, setNotFound] = useState(false);
 
-
   return (
     <div className={show ? "" : "main-container"}>
       {!show && <Sidebar />}
@@ -68,8 +60,11 @@ export const Routing = () => {
 
         <Routes>
           <Route path="/login" element={<LoginUser />} />
-          <Route  path="/login-admin" element={<Login/>} />
-          <Route path="*" element={<NotFoundPage setNotFound={setNotFound} />}/>
+          <Route path="/login-admin" element={<Login />} />
+          <Route
+            path="*"
+            element={<NotFoundPage setNotFound={setNotFound} />}
+          />
 
           {LoginRoute()}
           {userData?.role === "super-admin" && SuperAdminPanelRoute()}

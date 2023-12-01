@@ -12,7 +12,7 @@ const API = axios.create({
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("auth")).AccessToken
+      JSON.parse(localStorage.getItem("auth")).accessToken
     }`;
   }
 
@@ -69,7 +69,7 @@ export const changeAdminPasswordAction = (
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              AccessToken: token.data.accesstoken,
+              accessToken: token.data.accesstoken,
             })
           );
 
@@ -117,7 +117,7 @@ export const changeTeacherPasswordAction = (oldPassword, newPassword) => {
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              AccessToken: token.data.accesstoken,
+              accessToken: token.data.accesstoken,
             })
           );
 
@@ -170,7 +170,7 @@ export const changeStudentPasswordAction = (
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              AccessToken: token.data.accesstoken,
+              accessToken: token.data.accesstoken,
             })
           );
 

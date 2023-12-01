@@ -1,25 +1,24 @@
-import {  useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
 import { Box } from "@mui/material";
-import { CATEGORY_M0DAL_ACTION_TYPE, COURSES_MODAL_ACTION_TYPE } from "../../../redux/actions-type";
+import { USER_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import { useFormik } from "formik";
 import { ValidationSchema } from "./components/ValidationSchema";
 import SubmitBtn from "./components/SubmitBtn";
 import InputField from "./components/InputField";
 
-export const CategoryModal = () => {
+export const UserModal = () => {
   const dispatch = useDispatch();
-  const {categoryModalData} = useSelector(state=>state.categoryModal);
+  const { userModalData } = useSelector((state) => state.userModal);
 
 
-  console.log(categoryModalData,"cat")
-
+  console.log(userModalData,"user")
 
   // formik
   const formik = useFormik({
     initialValues: {
-      name: categoryModalData?.name ? categoryModalData?.name : "",
+      accessCode: userModalData?.accessCode ? userModalData?.accessCode : "",
     },
     validationSchema: ValidationSchema,
   });
@@ -34,32 +33,34 @@ export const CategoryModal = () => {
 
   const updateModalState = (keyName, value) => {
     dispatch({
-      type: CATEGORY_M0DAL_ACTION_TYPE.GET_CATEGORY_MODAL, 
-      payload:{
-        data: {...categoryModalData, [keyName]: value }, 
-        openModal: true
-      } })
-  }
+      type: USER_M0DAL_ACTION_TYPE.GET_USER_MODAL,
+      payload: {
+        data: { ...userModalData, [keyName]: value },
+        openModal: true,
+      },
+    });
+  };
   const closeModal = () => {
-    dispatch({ type: CATEGORY_M0DAL_ACTION_TYPE.GET_CATEGORY_MODAL, payload: { data: {}, openModal: false } });
+    dispatch({
+      type: USER_M0DAL_ACTION_TYPE.GET_USER_MODAL,
+      payload: { data: {}, openModal: false },
+    });
   };
 
-
-  const inputArr=["name"]
-  
-
-
+  const inputArr = ["accessCode"];
 
   return (
     <div className="create-update-modal-con">
       <div className="create-update-modal">
         <div className="create-update-modal-head">
-          <h2>{categoryModalData?._id ? "Kateqoriya yenilə" : "Kateqoriya yaradın"}</h2>
+          <h2>
+            {userModalData?._id ? "Kateqoriya yenilə" : "İstifadəçi kodu"}
+          </h2>
           <CloseBtn onClick={closeModal} />
         </div>
 
         <Box
-          onSubmit={e => e.preventDefault()}
+          onSubmit={(e) => e.preventDefault()}
           component="form"
           sx={{
             maxWidth: "100%",
@@ -68,34 +69,24 @@ export const CategoryModal = () => {
           }}
         >
           <div className="create-update-modal-form">
-          {inputArr.map((name, i) => (
+            {inputArr.map((name, i) => (
               <InputField
                 key={i}
-                categoryModalData={categoryModalData}
+                userModalData={userModalData}
                 formik={formik}
                 updateModalState={updateModalState}
                 inputName={name}
               />
-          ))}
-
+            ))}
           </div>
         </Box>
 
-        {categoryModalData?._id ? (
-          <SubmitBtn
-            formik={formik}
-            categoryModalData={categoryModalData}
-            funcType="update"
-            closeModal={closeModal}
-          />
-        ) : (
-          <SubmitBtn
-            formik={formik}
-            categoryModalData={categoryModalData}
-            funcType="create"
-            closeModal={closeModal}
-          />
-        )}
+        <SubmitBtn
+          formik={formik}
+          userModalData={userModalData}
+          funcType="create"
+          closeModal={closeModal}
+        />
       </div>
     </div>
   );

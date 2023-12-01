@@ -31,6 +31,8 @@ import { categoryReducer } from "./reducers/categoryReducer";
 import { categoryModalReducer } from "./reducers/categoryModalReducer";
 import { userAuthReducer } from "./reducers/userAuthReducer";
 import { funcComponentReducer } from "./reducers/funcComponentReducer";
+import { userCodeReducer } from "./reducers/userCodeReducer";
+import {UserModalReducer} from "./reducers/userModalReducer"
 
 const initialState = {};
 const reducers = combineReducers({
@@ -62,6 +64,8 @@ const reducers = combineReducers({
   category: categoryReducer,
   categoryModal: categoryModalReducer,
   userAuth: userAuthReducer,
+  userCode:userCodeReducer,
+  userModal:UserModalReducer
 });
 // test
 

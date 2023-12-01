@@ -8,13 +8,6 @@ import {ReactComponent as MenuIcon } from "../../../../assets/icons/sidebar/food
 import {ReactComponent as CheckIcon} from "../../../../assets/icons/sidebar/writing-cheque-svgrepo-com.svg"
 
 const SidebarAdmin = ({ closeSidebar }) => {
-  const location = useLocation();
-
-  const financeNav = ["/finance/incomes", "/finance/expenses"];
-
-  const isFinanceRoute = (route) => {
-    return financeNav.includes(route);
-  };
 
   return (
     <ul className="sidebar-nav-list">
@@ -52,10 +45,16 @@ const SidebarAdmin = ({ closeSidebar }) => {
           Anbar
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink to="/checks" onClick={closeSidebar}>
           <CheckIcon/>
           Çeklər
+        </NavLink>
+      </li> */}
+      <li>
+        <NavLink to="/user" onClick={closeSidebar}>
+          <CheckIcon/>
+          User
         </NavLink>
       </li>
     </ul>

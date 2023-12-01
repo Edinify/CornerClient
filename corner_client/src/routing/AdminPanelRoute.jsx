@@ -5,6 +5,7 @@ import TablesPage from "../Pages/TablesPage/TablesPage"
 import CategoryPage from "../Pages/CategoryPage/CategoryPage";
 import WarehousePage from "../Pages/WarehousePage/WarehousePage";
 import MenuPage from "../Pages/MenuPage/MenuPage";
+import UserPage from "../Pages/UserPage/UserPage";
 
 const AdminPanelRoute = () => {
   return (
@@ -15,6 +16,8 @@ const AdminPanelRoute = () => {
       <Route path="/category"  element={<CategoryPage/>} />
       <Route path="/warehouse"  element={<WarehousePage/>} />
       <Route path="/menu"  element={<MenuPage/>} />
+      <Route path="/user" element={<UserPage/>} />
+      
     </>
   );
 };

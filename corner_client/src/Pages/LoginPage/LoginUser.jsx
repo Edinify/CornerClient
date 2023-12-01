@@ -4,8 +4,6 @@ import { ReactComponent as Eye } from "../../assets/icons/eye.svg";
 import { ReactComponent as EyeSlash } from "../../assets/icons/eye-slash.svg";
 import { ReactComponent as LoginLogo } from "../../assets/icons/Login-Logo.svg";
 import { Box, TextField } from "@mui/material";
-import { loginAction } from "../../redux/actions/auth";
-import { goToForgetPageAction } from "../../redux/actions/forgetPasswordAction";
 import { useFormik } from "formik";
 import { ValidationSchema } from "./components/Validation/ValidationSchema";
 import Loading from "../../globalComponents/Loading/Loading";
@@ -16,52 +14,50 @@ import { userLoginAction } from "../../redux/actions/userAuthAction";
 
 export const LoginUser = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { changeShowNav } = useCustomHook();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.userAuth);
   const [view, setView] = useState(true);
-  const [title, setTitle] = useState({
-    password: "",
-  });
+  const [accessCode, setAccessCode] = useState("");
 
   // formik
-  const formik = useFormik({
-    initialValues: {
-      password: "",
-    },
-    validationSchema: ValidationSchema,
-  });
-  const setInputValue = useCallback(
-    (key, value) =>
-      formik.setValues({
-        ...formik.values,
-        [key]: value,
-      }),
-    [formik]
-  );
-
+  // const formik = useFormik({
+  //   initialValues: {
+  //     password: "",
+  //   },
+  //   validationSchema: ValidationSchema,
+  // });
+  // const setInputValue = useCallback(
+  //   (key, value) =>
+  //     formik.setValues({
+  //       ...formik.values,
+  //       [key]: value,
+  //     }),
+  //   [formik]
+  // );
 
   const handleView = () => {
     setView(!view);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    authFunc();
+    // authFunc();
+    dispatch(userLoginAction(accessCode));
   };
-  const authFunc = () => {
-    formik.setFieldTouched("password", true);
-    if (
-      formik.isValid &&
-      !( title.password.trim() === "")
-    ) {
-      dispatch(userLoginAction(title));
-    }
-  };
+  // const authFunc = () => {
+  //   formik.setFieldTouched("password", true);
+  //   if (
+  //     formik.isValid &&
+  //     !( title.password.trim() === "")
+  //   ) {
+  //     dispatch(userLoginAction(title));
+  //   }
+  // };
 
   useEffect(() => {
-    changeShowNav(true)
+    changeShowNav(true);
     return () => {
-      changeShowNav(false)
+      changeShowNav(false);
     };
   }, [dispatch]);
 
@@ -91,7 +87,6 @@ export const LoginUser = () => {
           noValidate
           autoComplete="off"
         >
-
           <div className="password-class">
             <TextField
               sx={{
@@ -117,19 +112,16 @@ export const LoginUser = () => {
                   backgroundColor: "white",
                 },
               }}
-              helperText={
-                formik.errors.password && formik.touched.password
-                  ? formik.errors.password
-                  : ""
-              }
-              error={
-                formik.errors.password && formik.touched.password ? true : false
-              }
-              value={title.password }
-              onChange={(e) => {
-                setTitle({ ...title, password: e.target.value });
-                setInputValue("password", e.target.value);
-              }}
+              // helperText={
+              //   formik.errors.password && formik.touched.password
+              //     ? formik.errors.password
+              //     : ""
+              // }
+              // error={
+              //   formik.errors.password && formik.touched.password ? true : false
+              // }
+              value={accessCode}
+              onChange={(e) => setAccessCode(e.target.value)}
             />
             <div className="view-icon" onClick={handleView}>
               {view ? <EyeSlash /> : <Eye />}
@@ -140,7 +132,9 @@ export const LoginUser = () => {
             {loading ? <Loading mode="in-button" /> : " Daxil olun "}
           </button>
 
-          <h4 className="admin-route" onClick={()=>navigate("/login-admin")} >Admin</h4>
+          <h4 className="admin-route" onClick={() => navigate("/login-admin")}>
+            Admin
+          </h4>
         </Box>
       </div>
     </div>
