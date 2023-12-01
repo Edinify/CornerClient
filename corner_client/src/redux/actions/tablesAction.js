@@ -58,11 +58,12 @@ const toastError = (message) => {
   });
 };
 
-export const getTablesAction = () => async (dispatch) => {
+export const getTablesAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingTablesAction(true));
   try {
-    const { data } = await API.get("/");
+    const { data } = await API.get(`/?page=${pageNumber}`);
     dispatch({ type: TABLES_ACTION_TYPE.GET_TABLES, payload: data });
+    dispatch({type:TABLES_ACTION_TYPE.GET_TABLES_LAST_PAGE,payload:pageNumber})
   } catch (error) {
     console.log(error);
   } finally {

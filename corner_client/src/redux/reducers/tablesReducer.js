@@ -13,6 +13,7 @@ export const tablesReducer = (state = initialState, action) => {
       return {
         ...state,
         tables: action.payload.tables,
+        totalPages:action.payload.totalPages
       };
     case TABLES_ACTION_TYPE.CREATE_TABLES:
       return {
@@ -36,6 +37,7 @@ export const tablesReducer = (state = initialState, action) => {
       };
       case TABLES_ACTION_TYPE.GET_TABLES_LAST_PAGE:
         return{
+          ...state,
           lastPage:action.payload
         }
 

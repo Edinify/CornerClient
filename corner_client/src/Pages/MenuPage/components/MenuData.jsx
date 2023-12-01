@@ -4,7 +4,7 @@ import { Pagination } from "antd";
 import Loading from "../../../globalComponents/Loading/Loading";
 import MenuCard from "./MenuCard";
 
-const MenuData = ({ menusPageNum }) => {
+const MenuData = ({ menusPageNum,getPageNumber }) => {
   const { loading, menus, totalPages } = useSelector((state) => state.menus);
 
   const tableHead = [
@@ -55,16 +55,16 @@ const MenuData = ({ menusPageNum }) => {
             ))}
           </div>
 
-          {/* {totalPages > 1 && (
+          {totalPages > 1 && (
             <div className="pages-pagination">
               <Pagination
-                current={teacherPageNum}
+                current={menusPageNum}
                 defaultCurrent={1}
                 total={totalPages * 10}
                 onChange={getPageNumber}
               />
             </div>
-          )} */}
+          )}
         </>
       )}
     </>

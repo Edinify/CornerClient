@@ -7,7 +7,7 @@ import { WAREHOUSE_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import { getWarehouseAction } from "../../../redux/actions/wareHouseAction";
 import WarehouseCard from "./WarehouseCard";
 
-const WarehouseData = ({ warehousePageNum }) => {
+const WarehouseData = ({ warehousePageNum,getPageNumber }) => {
   const dispatch = useDispatch();
   const { warehouses, loading, totalPages } = useSelector(
     (state) => state.warehouses
@@ -60,16 +60,16 @@ const WarehouseData = ({ warehousePageNum }) => {
             ))}
           </div>
 
-          {/* {totalPages > 1 && (
+          {totalPages > 1 && (
             <div className="pages-pagination">
               <Pagination
-                current={teacherPageNum}
+                current={warehousePageNum}
                 defaultCurrent={1}
                 total={totalPages * 10}
                 onChange={getPageNumber}
               />
             </div>
-          )} */}
+          )}
         </>
       )}
     </>

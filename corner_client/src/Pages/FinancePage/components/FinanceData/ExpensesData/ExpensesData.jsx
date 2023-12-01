@@ -4,9 +4,8 @@ import ExpensesCard from "./ExpensesCard";
 import { Pagination } from "antd";
 import Loading from "../../../../../globalComponents/Loading/Loading";
 
-const ExpensesData = ({  getPageNumber,  page, dataHead = [] }) => {
-  const expensesData = useSelector((state) => state?.expensesData.expensesData);
-  const { totalPages, loading, lastPage: expensesPageNum } = useSelector((state) => state.expensesData);
+const ExpensesData = ({  getPageNumber,  page, dataHead = [],expensesPageNum }) => {
+  const { totalPages, loading,expensesData} = useSelector((state) => state.expensesData);
   const expensesHead = page !== 'finance' ? [
     { id: 1, label: " Təyinat" },
     {id:5,label:"Xərcin miqdarı"},

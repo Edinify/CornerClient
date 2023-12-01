@@ -13,6 +13,7 @@ export const warehouseReducer = (state = initialState, action) => {
       return {
         ...state,
         warehouses: action.payload.products,
+        totalPages:action.payload.totalPages
       };
     case WAREHOUSE_ACTION_TYPE.CREATE_WAREHOUSE:
       return {

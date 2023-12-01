@@ -40,6 +40,7 @@ export const categoryReducer = (state =initialState, action) => {
         }
         case CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE:
           return{
+            ...state,
             lastPage:action.payload
           }
     default:

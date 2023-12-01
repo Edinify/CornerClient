@@ -13,6 +13,7 @@ export const menuReducer = (state = initialState, action) => {
       return {
         ...state,
         menus: action.payload.products,
+        totalPages:action.payload.totalPages
       };
     case MENU_ACTION_TYPE.CREATE_MENU:
       return {

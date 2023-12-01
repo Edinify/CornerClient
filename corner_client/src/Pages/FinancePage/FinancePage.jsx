@@ -20,7 +20,7 @@ const FinancePage = () => {
   }, [dispatch]);
 
   useEffect(()=>{
-    dispatch(getExpensesAction())
+    dispatch(getExpensesAction(1))
   },[])
   return (
     <div className="finance-page">

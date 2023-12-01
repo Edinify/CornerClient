@@ -59,12 +59,13 @@ const toastError = (message) => {
 };
 
 
-export const getMenusAction = () => async (dispatch) => {
+export const getMenusAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingMenuAction(true))
   try {
-    const { data } = await API.get("/");
+    const { data } = await API.get(`/?page=${pageNumber}`);
     // console.log(data)
     dispatch({ type: MENU_ACTION_TYPE.GET_MENU, payload: data });
+    dispatch({type:MENU_ACTION_TYPE.GET_MENU_LAST_PAGE,payload:pageNumber})
   } catch (error) {
     console.log(error);
   }
@@ -77,6 +78,7 @@ export const createMenusAction = (menuData) => async (dispatch) => {
   dispatch(menuModalLoading(true))
   try {
     const { data } = await API.post("/", menuData);
+    console.log(data,"menu")
     dispatch(menuModalOpen(false))
     dispatch(getMenusAction())
     toastSuccess("Yeni məhsul yaradıldı")

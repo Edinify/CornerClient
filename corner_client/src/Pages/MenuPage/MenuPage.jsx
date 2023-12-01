@@ -8,7 +8,7 @@ import { getMenusAction} from "../../redux/actions/menusAction";
 
 const MenuPage = () => {
   const dispatch = useDispatch();
-  const { lastPage } = useSelector((state) => state.coursesPagination);
+  const { lastPage } = useSelector((state) => state.menus);
   const { coursesSearchValues } = useSelector((state) => state.searchValues);
   const [menusPageNum, setMenusPageNum] = useState(1);
   const { changeShowNav } = useCustomHook();
@@ -21,14 +21,11 @@ const MenuPage = () => {
       payload: { data: {}, openModal: true },
     });
   };
-  // const getPageNumber = (pageNumber) => {
-  //   setMenusPageNum(pageNumber);
-  //   if (coursesSearchValues) {
-  //     dispatch(getCoursesPaginationAction(pageNumber, coursesSearchValues));
-  //   } else {
-  //     dispatch(getCoursesPaginationAction(pageNumber, ""));
-  //   }
-  // };
+  const getPageNumber = (pageNumber) => {
+    setMenusPageNum(pageNumber);
+      dispatch(getMenusAction(pageNumber));
+    }
+  
 
   useEffect(() => {
 
@@ -46,7 +43,7 @@ const MenuPage = () => {
 
 
   useEffect(()=>{
-    dispatch(getMenusAction())
+    dispatch(getMenusAction(1))
   },[])
 
   return (
@@ -59,7 +56,7 @@ const MenuPage = () => {
       />
       <MenuData
         menusPageNum={menusPageNum}
-        // getPageNumber={getPageNumber}
+        getPageNumber={getPageNumber}
       />
     </div>
   );

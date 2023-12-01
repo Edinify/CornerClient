@@ -25,11 +25,8 @@ const TablesPage = () => {
   };
   const getPageNumber = (pageNumber) => {
     setTablePageNum(pageNumber);
-    if (coursesSearchValues) {
-      dispatch(getTablesAction(pageNumber,""));
-    } else {
-      dispatch(getTablesAction(pageNumber, ""));
-    }
+      dispatch(getTablesAction(pageNumber));
+   
   };
  
 
@@ -49,7 +46,7 @@ const TablesPage = () => {
 
 
   useEffect(()=>{
-    dispatch(getTablesAction())
+    dispatch(getTablesAction(1))
   },[])
   return (
     <div className="details-page courses ">

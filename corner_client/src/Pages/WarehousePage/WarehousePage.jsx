@@ -19,14 +19,10 @@ const WarehousePage = () => {
       payload: { data: {}, openModal: true },
     });
   };
-  // const getPageNumber = (pageNumber) => {
-  //   setWarehousePageNum(pageNumber);
-  //   if (coursesSearchValues) {
-  //     dispatch(getCoursesPaginationAction(pageNumber, coursesSearchValues));
-  //   } else {
-  //     dispatch(getCoursesPaginationAction(pageNumber, ""));
-  //   }
-  // };
+  const getPageNumber = (pageNumber) => {
+    setWarehousePageNum(pageNumber);
+      dispatch(getWarehouseAction(pageNumber));
+  };
   useEffect(() => {
     if (lastPage) {
       setWarehousePageNum(lastPage);
@@ -43,7 +39,7 @@ const WarehousePage = () => {
 
 
   useEffect(()=>{
-    dispatch(getWarehouseAction())
+    dispatch(getWarehouseAction(1))
   },[])
 
   return (
@@ -56,6 +52,7 @@ const WarehousePage = () => {
       />
       <WarehouseData
         warehousePageNum={warehousePageNum}
+        getPageNumber={getPageNumber}
       />
     </div>
   );

@@ -11,8 +11,6 @@ import {TablesModal} from "./globalComponents/Modals/TablesModal/TablesModal"
 
 function App() {
   const { expensesOpenModal } = useSelector((state) => state.expensesModal);
-  const { incomesOpenModal } = useSelector((state) => state.incomesModal);
-  const { coursesOpenModal } = useSelector((state) => state.coursesModal);
   const { warehouseOpenModal } = useSelector((state) => state.warehouseModal);
   const { menuOpenModal } = useSelector((state) => state.menuModal);
   const {tablesOpenModal} = useSelector(state=>state.tablesModal)
@@ -28,13 +26,6 @@ function App() {
     }
   }, [expensesOpenModal]);
 
-  useEffect(() => {
-    if (incomesOpenModal) {
-      document.body.style.overflowY = "hidden";
-    } else {
-      document.body.style.overflowY = "overlay";
-    }
-  }, [incomesOpenModal]);
 
   useEffect(() => {
     if (tablesOpenModal) {
@@ -49,7 +40,7 @@ function App() {
     <div className="App">
       <Routing />
       {expensesOpenModal && <ExpensesModal />}
-      {coursesOpenModal && <CategoryModal />}
+      {categoryOpenModal && <CategoryModal />}
       {warehouseOpenModal && <WarehouseModal />}
       {menuOpenModal && <MenuModal />}
       {tablesOpenModal && <TablesModal/>}

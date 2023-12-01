@@ -55,11 +55,6 @@ export const expensesReducer = (state = initialState, action) => {
         loading:false,
         lastPage: action.payload,
       };
-      // case EXPENSES_ACTION_TYPE.EXPENSES_MODAL:
-      //   return{
-      //     ...state,
-      //     openExpenseModal:action.payload
-      //   }
     default:
       return state;
   }

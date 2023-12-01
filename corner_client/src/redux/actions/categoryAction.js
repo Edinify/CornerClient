@@ -65,7 +65,7 @@ const toastError = (message) => {
 export const getCategoryAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
-    const { data } = await API.get("/");
+    const { data } = await API.get(`/?page=${pageNumber}`);
     dispatch({type:CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,payload:pageNumber})
     dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
   } catch (error) {

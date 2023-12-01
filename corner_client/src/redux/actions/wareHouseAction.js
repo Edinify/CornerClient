@@ -59,11 +59,12 @@ const toastError = (message) => {
   });
 };
 
-export const getWarehouseAction = () => async (dispatch) => {
+export const getWarehouseAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
-    const { data } = await API.get("/");
+    const { data } = await API.get(`/?page=${pageNumber}`);
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE, payload: data });
+    dispatch({type:WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LAST_PAGE,payload:pageNumber})
   } catch (error) {
     console.log(error);
   } finally {

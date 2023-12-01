@@ -53,12 +53,13 @@ const expensesModalOpen=(value)=>({
 
 
 
-export const getExpensesAction=()=> async(dispatch)=> {
+export const getExpensesAction=(pageNumber)=> async(dispatch)=> {
   dispatch(setLoadingExpensesAction(true))
   
   try {
-    const {data} = await API.get("/")
+    const {data} = await API.get(`/?page=${pageNumber}`)
     dispatch({type:EXPENSES_ACTION_TYPE.GET_EXPENSES,payload:data})
+    dispatch({type:EXPENSES_ACTION_TYPE.GET_EXPENSES_LAST_PAGE,payload:pageNumber})
   } catch (error) {
       console.log(error)
   }
