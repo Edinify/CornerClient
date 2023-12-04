@@ -45,9 +45,11 @@ const userModalLoading = (loadingValue)=>({
 })
 
 export const userLoginAction = (authData) => async (dispatch) => {
+  console.log(authData)
   setLoadingAction(true)
   try {
-    const { data } = await API.post("/login",authData);
+    const { data } = await API.post("/login",{accessCode:authData});
+    console.log(data)
     dispatch({type:USER_AUTH_ACTION_TYPE.LOGIN_USER,payload:data})
   } catch (error) {
     console.log(error);

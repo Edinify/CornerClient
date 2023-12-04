@@ -20,39 +20,17 @@ export const LoginUser = () => {
   const [view, setView] = useState(true);
   const [accessCode, setAccessCode] = useState("");
 
-  // formik
-  // const formik = useFormik({
-  //   initialValues: {
-  //     password: "",
-  //   },
-  //   validationSchema: ValidationSchema,
-  // });
-  // const setInputValue = useCallback(
-  //   (key, value) =>
-  //     formik.setValues({
-  //       ...formik.values,
-  //       [key]: value,
-  //     }),
-  //   [formik]
-  // );
 
   const handleView = () => {
     setView(!view);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // authFunc();
     dispatch(userLoginAction(accessCode));
   };
-  // const authFunc = () => {
-  //   formik.setFieldTouched("password", true);
-  //   if (
-  //     formik.isValid &&
-  //     !( title.password.trim() === "")
-  //   ) {
-  //     dispatch(userLoginAction(title));
-  //   }
-  // };
+
+
+  console.log(accessCode)
 
   useEffect(() => {
     changeShowNav(true);

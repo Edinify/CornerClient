@@ -17,20 +17,18 @@ const NavbarProfile = () => {
   const [openUserCode,setOpenUserCode] = useState(false)
 
   const navigateExit = () => {
-    // window.location = "/login";
-    // navigate("/login");
     dispatch(logoutAction());
   };
 
   window.onclick = function () {
     setIsOpen(false);
     setChangeUserIcon(false);
-    setOpenUserCode(false)
   };
 
   const handleActive = (e) => {
     setIsOpen(!isOpen);
     setChangeUserIcon(!changeUserIcon);
+    setOpenUserCode(false)
 
     e.stopPropagation();
   };

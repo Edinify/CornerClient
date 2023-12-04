@@ -26,9 +26,9 @@ export default function SubmitBtn({
         {userModalLoading ? (
           <LoadingBtn />
         ) : funcType === "update" ? (
-          "Yenilə"
+          ""
         ) : (
-          "Yarat"
+          "Yenilə"
         )}
       </button>
     </div>
