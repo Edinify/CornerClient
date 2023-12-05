@@ -5,7 +5,7 @@ import Loading from "../../../globalComponents/Loading/Loading";
 import ChecksCard from "./ChecksCard";
 
 const ChecksData = ({ menusPageNum,getPageNumber }) => {
-  const { loading, menus, totalPages } = useSelector((state) => state.menus);
+  const { loading, totalPages } = useSelector((state) => state.checks);
 
   const {checks} = useSelector(state=>state.checks?.checks);
   console.log(checks,"check")
@@ -15,6 +15,8 @@ const ChecksData = ({ menusPageNum,getPageNumber }) => {
     { id: 2, label: "Masa" },
     { id: 5, label: "Ümumi vaxt" },
   ];
+
+  // console.log(loading,"loading")
 
   return (
     <>
@@ -34,7 +36,7 @@ const ChecksData = ({ menusPageNum,getPageNumber }) => {
             </thead>
 
             <tbody>
-              {checks.map((item, i) => (
+              {checks?.map((item, i) => (
                 <ChecksCard
                   key={i}
                   data={item}
@@ -46,7 +48,7 @@ const ChecksData = ({ menusPageNum,getPageNumber }) => {
           </table>
 
           <div className="details-list-tablet with-more">
-            {checks.map((item, i) => (
+            {checks?.map((item, i) => (
               <ChecksCard
                 key={i}
                 data={item}

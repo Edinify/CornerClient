@@ -20,7 +20,7 @@ const WorkersData = () => {
   
 
   useEffect(() => {
-    dispatch(getCheckAction());
+    dispatch(getCheckAction(1));
     dispatch(getCheckUserAction(""))
   }, []);
 

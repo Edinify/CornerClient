@@ -18,13 +18,23 @@ const API = axios.create({
   });
 
 
-export const getCheckAction=()=>async(dispatch)=>{
+  export const setLoadingMenuAction = (loadingValue) => ({
+    type: CHECK_ACTION_TYPE.CHECK_LOADING,
+    payload: loadingValue,
+  });
+
+export const getCheckAction=(pageNumber)=>async(dispatch)=>{
+    setLoadingMenuAction(true)
     try {
-        const {data} = await API.get("/");
+        const {data} = await API.get(`/?page=${pageNumber}`);
         // console.log(data)
         dispatch({type:CHECK_ACTION_TYPE.GET_CHECK,payload:data})
+        dispatch({type:CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,payload:pageNumber})
     } catch (error) {
         console.log(error)
+    }
+    finally{
+        setLoadingMenuAction(false)
     }
 }
 

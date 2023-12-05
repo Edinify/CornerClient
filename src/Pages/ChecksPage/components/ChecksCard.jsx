@@ -6,19 +6,6 @@ import UpdateDeleteModal from "../../../globalComponents/Modals/UpdateDeleteModa
 const ChecksCard = ({ data, mode,cellNumber }) => {
   const dispatch = useDispatch();
 
-  const updateItem = () => {
-    const { category, _id, product, price, unitAmount } = data;
-    dispatch({
-      type: MENU_M0DAL_ACTION_TYPE.GET_MENU_MODAL,
-      payload: {
-        data: { category, _id, product, unitAmount, price },
-        openModal: true,
-      },
-    });
-  };
-  const deleteItem = () => {
-    dispatch(deleteMenusAction(data._id));
-  };
   return (
     <>
       {mode === "desktop" ? (
@@ -62,13 +49,6 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
             </ul>
           </div>
 
-          <div className="right">
-            <UpdateDeleteModal
-              updateItem={updateItem}
-              deleteItem={deleteItem}
-              data={data}
-            />
-          </div>
         </div>
       )}
     </>
