@@ -51,18 +51,12 @@ const SidebarAdmin = ({ closeSidebar }) => {
           Çeklər
         </NavLink>
       </li> */}
-      <li>
-        <NavLink to="/user" onClick={closeSidebar}>
-          <CheckIcon/>
-          User
-        </NavLink>
-      </li>
-      <li>
+      {/* <li>
         <NavLink to="/workers" onClick={closeSidebar}>
           <CheckIcon/>
           User
         </NavLink>
-      </li>
+      </li> */}
     </ul>
   );
 };

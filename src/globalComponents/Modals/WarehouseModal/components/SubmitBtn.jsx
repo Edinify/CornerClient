@@ -6,7 +6,6 @@ import {
 import LoadingBtn from "../../../Loading/components/LoadingBtn/LoadingBtn";
 
 export default function SubmitBtn({
-  formik,
   warehouseModalData,
   funcType,
 }) {
@@ -26,7 +25,7 @@ export default function SubmitBtn({
   return (
     <div className="create-update-modal-btn">
       <button
-        disabled={!(formik.isValid && warehouseModalData?.unitMeasure && !warehouseModalLoading)}
+        // disabled={!(formik.isValid && warehouseModalData?.unitMeasure && !warehouseModalLoading)}
         onClick={classCreate}
       >
         {warehouseModalLoading ? (

@@ -22,10 +22,11 @@ export const TablesModal = () => {
   const inputArr = ["deposit", "oneMinutePrice", "tableNumber", "name"];
 
   const selectedCategoryList = [
-    { key: "vipRoom", name: "Vip Otaq" },
-    { key: "gameTable", name: "Oyun masası" },
-    { key: "simpleTable", name: "Adi masa" },
+    { key: "vip otaq", name: "Vip Otaq" },
+    { key: "oyun masası", name: "Oyun masası" },
+    { key: "sadə masa", name: "Sadə masa" },
   ];
+
 
   const categoryDropdown = () => {
     setCategoryOpen(!categoryOpen);
@@ -89,17 +90,17 @@ export const TablesModal = () => {
     });
   };
 
-  useEffect(() => {
-    if (tablesModalData?._id) {
-      if (tablesModalData.category) {
-        setSelectedCategory({
-          name: selectedCategoryList.filter(
-            (item) => item.key === tablesModalData.category
-          )[0]?.name,
-        });
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (tablesModalData?._id) {
+  //     if (tablesModalData.category) {
+  //       setSelectedCategory({
+  //         name: selectedCategoryList.filter(
+  //           (item) => item.key === tablesModalData.category
+  //         )[0]?.name,
+  //       });
+  //     }
+  //   }
+  // }, []);
 
 
   return (

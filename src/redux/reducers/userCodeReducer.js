@@ -15,7 +15,7 @@ export const userCodeReducer = (state = initialState, action) => {
       console.log(action.payload)
       return {
         ...state,
-        userCode: { ...action.payload},
+        userCode: { ...action.payload.accessCode},
       };
     default:
       return state;

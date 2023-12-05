@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Pagination } from "antd";
-import Loading from "../../../globalComponents/Loading/Loading";
-import { TABLES_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
-import "./workersPage.css";
+import React, {  useState } from "react";
+import {  useSelector } from "react-redux";
+import "../workersPage.css";
 import OrderPage from "../OrderPage";
 
 const WorkersData = () => {
-  const { tables } = useSelector((state) => state.tables);
+  const { userTables } = useSelector((state) => state.userTables);
 
   const [orderModal, setOrderModal] = useState(false);
   const [selectedOrderData,setSelectedOrderData] = useState(null)
@@ -16,10 +13,12 @@ const WorkersData = () => {
     setSelectedOrderData(table)
   }
 
+
+
   return (
     <>
       <div className="tables-container">
-        {tables.map((table,i) => (
+        {userTables?.map((table,i) => (
           <div key={i}  className="table-box">
             <div  onClick={()=>{
                 handleTableClick(table)

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MENU_ACTION_TYPE, MENU_M0DAL_ACTION_TYPE } from "../actions-type";
+import { MENU_ACTION_TYPE, MENU_M0DAL_ACTION_TYPE, MENU_USER_ACTION_TYPE } from "../actions-type";
 import { apiRoot } from "../../apiRoot";
 import { toast } from "react-toastify";
 
@@ -15,6 +15,11 @@ API.interceptors.request.use((req) => {
     }`;
   }
   return req;
+});
+
+const APIUSER = axios.create({
+  baseURL: `${apiRoot}/menu/all`,
+  withCredentials: true,
 });
 
 export const setLoadingMenuAction = (loadingValue) => ({
@@ -73,12 +78,24 @@ export const getMenusAction = (pageNumber) => async (dispatch) => {
     dispatch(setLoadingMenuAction(false))
   }
 };
+export const getMenusUserAction = () => async (dispatch) => {
+  dispatch(setLoadingMenuAction(true))
+  try {
+    const { data } = await APIUSER.get("/");
+    console.log(data)
+    dispatch({ type: MENU_USER_ACTION_TYPE.GET_MENU_USER, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+  finally{
+    dispatch(setLoadingMenuAction(false))
+  }
+};
 
 export const createMenusAction = (menuData) => async (dispatch) => {
   dispatch(menuModalLoading(true))
   try {
     const { data } = await API.post("/", menuData);
-    console.log(data,"menu")
     dispatch(menuModalOpen(false))
     dispatch(getMenusAction())
     toastSuccess("Yeni məhsul yaradıldı")
@@ -93,8 +110,10 @@ export const createMenusAction = (menuData) => async (dispatch) => {
 
 export const updateMenusAction = (_id, menuData) => async (dispatch) => {
   dispatch(menuModalLoading(true))
+  console.log(menuData)
   try {
     const { data } = await API.patch(`/${_id}`, menuData);
+    
     dispatch({ type: MENU_ACTION_TYPE.UPDATE_MENU, payload: data });
     dispatch(menuModalOpen(false))
     toastSuccess("Məhsul yeniləndi")

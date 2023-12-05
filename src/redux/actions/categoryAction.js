@@ -29,12 +29,10 @@ const categoryModalLoading = (loadingValue) => ({
   type: CATEGORY_M0DAL_ACTION_TYPE.CATEGORY_MODAL_LOADING,
   payload: loadingValue,
 });
-const categoryModalOpen=(value)=>({
-    type:CATEGORY_M0DAL_ACTION_TYPE.CATEGORY_OPEN_MODAL,
-    payload:value
-})
-
-
+const categoryModalOpen = (value) => ({
+  type: CATEGORY_M0DAL_ACTION_TYPE.CATEGORY_OPEN_MODAL,
+  payload: value,
+});
 
 const toastSuccess = (message) => {
   toast.success(message, {
@@ -66,7 +64,11 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    dispatch({type:CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,payload:pageNumber})
+
+    dispatch({
+      type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
+      payload: pageNumber,
+    });
     dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
   } catch (error) {
     console.log(error);
@@ -80,12 +82,12 @@ export const createCategoryAction = (categoryData) => async (dispatch) => {
   try {
     const { data } = await API.post("/", categoryData);
     dispatch(categoryModalOpen(false));
-    dispatch(getCategoryAction())
+    dispatch(getCategoryAction());
 
     toastSuccess("Yeni kateqoriya yaradıldl");
   } catch (error) {
-    if(error.response.data.key="category-already-exists"){
-        toastError("Bu kateqoriya mövcuddur")
+    if ((error.response.data.key = "category-already-exists")) {
+      toastError("Bu kateqoriya mövcuddur");
     }
     console.log(error);
   } finally {

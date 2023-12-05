@@ -17,6 +17,19 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+const toastError = (message) => {
+  toast.error(message, {
+    position: "top-right",
+    autoClose: 2000,
+    toastClassName: "custom-toast",
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+};
 const toastSuccess = (message) => {
   toast.success(message, {
     position: "top-right",
@@ -44,18 +57,19 @@ const userModalLoading = (loadingValue)=>({
   payload:loadingValue
 })
 
-export const userLoginAction = (authData) => async (dispatch) => {
-  console.log(authData)
-  setLoadingAction(true)
+export const userLoginAction = (authData) => async (dispatch,navigate) => {
+  // setLoadingAction(true)
   try {
     const { data } = await API.post("/login",{accessCode:authData});
-    console.log(data)
     dispatch({type:USER_AUTH_ACTION_TYPE.LOGIN_USER,payload:data})
   } catch (error) {
     console.log(error);
+    if(error.response.data.key==="invalid-code"){
+      toastError("Daxil edilən kod yalnışdır")
+    }
   }
   finally{
-    setLoadingAction(false)
+    // setLoadingAction(false)
   }
 };
 
@@ -68,6 +82,7 @@ export const getUserAction=()=>async(dispatch)=>{
 
   } catch (error) {
     console.log(error)
+    
   }
   finally{
     dispatch(userModalLoading(false))

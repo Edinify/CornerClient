@@ -33,6 +33,9 @@ import { userAuthReducer } from "./reducers/userAuthReducer";
 import { funcComponentReducer } from "./reducers/funcComponentReducer";
 import { userCodeReducer } from "./reducers/userCodeReducer";
 import {UserModalReducer} from "./reducers/userModalReducer"
+import { userTablesReducer } from "./reducers/userTablesReducer";
+import { menuUserReducer } from "./reducers/menuUserReducer";
+import { checkReducer } from "./reducers/checkReducer";
 
 const initialState = {};
 const reducers = combineReducers({
@@ -65,7 +68,10 @@ const reducers = combineReducers({
   categoryModal: categoryModalReducer,
   userAuth: userAuthReducer,
   userCode:userCodeReducer,
-  userModal:UserModalReducer
+  userModal:UserModalReducer,
+  userTables:userTablesReducer,
+  menuUser:menuUserReducer,
+  checks:checkReducer
 });
 // test
 

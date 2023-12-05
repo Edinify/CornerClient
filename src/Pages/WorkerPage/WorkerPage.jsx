@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TABLES_M0DAL_ACTION_TYPE } from "../../redux/actions-type";
-import { getTablesAction } from "../../redux/actions/tablesAction";
+import {  getTablesUserAction } from "../../redux/actions/tablesAction";
 import WorkersData from "./components/WorkersData";
-import GlobalHead from "../../globalComponents/GlobalHead/GlobalHead";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
+import { getCheckAction } from "../../redux/actions/checkAction";
 
 const WorkersPage = () => {
   const dispatch = useDispatch();
-  const { lastPage } = useSelector((state) => state.tables);
   const { changeShowNav } = useCustomHook();
+  const {checks} = useSelector(state=>state.checks);
 
   useEffect(() => {
     changeShowNav(false);
@@ -20,7 +19,8 @@ const WorkersPage = () => {
 
 
   useEffect(() => {
-    dispatch(getTablesAction(1));
+    dispatch(getTablesUserAction());
+    dispatch(getCheckAction())
   }, []);
   return (
     <div className="details-page courses ">

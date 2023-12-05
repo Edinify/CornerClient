@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMenusAction } from "../../redux/actions/menusAction";
+import {  getMenusUserAction } from "../../redux/actions/menusAction";
+import OrderModal from "../../globalComponents/Modals/OrderModal/OrderModal";
 
 const OrderPage = ({ orderData,setOrderModal }) => {
   const dispatch = useDispatch();
-  const { menus } = useSelector((state) => state.menus);
+  const { menuUser } = useSelector((state) => state.menuUser);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [openOrderModal,setOpenOrderModal] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0);
+
+  console.log(menuUser,"menu")
+
 
   const handleMenuClick = (productName, price) => {
     const existingProduct = selectedProducts.find(
@@ -17,7 +22,6 @@ const OrderPage = ({ orderData,setOrderModal }) => {
       setSelectedProducts((prevProducts) =>
         prevProducts.map(
           (product) => (
-            console.log(product, "prodc"),
             product.name === productName
               ? { ...product, count: product.count + 1 }
               : product
@@ -35,7 +39,7 @@ const OrderPage = ({ orderData,setOrderModal }) => {
   };
 
   useEffect(() => {
-    dispatch(getMenusAction());
+    dispatch(getMenusUserAction());
   }, []);
 
   return (
@@ -43,6 +47,7 @@ const OrderPage = ({ orderData,setOrderModal }) => {
       <div className="container">
         <div className="order-page-container">
           <div className="order-side">
+            <div className="order-side-container">
             <div className="order-side-head">
               <h4>Masa nömrəsi: {orderData.tableNumber}</h4>
             </div>
@@ -59,14 +64,16 @@ const OrderPage = ({ orderData,setOrderModal }) => {
             <div className="product-price">
               <p>Hesab: {totalPrice} AZN </p>
               <button onClick={()=>{
-                setOrderModal(false)
-              }} >Təsdiqlə</button>
+                setOpenOrderModal(true)
+                // setOrderModal(false)
+              }} >Sifarişi təsdiqlə</button>
+            </div>
             </div>
             </div>
           </div>
           <div className="menu-side">
             <div className="menus">
-              {menus.map((menu) => (
+              {menuUser.map((menu) => (
                 <div
                   key={menu._id}
                   className="menu-content"
@@ -81,6 +88,9 @@ const OrderPage = ({ orderData,setOrderModal }) => {
           </div>
         </div>
       </div>
+      {
+        openOrderModal && <OrderModal setOpenOrderModal={setOpenOrderModal} setOrderModal={setOrderModal} />
+      }
     </div>
   );
 };

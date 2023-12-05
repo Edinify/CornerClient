@@ -17,9 +17,7 @@ const AdminPanelRoute = () => {
       <Route path="/category"  element={<CategoryPage/>} />
       <Route path="/warehouse"  element={<WarehousePage/>} />
       <Route path="/menu"  element={<MenuPage/>} />
-      <Route path="/user" element={<UserPage/>} />
       <Route path="/workers" element={<WorkersPage/>} />
-      
     </>
   );
 };

@@ -29,6 +29,7 @@ const WarehouseLists = ({
     setWarehouseNameOpen(!warehouseNameOpen);
   };
 
+
   return (
     <>
       <div className="class-input">

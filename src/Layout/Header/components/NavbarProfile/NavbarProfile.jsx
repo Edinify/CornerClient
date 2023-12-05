@@ -5,9 +5,10 @@ import { ReactComponent as UserProfileBlueIcon } from "../../../../assets/icons/
 import { ReactComponent as ChangePasswordIcon } from "../../../../assets/icons/password-check.svg";
 import { ReactComponent as LogoutIcon } from "../../../../assets/icons/log-out-03.svg";
 import { logoutAction } from "../../../../redux/actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ChangePasswordModal } from "../../../../globalComponents/Header/ChangePasswordModal/ChangePasswordModal";
 import UserCodeModal from "../../components/UserCodeModal";
+import {ReactComponent as UserChangeCodeIcon} from "../../../../assets/icons/header/user-pen-svgrepo-com.svg"
 
 const NavbarProfile = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const NavbarProfile = () => {
   const [openModal, setOpenModal] = useState(false);
   const [changeUserIcon, setChangeUserIcon] = useState(false);
   const [openUserCode,setOpenUserCode] = useState(false)
+  const {user} = useSelector(state=>state.user)
 
   const navigateExit = () => {
     dispatch(logoutAction());
@@ -49,9 +51,10 @@ const NavbarProfile = () => {
   return (
     <>
       <div className="main-nav-icons">
-        <div className="user" onClick={()=>setOpenUserCode(!openUserCode)} >
-        <UserProfileIcon />
+       {user.role==="admin" && <div className="user" onClick={()=>setOpenUserCode(!openUserCode)} >
+        <UserChangeCodeIcon />
         </div>
+}
         <div className="profile-img-con">
           <div className="profile-img" onClick={(e) => handleActive(e)}>
             {changeUserIcon ? (

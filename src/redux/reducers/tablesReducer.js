@@ -1,4 +1,4 @@
-import { TABLES_ACTION_TYPE } from "../actions-type";
+import { TABLES_ACTION_TYPE, TABLES_USER_ACTION_TYPE } from "../actions-type";
 
 const initialState = {
   tables: [],
@@ -14,7 +14,7 @@ export const tablesReducer = (state = initialState, action) => {
         ...state,
         tables: action.payload.tables,
         totalPages:action.payload.totalPages
-      };
+      }
     case TABLES_ACTION_TYPE.CREATE_TABLES:
       return {
         ...state,

@@ -9,3 +9,7 @@ export const ValidationSchema = yup.object().shape({
     password: yup.string().required("Şifrə daxil edin."),
   });
 
+  export const ValidationUserSchema =  yup.object().shape({
+    code: yup.string().required("Şifrə daxil edin."),
+  });
+

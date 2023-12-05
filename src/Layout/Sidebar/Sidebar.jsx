@@ -10,6 +10,8 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const { openSidebar } = useSelector((state) => state.openSidebar);
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const { userAuth } = useSelector((state) => state.userAuth);
+
 
   const closeSidebar = () => {
     dispatch({ type: SIDEBAR_ACTION_TYPE.SIDEBAR_OPEN_MODAL, payload: false });
@@ -28,7 +30,7 @@ const Sidebar = () => {
             <LogoTabletIcon onClick={openFullSidebar} />
           </div>
 
-          {userData?.role === "super-admin" && (
+          {userAuth?.role === "user" && (
             <SidebarSuperAdmin closeSidebar={closeSidebar} />
           )}
           {userData?.role === "admin" && (
