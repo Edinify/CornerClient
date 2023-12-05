@@ -14,7 +14,7 @@ export const checkReducer = (state=initialState, action) => {
     case CHECK_ACTION_TYPE.CREATE_CHECK:
       return {
         ...state,
-        checks: [...state.checks, ...action.payload],
+        checks: {...state.checks, ...action.payload},
       };
     case CHECK_ACTION_TYPE.UPDATE_CHECK:
       return {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getTablesUserAction } from "../../redux/actions/tablesAction";
+import { getTablesUserAction } from "../../redux/actions/tablesAction";
 import WorkersData from "./components/WorkersData";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
 import { getCheckAction } from "../../redux/actions/checkAction";
@@ -8,7 +8,6 @@ import { getCheckAction } from "../../redux/actions/checkAction";
 const WorkersPage = () => {
   const dispatch = useDispatch();
   const { changeShowNav } = useCustomHook();
-  const {checks} = useSelector(state=>state.checks);
 
   useEffect(() => {
     changeShowNav(false);
@@ -17,10 +16,8 @@ const WorkersPage = () => {
     };
   }, [dispatch]);
 
-
   useEffect(() => {
     dispatch(getTablesUserAction());
-    dispatch(getCheckAction())
   }, []);
   return (
     <div className="details-page courses ">

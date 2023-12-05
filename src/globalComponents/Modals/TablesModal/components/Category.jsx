@@ -10,7 +10,6 @@ const Category = ({
 }) => {
 
 
-  console.log(selectedCategory,"selected")
   return (
     <>
         <div className="class-input">

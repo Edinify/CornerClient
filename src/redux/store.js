@@ -36,6 +36,7 @@ import {UserModalReducer} from "./reducers/userModalReducer"
 import { userTablesReducer } from "./reducers/userTablesReducer";
 import { menuUserReducer } from "./reducers/menuUserReducer";
 import { checkReducer } from "./reducers/checkReducer";
+import { userCheckReducer } from "./reducers/userCheckReducer";
 
 const initialState = {};
 const reducers = combineReducers({
@@ -71,7 +72,8 @@ const reducers = combineReducers({
   userModal:UserModalReducer,
   userTables:userTablesReducer,
   menuUser:menuUserReducer,
-  checks:checkReducer
+  checks:checkReducer,
+  userCheck:userCheckReducer
 });
 // test
 

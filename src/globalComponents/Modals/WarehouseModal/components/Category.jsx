@@ -9,7 +9,6 @@ const Category = ({
   categoryAddData,
 }) => {
 
-  console.log(selectedCategory,"selected")
   return (
     <>
         <div className="class-input">

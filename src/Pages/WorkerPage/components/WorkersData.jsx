@@ -1,36 +1,56 @@
-import React, {  useState } from "react";
-import {  useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../workersPage.css";
 import OrderPage from "../OrderPage";
+import { getCheckAction, getCheckUserAction } from "../../../redux/actions/checkAction";
 
 const WorkersData = () => {
   const { userTables } = useSelector((state) => state.userTables);
+  const dispatch = useDispatch();
 
   const [orderModal, setOrderModal] = useState(false);
-  const [selectedOrderData,setSelectedOrderData] = useState(null)
+  const [selectedOrderData, setSelectedOrderData] = useState(null);
 
-  const handleTableClick=(table)=>{
+  const handleTableClick = (table) => {
     setSelectedOrderData(table)
-  }
+    
+  };
 
+  const { checks, } = useSelector((state) => state.checks.checks);
+  
+
+  useEffect(() => {
+    dispatch(getCheckAction());
+    dispatch(getCheckUserAction(""))
+  }, []);
 
 
   return (
     <>
       <div className="tables-container">
-        {userTables?.map((table,i) => (
-          <div key={i}  className="table-box">
-            <div  onClick={()=>{
-                handleTableClick(table)
-                setOrderModal(true)}} className="table-box-container">
-              <h3  >{table.tableNumber}</h3>
+        {userTables?.map((table, i) => (
+          <div key={i} className={`table-box ${table.checkId ? "open" : ""}`}>
+            <div
+              onClick={() => {
+                handleTableClick(table, "table");
+                setOrderModal(true);
+              }}
+              className="table-box-container"
+            >
+              <h3>{table.tableNumber}</h3>
+              <p>{table.name}</p>
             </div>
+            {selectedOrderData && orderModal && (
+              <OrderPage
+                table={table}
+                checks={checks}
+                orderData={selectedOrderData}
+                setOrderModal={setOrderModal}
+              />
+            )}
           </div>
         ))}
       </div>
-      {
-        selectedOrderData && orderModal && <OrderPage orderData={selectedOrderData} setOrderModal={setOrderModal}  />
-      }
     </>
   );
 };

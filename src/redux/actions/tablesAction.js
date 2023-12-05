@@ -80,7 +80,6 @@ export const getTablesUserAction = () => async (dispatch) => {
   dispatch(setLoadingTablesAction(true));
   try {
     const { data } = await APIUSER.get("/");
-    console.log(data,"action")
     dispatch({ type: TABLES_USER_ACTION_TYPE.GET_TABLES_USER, payload: data });
   } catch (error) {
     console.log(error);

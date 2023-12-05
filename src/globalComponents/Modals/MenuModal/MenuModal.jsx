@@ -123,7 +123,6 @@ export const MenuModal = () => {
     }
   }, []);
 
-  console.log(menusModalData)
 
 
   useEffect(() => {

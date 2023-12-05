@@ -68,7 +68,6 @@ export const getMenusAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingMenuAction(true))
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    // console.log(data)
     dispatch({ type: MENU_ACTION_TYPE.GET_MENU, payload: data });
     dispatch({type:MENU_ACTION_TYPE.GET_MENU_LAST_PAGE,payload:pageNumber})
   } catch (error) {

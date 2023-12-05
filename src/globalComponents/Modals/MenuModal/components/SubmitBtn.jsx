@@ -53,7 +53,6 @@ export default function SubmitBtn({
     });
   }, [formik.errors]);
   const classCreate = () => {
-    console.log(menusModalData?._id, menusModalData)
     if (menusModalData?._id) {
       dispatch(
         updateMenusAction(menusModalData?._id, menusModalData)

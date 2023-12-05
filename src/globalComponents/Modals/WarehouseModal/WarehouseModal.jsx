@@ -27,7 +27,6 @@ export const WarehouseModal = () => {
     {key:"ədəd",name:"ədəd"}
   ];
 
-  console.log(category,"Cat")
 
 
 
@@ -75,7 +74,6 @@ export const WarehouseModal = () => {
     });
   };
 
-  console.log(warehouseModalData,'modal')
 
   // useEffect(() => {
   //   if (warehouseModalData?.id ) {

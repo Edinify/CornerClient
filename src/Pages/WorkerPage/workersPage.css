@@ -10,14 +10,22 @@
   width: 200px;
   cursor: pointer;
 }
+.tables-container .table-box.open {
+  background-color: red;
+}
 .tables-container .table-box .table-box-container {
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
+  flex-direction: column;
 }
 .tables-container .table-box .table-box-container h3 {
+  color: white;
+  font-size: 18px;
+}
+.tables-container .table-box .table-box-container p {
   color: white;
   font-size: 18px;
 }
@@ -48,6 +56,7 @@
   background-color: white;
   width: 50%;
 }
+.order-page .order-page-container .order-side .order-side-head
 .order-page .order-page-container .order-side .order-side-container {
   padding: 0 10px;
   height: 100%;
@@ -55,6 +64,9 @@
 .order-page .order-page-container .order-side .order-side-head {
   background-color:var(--primary-200);
   padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .order-page .order-page-container .order-side .order-side-head h4 {
   color: white;

@@ -7,6 +7,7 @@ import WarehousePage from "../Pages/WarehousePage/WarehousePage";
 import MenuPage from "../Pages/MenuPage/MenuPage";
 import UserPage from "../Pages/UserPage/UserPage";
 import WorkersPage from "../Pages/WorkerPage/WorkerPage";
+import ChecksPage from "../Pages/ChecksPage/ChecksPage";
 
 const AdminPanelRoute = () => {
   return (
@@ -18,6 +19,7 @@ const AdminPanelRoute = () => {
       <Route path="/warehouse"  element={<WarehousePage/>} />
       <Route path="/menu"  element={<MenuPage/>} />
       <Route path="/workers" element={<WorkersPage/>} />
+      <Route path="/checks" element={<ChecksPage/>} />
     </>
   );
 };
