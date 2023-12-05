@@ -16,70 +16,50 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
-  // console.log(checks);
   const createOrder = (table) => {
     dispatch(
       createCheckAction({
+        orders: selectedProducts,
         table: table,
         totalDate: totalMin,
-        orders: [selectedProducts],
       })
     );
   };
+  useEffect(() => {
+    const totalPrice = selectedProducts.reduce(
+      (total, item) => total + item.order.totalAmount * item.orderCount,
+      0
+    );
+    setTotalPrice(totalPrice);
+  }, [selectedProducts]);
 
-  // const menuUserIds = menuUser.map((menu) => menu._id);
-  // const userCheckIds = userCheck?.orders?.map((check) => check._id);
-  // const commonIds = menuUserIds?.filter((_id) => userCheckIds?.includes(_id));
-  
-  // userCheck.orders.map((data) =>{
-  //   console.log(data._id)
-  //   menuUser.map((products) => {
-  //     console.log(products.product._id) 
-  //   })
-  // })
-
- 
-
-  // const matchingProducts = menuUser?.filter((menu) =>
-  //   commonIds?.includes(menu._id)
-  // );
-
-  const handleMenuClick = (productName, price, operation) => {
+  const handleMenuClick = (product) => {
     const existingProduct = selectedProducts.find(
-      (product) => product.name === productName
+      (item) => item.order._id === product._id
     );
 
     if (existingProduct) {
-      setSelectedProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.name === productName
-            ? {
-                ...product,
-                count:
-                  operation === "decrease"
-                    ? Math.max(0, product.count - 1)
-                    : product.count + 1,
-              }
-            : product
+      setSelectedProducts(
+        selectedProducts.map((item) =>
+          item.order._id == product._id
+            ? { ...item, orderCount: item.orderCount + 1 }
+            : item
         )
       );
     } else {
-      setSelectedProducts((prevProducts) => [
-        ...prevProducts,
-        { name: productName, count: 1, price: price },
+      setSelectedProducts([
+        ...selectedProducts,
+        { order: product, orderCount: 1 },
       ]);
     }
-
-    setTotalPrice((prevTotal) =>
-      operation === "decrease"
-        ? Math.max(0, prevTotal - price)
-        : prevTotal + price
-    );
   };
 
   useEffect(() => {
     dispatch(getMenusUserAction());
-    dispatch(getCheckUserAction(orderData.checkId));
+
+    if (orderData.checkId) {
+      dispatch(getCheckUserAction(orderData.checkId));
+    }
   }, []);
 
   return (
@@ -107,30 +87,31 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
               <div className="product-order-container">
                 <div className="product-list">
                   <ul>
-                    {selectedProducts.map((product) => (
-                      <li key={product.name}>
-                        {product.name} - x{product.count} - {product.price}
-                        <span
-                          onClick={() =>
-                            handleMenuClick(
-                              product.name,
-                              product.price,
-                              "decrease"
-                            )
-                          }
-                        >
-                          Azalt
-                        </span>
-                      </li>
+                    {selectedProducts.map((item) => (
+                      <>
+                        <li key={item.order._id}>
+                          {item.order?.productName} - x{item.orderCount} -{" "}
+                          {item.order?.totalAmount}
+                          <span
+                          // onClick={() =>
+                          //   handleMenuClick(
+                          //     item
+                          //   )
+                          // }
+                          >
+                            Azalt
+                          </span>
+                        </li>
+                      </>
                     ))}
                   </ul>
                 </div>
-                {userCheck.orders ?
-                  userCheck.orders.map((item) => (
-                    <div key={item._id}>{item._id}</div>
-                  ))
-                  :null
-                }
+                {userCheck.orders
+                  ? userCheck.orders.map((item) => {
+                      console.log(item);
+                      return <li>{item.order.name}</li>;
+                    })
+                  : ""}
                 <div className="product-price">
                   <p>Hesab: {totalPrice} AZN </p>
                   <button
@@ -151,9 +132,7 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
                 <div
                   key={menu._id}
                   className="menu-content"
-                  onClick={() =>
-                    handleMenuClick(menu.product.productName, menu.price)
-                  }
+                  onClick={() => handleMenuClick(menu.product)}
                 >
                   <span>{menu.product.productName}</span>
                 </div>

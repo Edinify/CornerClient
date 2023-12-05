@@ -81,7 +81,6 @@ export const getMenusUserAction = () => async (dispatch) => {
   dispatch(setLoadingMenuAction(true))
   try {
     const { data } = await APIUSER.get("/");
-    console.log(data)
     dispatch({ type: MENU_USER_ACTION_TYPE.GET_MENU_USER, payload: data });
   } catch (error) {
     console.log(error);

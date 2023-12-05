@@ -43,7 +43,8 @@ export const createCheckAction=(checkData)=>async(dispatch)=>{
     console.log(checkData,"check")
     try {
         const {data} = await API.post("/",checkData);
-        console.log(data)
+        dispatch(getCheckAction())
+        console.log(data,'create check')
         dispatch({type:CHECK_ACTION_TYPE.CREATE_CHECK,payload:{data}})
     } catch (error) {
         console.log(error)
