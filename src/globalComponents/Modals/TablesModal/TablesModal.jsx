@@ -54,10 +54,6 @@ export const TablesModal = () => {
   const formik = useFormik({
     initialValues: {
       category: tablesModalData?.category ? tablesModalData?.category : "",
-      deposit: tablesModalData?.deposit ? tablesModalData?.deposit : "",
-      oneMinutePrice: tablesModalData?.oneMinutePrice
-        ? tablesModalData?.oneMinutePrice
-        : "",
       tableNumber: tablesModalData?.tableNumber
         ? tablesModalData?.tableNumber
         : "",
