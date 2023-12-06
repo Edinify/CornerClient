@@ -76,7 +76,8 @@ export const Login = () => {
 
       <div className="login-right">
         <div className="login-right-header">
-          <LoginLogo />
+          {/* <h2>CORNER</h2> */}
+          {/* <LoginLogo /> */}
           <h2>Daxil olun</h2>
         </div>
 

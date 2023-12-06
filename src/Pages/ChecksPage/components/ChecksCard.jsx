@@ -40,6 +40,13 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
               <div className="right-fade"></div>
             </div>
           </td>
+          {/* <td className="more-options">
+            <UpdateDeleteModal
+              updateItem={updateItem}
+              deleteItem={deleteItem}
+              data={data}
+            />
+          </td> */}
          
         </tr>
       ) : (

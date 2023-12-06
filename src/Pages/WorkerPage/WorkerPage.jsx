@@ -19,7 +19,7 @@ const WorkersPage = () => {
     dispatch(getTablesUserAction());
   }, []);
   return (
-    <div className="details-page courses ">
+    <div className="details-page ">
       <WorkersData />
     </div>
   );

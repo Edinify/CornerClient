@@ -20,7 +20,6 @@ export const LoginUser = () => {
   const [view, setView] = useState(true);
   const [accessCode, setAccessCode] = useState("");
 
-
   const handleView = () => {
     setView(!view);
   };
@@ -66,7 +65,8 @@ export const LoginUser = () => {
 
       <div className="login-right">
         <div className="login-right-header">
-          <LoginLogo />
+          {/* <LoginLogo /> */}
+          {/* <h2>CORNER</h2> */}
           <h2>Daxil olun</h2>
         </div>
 

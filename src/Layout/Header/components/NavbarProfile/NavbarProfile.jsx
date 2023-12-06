@@ -8,7 +8,7 @@ import { logoutAction } from "../../../../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangePasswordModal } from "../../../../globalComponents/Header/ChangePasswordModal/ChangePasswordModal";
 import UserCodeModal from "../../components/UserCodeModal";
-import {ReactComponent as UserChangeCodeIcon} from "../../../../assets/icons/header/user-pen-svgrepo-com.svg"
+import {ReactComponent as UserChangeCodeIcon} from "../../../../assets/icons/header/note-svgrepo-com.svg"
 
 const NavbarProfile = () => {
   const dispatch = useDispatch();
