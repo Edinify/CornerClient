@@ -24,7 +24,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
   const createOrder = () => {
     console.log("salam 123");
-    dispatch(getTablesUserAction());
+    // dispatch(getTablesUserAction());
     if (selectedTable.checkId) {
       dispatch(updateCheckAction(selectedTable.checkId, userCheck));
     } else {
@@ -39,6 +39,24 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const removeOrder = (order) => {
     console.log("remove ");
     dispatch(removeOrderAction(order));
+  };
+
+  const confirmCheck = () => {
+    dispatch(
+      updateCheckAction(selectedTable.checkId, {
+        ...userCheck,
+        status: "confirmed",
+      })
+    );
+  };
+
+  const cancelCheck = () => {
+    dispatch(
+      updateCheckAction(selectedTable.checkId, {
+        ...userCheck,
+        status: "cancelled",
+      })
+    );
   };
 
   useEffect(() => {
@@ -65,7 +83,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     setTotalPrice(totalPrice);
   }, [userCheck]);
 
-  console.log(userCheck);
+  console.log(menuUser, "salam");
 
   return (
     <div className="order-page">
@@ -92,7 +110,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-list">
                 <ul>
                   {userCheck.orders.map((item) => (
-                    <li key={item._id}>
+                    <li key={item.order._id}>
                       {item.order.product.productName} - {item.orderCount}{" "}
                       {item.order.product.unitMeasure} -
                       {item.order?.price * item.orderCount}AZN {"   "}
@@ -112,7 +130,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
               {userCheck?.data?.orders
                 ? userCheck?.data?.orders.map((item) => (
-                    <ul key={item._id}>
+                    <ul key={item.order._id}>
                       <li>{item.order.productName}</li>
                     </ul>
                   ))
@@ -136,8 +154,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                       <button
                         className="confirm-table"
                         onClick={() => {
-                          createOrder(selectedTable);
-                          setOpenOrderModal(true);
+                          confirmCheck();
                           setOpenOrderModal(true);
                           // setOrderModal(false);
                         }}
@@ -147,7 +164,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                       <button
                         className="cancel-table"
                         onClick={() => {
-                          createOrder(selectedTable);
+                          cancelCheck();
                           setOpenOrderModal(true);
                           // setOrderModal(false);
                         }}
