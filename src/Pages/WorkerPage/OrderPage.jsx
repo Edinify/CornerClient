@@ -61,14 +61,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     // return `${hours} saat, ${minutes} dəqiqə, `;
   }
   
-  let date
   let difference 
   useEffect(() => {
     
     console.log(userCheck)
 
     difference = getTimeDifference(
-      formatDate(new Date(userCheck.createdAt))
+      formatDate(new Date(userCheck?.createdAt))
     );
 
     // const intervalId = setInterval(() => {
@@ -85,7 +84,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     if(timeDifference !== null){
       const intervalId = setInterval(() => {
         const difference = getTimeDifference(
-          formatDate(new Date(userCheck.createdAt))
+          formatDate(new Date(userCheck?.createdAt))
         );
         setTimeDifference(difference);
       }, 60000);
