@@ -15,7 +15,7 @@ const ChecksData = ({ menusPageNum,getPageNumber }) => {
     { id: 2, label: "Masa" },
     { id: 5, label: "Ümumi vaxt" },
   ];
-
+  console.log(checks);
   return (
     <>
       {loading ? (
@@ -34,7 +34,7 @@ const ChecksData = ({ menusPageNum,getPageNumber }) => {
             </thead>
 
             <tbody>
-              {checks.map((item, i) => (
+              {checks?.map((item, i) => (
                 <ChecksCard
                   key={i}
                   data={item}
@@ -46,7 +46,7 @@ const ChecksData = ({ menusPageNum,getPageNumber }) => {
           </table>
 
           <div className="details-list-tablet with-more">
-            {checks.map((item, i) => (
+            {checks?.map((item, i) => (
               <ChecksCard
                 key={i}
                 data={item}

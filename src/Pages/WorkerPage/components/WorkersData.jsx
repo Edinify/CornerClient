@@ -15,42 +15,47 @@ const WorkersData = () => {
     setSelectedOrderData(table)
     
   };
-
   const { checks, } = useSelector((state) => state.checks.checks);
   
 
   useEffect(() => {
     dispatch(getCheckAction());
-    dispatch(getCheckUserAction(""))
+    // dispatch(getCheckUserAction(""))
   }, []);
 
-
+  console.log(orderModal)
   return (
     <>
       <div className="tables-container">
-        {userTables?.map((table, i) => (
-          <div key={i} className={`table-box ${table.checkId ? "open" : ""}`}>
-            <div
-              onClick={() => {
-                handleTableClick(table, "table");
-                setOrderModal(true);
-              }}
-              className="table-box-container"
-            >
-              <h3>{table.tableNumber}</h3>
-              <p>{table.name}</p>
-            </div>
-            {selectedOrderData && orderModal && (
-              <OrderPage
-                table={table}
-                checks={checks}
-                orderData={selectedOrderData}
-                setOrderModal={setOrderModal}
-              />
-            )}
-          </div>
-        ))}
+      {
+        orderModal && <OrderPage table={selectedOrderData} setOrderModal={setOrderModal}  />
+      }
+        {userTables?.map((table, i) => {
+          console.log(table.checkId);
+
+          return(
+              <div key={i} className={`table-box ${table.checkId ? "open" : ""}`}>
+                1
+                <div
+                  onClick={() => {
+                    console.log(table);
+                    handleTableClick(table, "table");
+                    setOrderModal(true);
+                  }}
+                  className="table-box-container"
+                >
+                  <h3>{table.tableNumber}</h3>
+                  <p>{table.name}</p>
+                </div>
+              </div>
+          )
+          
+          
+
+        })}
+        
       </div>
+      
     </>
   );
 };

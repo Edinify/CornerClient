@@ -5,7 +5,7 @@ import { apiRoot } from "../../apiRoot";
 
 const API = axios.create({
   baseURL: `${apiRoot}/user`,
-  withCredentials:true
+   // withCredentials:true
 });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {

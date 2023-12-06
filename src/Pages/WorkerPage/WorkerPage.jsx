@@ -8,7 +8,6 @@ import { getCheckAction } from "../../redux/actions/checkAction";
 const WorkersPage = () => {
   const dispatch = useDispatch();
   const { changeShowNav } = useCustomHook();
-
   useEffect(() => {
     changeShowNav(false);
     return () => {
