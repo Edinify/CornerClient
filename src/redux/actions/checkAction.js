@@ -22,7 +22,6 @@ export const setLoadingMenuAction = (loadingValue) => ({
   payload: loadingValue,
 });
 
-
 const toastSuccess = (message) => {
   toast.success(message, {
     position: "top-right",
@@ -41,7 +40,7 @@ export const createCheckAction = (checkData) => async (dispatch) => {
     const { data } = await API.post("/", checkData);
     dispatch(getCheckAction());
     console.log(data, "create check");
-    toastSuccess("Yeni masa açıldı")
+    toastSuccess("Yeni masa açıldı");
     dispatch({ type: CHECK_ACTION_TYPE.CREATE_CHECK, payload: { data } });
   } catch (error) {
     console.log(error);
@@ -102,6 +101,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
 };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
+  console.log(checkData, "salam necesen");
   try {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
