@@ -22,8 +22,56 @@ export const setLoadingMenuAction = (loadingValue) => ({
   payload: loadingValue,
 });
 
+export const createCheckAction = (checkData) => async (dispatch) => {
+  console.log(checkData, "test 111111");
+  try {
+    const { data } = await API.post("/", checkData);
+    dispatch(getCheckAction());
+    console.log(data, "create check");
+    dispatch({ type: CHECK_ACTION_TYPE.CREATE_CHECK, payload: { data } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCheckUserAction = (_id) => async (dispatch) => {
+  try {
+    const { data } = await API.get(`/${_id}`);
+    dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUserCheckAction = (_id, checkData) => async (dispatch) => {
+  try {
+    const { data } = await API.patch(`/${_id}`, checkData);
+    dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addOrderAction = (order) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.ADD_ORDER_ACTION, payload: order });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const removeOrderAction = (order) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.REMOVE_ORDER_ACTION, payload: order });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+// admin check action
+
 export const getCheckAction = (pageNumber) => async (dispatch) => {
-  dispatch(setLoadingMenuAction(true))
+  dispatch(setLoadingMenuAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
     // console.log(data)
@@ -35,27 +83,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   } finally {
-    dispatch(setLoadingMenuAction(false))
-  }
-};
-
-export const getCheckUserAction = (_id) => async (dispatch) => {
-  try {
-    const { data } = await API.get(`/${_id}`);
-    dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: {data} });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const createCheckAction = (checkData) => async (dispatch) => {
-  try {
-    const { data } = await API.post("/", checkData);
-    dispatch(getCheckAction());
-    console.log(data, "create check");
-    dispatch({ type: CHECK_ACTION_TYPE.CREATE_CHECK, payload: { data } });
-  } catch (error) {
-    console.log(error);
+    dispatch(setLoadingMenuAction(false));
   }
 };
 

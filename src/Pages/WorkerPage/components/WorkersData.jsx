@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "../workersPage.css";
 import OrderPage from "../OrderPage";
-import {
-  getCheckAction,
-  getCheckUserAction,
-} from "../../../redux/actions/checkAction";
 
 const WorkersData = () => {
   const { userTables } = useSelector((state) => state.userTables);
-  const dispatch = useDispatch();
 
   const [orderModal, setOrderModal] = useState(false);
-  const [selectedOrderData, setSelectedOrderData] = useState(null);
+  const [selectedTable, setSelectedTable] = useState(null);
 
   const handleTableClick = (table) => {
-    setSelectedOrderData(table);
+    setSelectedTable(table);
   };
-
-  const { checks } = useSelector((state) => state.checks.checks);
-
-  useEffect(() => {
-    dispatch(getCheckAction(1));
-    dispatch(getCheckUserAction(selectedOrderData?.checkId))
-  }, []);
 
   return (
     <>
       <div className="tables-container">
-        {selectedOrderData && orderModal && (
+        {selectedTable && orderModal && (
           <OrderPage
-            checks={checks}
-            orderData={selectedOrderData}
+            selectedTable={selectedTable}
             setOrderModal={setOrderModal}
           />
         )}
@@ -42,7 +29,7 @@ const WorkersData = () => {
           >
             <div
               onClick={() => {
-                handleTableClick(table, "table");
+                handleTableClick(table);
                 setOrderModal(true);
               }}
               className="table-box-container"

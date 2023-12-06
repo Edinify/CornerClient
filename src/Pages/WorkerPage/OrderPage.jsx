@@ -3,80 +3,69 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMenusUserAction } from "../../redux/actions/menusAction";
 import OrderModal from "../../globalComponents/Modals/OrderModal/OrderModal";
 import {
+  addOrderAction,
   createCheckAction,
   getCheckUserAction,
+  removeOrderAction,
   updateCheckAction,
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
+import { CHECK_ACTION_TYPE } from "../../redux/actions-type";
+import { getTablesUserAction } from "../../redux/actions/tablesAction";
 
-const OrderPage = ({ orderData, checks, setOrderModal }) => {
+const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
-  const createOrder = (table) => {
-    if (orderData.checkId) {
-      dispatch(
-        updateCheckAction(orderData.checkId, {
-          orders: selectedProducts,
-          table: orderData,
-          totalDate: totalMin,
-          totalPrice:totalPrice
-        })
-      );
-    } else {
-      dispatch(
-        createCheckAction({
-          orders: selectedProducts,
-          table: orderData,
-          totalDate: totalMin,
-          totalPrice:totalPrice,
-        })
-      );
-    }
-  };
-  useEffect(() => {
-    const totalPrice = selectedProducts.reduce(
-      (total, item) => total + item.order.totalAmount * item.orderCount,
-      0
-    );
-    setTotalPrice(totalPrice);
-  }, [selectedProducts]);
 
-  const handleMenuClick = (product) => {
-    const existingProduct = selectedProducts.find(
-      (item) => item.order._id === product._id
-    );
-
-    if (existingProduct) {
-      setSelectedProducts(
-        selectedProducts.map((item) =>
-          item.order._id == product._id
-            ? { ...item, orderCount: item.orderCount + 1 }
-            : item
-        )
-      );
+  const createOrder = () => {
+    console.log("salam 123");
+    dispatch(getTablesUserAction());
+    if (selectedTable.checkId) {
+      dispatch(updateCheckAction(selectedTable.checkId, userCheck));
     } else {
-      setSelectedProducts([
-        ...selectedProducts,
-        { order: product, orderCount: 1 },
-      ]);
+      dispatch(createCheckAction(userCheck));
     }
   };
 
+  const handleMenuClick = (order) => {
+    dispatch(addOrderAction(order));
+  };
+
+  const removeOrder = (order) => {
+    console.log("remove ");
+    dispatch(removeOrderAction(order));
+  };
 
   useEffect(() => {
     dispatch(getMenusUserAction());
 
-    if (orderData.checkId) {
-      dispatch(getCheckUserAction(orderData.checkId));
+    if (selectedTable.checkId) {
+      dispatch(getCheckUserAction(selectedTable.checkId));
+    } else {
+      dispatch({
+        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+        payload: { table: selectedTable },
+      });
     }
   }, []);
 
-  console.log(orderData, 'order table')
+  useEffect(() => {
+    const totalPrice =
+      userCheck.orders.reduce(
+        (total, item) => total + item.order.price * item.orderCount,
+        0
+      ) +
+      (userCheck.table.deposit || 0) +
+      (userCheck.table.oneMinutePrice || 0) * totalMin;
+    setTotalPrice(totalPrice);
+  }, [userCheck]);
+
+  console.log(userCheck);
 
   return (
     <div className="order-page">
@@ -89,7 +78,7 @@ const OrderPage = ({ orderData, checks, setOrderModal }) => {
                   <div className="back" onClick={() => setOrderModal(false)}>
                     <BackIcon />
                   </div>
-                  <h4>Masa nömrəsi: {orderData.tableNumber}</h4>
+                  <h4>Masa nömrəsi: {selectedTable.tableNumber}</h4>
                 </div>
                 <div className="order-side-input">
                   <input
@@ -103,40 +92,42 @@ const OrderPage = ({ orderData, checks, setOrderModal }) => {
               <div className="product-order-container">
                 <div className="product-list">
                   <ul>
-                    {selectedProducts.map((item) => (
-                        <li key={item.order._id}>
-                          {item.order?.productName} - x{item.orderCount} -{" "}
-                          {item.order?.totalAmount}
-                          <span
-                          // onClick={() =>
-                          //   handleMenuClick(
-                          //     item
-                          //   )
-                          // }
-                          >
-                            Azalt
-                          </span>
-                        </li>
+                    {userCheck.orders.map((item) => (
+                      <li key={item._id}>
+                        {item.order.product.productName} - {item.orderCount}{" "}
+                        {item.order.product.unitMeasure} -
+                        {item.order?.price * item.orderCount}AZN {"   "}
+                        <span
+                          onClick={() => removeOrder(item.order)}
+                          style={{
+                            cursor: "pointer",
+                            border: "1px solid red",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          Azalt
+                        </span>
+                      </li>
                     ))}
                   </ul>
                 </div>
                 {userCheck?.data?.orders
-                  ? userCheck?.data?.orders.map(item=>(
-                    <ul key={item._id} >
-                      <li>{item.order.productName}</li>
-                    </ul>
-                  ))
-                :null}
+                  ? userCheck?.data?.orders.map((item) => (
+                      <ul key={item._id}>
+                        <li>{item.order.productName}</li>
+                      </ul>
+                    ))
+                  : null}
                 <div className="product-price">
                   <p>Hesab: {totalPrice} AZN </p>
                   <button
                     onClick={() => {
-                      createOrder(orderData);
+                      createOrder(selectedTable);
                       setOpenOrderModal(true);
                       setOrderModal(false);
                     }}
                   >
-                    {orderData.checkId ? "Yenilə" : "Masa aç"}
+                    {selectedTable.checkId ? "Yenilə" : "Masa aç"}
                   </button>
                 </div>
               </div>
@@ -144,13 +135,13 @@ const OrderPage = ({ orderData, checks, setOrderModal }) => {
           </div>
           <div className="menu-side">
             <div className="menus">
-              {menuUser.map((menu) => (
+              {menuUser.map((order) => (
                 <div
-                  key={menu._id}
+                  key={order._id}
                   className="menu-content"
-                  onClick={() => handleMenuClick(menu.product)}
+                  onClick={() => handleMenuClick(order)}
                 >
-                  <span>{menu.product.productName}</span>
+                  <span>{order.product.productName}</span>
                 </div>
               ))}
             </div>

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTablesUserAction } from "../../redux/actions/tablesAction";
 import WorkersData from "./components/WorkersData";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
-import { getCheckAction } from "../../redux/actions/checkAction";
 
 const WorkersPage = () => {
   const dispatch = useDispatch();
