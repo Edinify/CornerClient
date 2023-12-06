@@ -42,7 +42,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
 export const getCheckUserAction = (_id) => async (dispatch) => {
   try {
     const { data } = await API.get(`/${_id}`);
-    dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
+    dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: {data} });
   } catch (error) {
     console.log(error);
   }

@@ -9,7 +9,7 @@ import {
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
 
-const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
+const OrderPage = ({ orderData, checks, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
@@ -22,15 +22,16 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
       dispatch(
         updateCheckAction(orderData.checkId, {
           orders: selectedProducts,
-          table: table,
+          table: orderData,
           totalDate: totalMin,
+          totalPrice:totalPrice
         })
       );
     } else {
       dispatch(
         createCheckAction({
           orders: selectedProducts,
-          table: table,
+          table: orderData,
           totalDate: totalMin,
           totalPrice:totalPrice,
         })
@@ -66,6 +67,7 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
     }
   };
 
+
   useEffect(() => {
     dispatch(getMenusUserAction());
 
@@ -74,7 +76,7 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
     }
   }, []);
 
-  console.log(table, 'order table')
+  console.log(orderData, 'order table')
 
   return (
     <div className="order-page">
@@ -118,18 +120,18 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
                     ))}
                   </ul>
                 </div>
-                {userCheck.orders
-                  ? userCheck.orders.map(item=>(
-                    <ul>
+                {userCheck?.data?.orders
+                  ? userCheck?.data?.orders.map(item=>(
+                    <ul key={item._id} >
                       <li>{item.order.productName}</li>
                     </ul>
                   ))
-                :""}
+                :null}
                 <div className="product-price">
                   <p>Hesab: {totalPrice} AZN </p>
                   <button
                     onClick={() => {
-                      createOrder(table);
+                      createOrder(orderData);
                       setOpenOrderModal(true);
                       setOrderModal(false);
                     }}
