@@ -1,4 +1,8 @@
-import { TABLES_ACTION_TYPE, TABLES_M0DAL_ACTION_TYPE, TABLES_USER_ACTION_TYPE } from "../actions-type";
+import {
+  TABLES_ACTION_TYPE,
+  TABLES_M0DAL_ACTION_TYPE,
+  TABLES_USER_ACTION_TYPE,
+} from "../actions-type";
 import axios from "axios";
 import { apiRoot } from "../../apiRoot";
 import { toast } from "react-toastify";
@@ -68,7 +72,10 @@ export const getTablesAction = (pageNumber) => async (dispatch) => {
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
     dispatch({ type: TABLES_ACTION_TYPE.GET_TABLES, payload: data });
-    dispatch({type:TABLES_ACTION_TYPE.GET_TABLES_LAST_PAGE,payload:pageNumber})
+    dispatch({
+      type: TABLES_ACTION_TYPE.GET_TABLES_LAST_PAGE,
+      payload: pageNumber,
+    });
   } catch (error) {
     console.log(error);
   } finally {

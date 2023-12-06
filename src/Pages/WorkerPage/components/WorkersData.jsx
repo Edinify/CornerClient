@@ -24,12 +24,13 @@ const WorkersData = () => {
     dispatch(getCheckUserAction(""))
   }, []);
 
+  console.log(userTables)
 
   return (
     <>
       <div className="tables-container">
-        {userTables?.map((table, i) => (
-          <div key={i} className={`table-box ${table.checkId ? "open" : ""}`}>
+        {userTables?.map((table) => (
+          <div key={table._id} className={`table-box ${table.checkId ? "open" : ""}`}>
             <div
               onClick={() => {
                 handleTableClick(table, "table");

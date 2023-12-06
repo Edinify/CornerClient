@@ -4,19 +4,19 @@ import { Pagination } from "antd";
 import Loading from "../../../globalComponents/Loading/Loading";
 import ChecksCard from "./ChecksCard";
 
-const ChecksData = ({ menusPageNum,getPageNumber }) => {
+const ChecksData = ({ menusPageNum, getPageNumber }) => {
   const { loading, totalPages } = useSelector((state) => state.checks);
 
-  const {checks} = useSelector(state=>state.checks?.checks);
-  console.log(checks,"check")
+  const { checks } = useSelector((state) => state.checks?.checks);
 
   const tableHead = [
     { id: 1, label: "Kateqoriya" },
     { id: 2, label: "Masa" },
+    {id:3,label:"Sifarişlər"},
     { id: 5, label: "Ümumi vaxt" },
   ];
 
-  // console.log(loading,"loading")
+  console.log(checks,"check")
 
   return (
     <>

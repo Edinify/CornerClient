@@ -25,10 +25,22 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
           </td>
           <td>
             <div className="td-con">
+              <div className="table-scroll-text phone">{data.orders.map((item,i)=>(
+                <ul key={i} >
+                  {console.log(item)}
+                <li>{item.order.productName}</li>
+                </ul>
+              ))}</div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+            <div className="td-con">
               <div className="table-scroll-text phone">{data.totalDate}</div>
               <div className="right-fade"></div>
             </div>
           </td>
+         
         </tr>
       ) : (
         <div className="content-box">

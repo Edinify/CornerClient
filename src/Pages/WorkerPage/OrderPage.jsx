@@ -5,6 +5,7 @@ import OrderModal from "../../globalComponents/Modals/OrderModal/OrderModal";
 import {
   createCheckAction,
   getCheckUserAction,
+  updateCheckAction,
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
 
@@ -17,13 +18,24 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
   const createOrder = (table) => {
-    dispatch(
-      createCheckAction({
-        orders: selectedProducts,
-        table: table,
-        totalDate: totalMin,
-      })
-    );
+    if (orderData.checkId) {
+      dispatch(
+        updateCheckAction(orderData.checkId, {
+          orders: selectedProducts,
+          table: table,
+          totalDate: totalMin,
+        })
+      );
+    } else {
+      dispatch(
+        createCheckAction({
+          orders: selectedProducts,
+          table: table,
+          totalDate: totalMin,
+          totalPrice:totalPrice,
+        })
+      );
+    }
   };
   useEffect(() => {
     const totalPrice = selectedProducts.reduce(
@@ -62,6 +74,8 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
     }
   }, []);
 
+  console.log(table, 'order table')
+
   return (
     <div className="order-page">
       <div className="container">
@@ -88,7 +102,6 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
                 <div className="product-list">
                   <ul>
                     {selectedProducts.map((item) => (
-                      <>
                         <li key={item.order._id}>
                           {item.order?.productName} - x{item.orderCount} -{" "}
                           {item.order?.totalAmount}
@@ -102,25 +115,26 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
                             Azalt
                           </span>
                         </li>
-                      </>
                     ))}
                   </ul>
                 </div>
                 {userCheck.orders
-                  ? userCheck.orders.map((item) => {
-                      console.log(item);
-                      return <li>{item.order.name}</li>;
-                    })
-                  : ""}
+                  ? userCheck.orders.map(item=>(
+                    <ul>
+                      <li>{item.order.productName}</li>
+                    </ul>
+                  ))
+                :""}
                 <div className="product-price">
                   <p>Hesab: {totalPrice} AZN </p>
                   <button
                     onClick={() => {
                       createOrder(table);
                       setOpenOrderModal(true);
+                      setOrderModal(false);
                     }}
                   >
-                    Masa aç
+                    {orderData.checkId ? "Yenilə" : "Masa aç"}
                   </button>
                 </div>
               </div>
@@ -141,12 +155,12 @@ const OrderPage = ({ orderData, checks, setOrderModal, table }) => {
           </div>
         </div>
       </div>
-      {openOrderModal && (
+      {/* {openOrderModal && (
         <OrderModal
           setOpenOrderModal={setOpenOrderModal}
           setOrderModal={setOrderModal}
         />
-      )}
+      )} */}
     </div>
   );
 };
