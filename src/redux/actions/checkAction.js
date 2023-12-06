@@ -22,12 +22,26 @@ export const setLoadingMenuAction = (loadingValue) => ({
   payload: loadingValue,
 });
 
+
+const toastSuccess = (message) => {
+  toast.success(message, {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+};
 export const createCheckAction = (checkData) => async (dispatch) => {
   console.log(checkData, "test 111111");
   try {
     const { data } = await API.post("/", checkData);
     dispatch(getCheckAction());
     console.log(data, "create check");
+    toastSuccess("Yeni masa açıldı")
     dispatch({ type: CHECK_ACTION_TYPE.CREATE_CHECK, payload: { data } });
   } catch (error) {
     console.log(error);

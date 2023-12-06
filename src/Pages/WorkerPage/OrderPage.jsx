@@ -21,34 +21,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
-  // const createOrder = (table) => {
-  //   if (orderData.checkId) {
-  //     dispatch(
-  //       updateCheckAction(orderData.checkId, {
-  //         orders: selectedProducts,
-  //         table: orderData,
-  //         totalDate: totalMin,
-  //         totalPrice: totalPrice,
-  //       })
-  //     );
-  //   } else {
-  //     dispatch(
-  //       createCheckAction({
-  //         orders: selectedProducts,
-  //         table: orderData,
-  //         totalDate: totalMin,
-  //         totalPrice: totalPrice,
-  //       })
-  //     );
-  //   }
-  // };
-  useEffect(() => {
-    const totalPrice = selectedProducts.reduce(
-      (total, item) => total + item.order.totalAmount * item.orderCount,
-      0
-    );
-    setTotalPrice(totalPrice);
-  }, [selectedProducts]);
 
   const createOrder = () => {
     console.log("salam 123");
@@ -58,6 +30,15 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     } else {
       dispatch(createCheckAction(userCheck));
     }
+  };
+
+  const handleMenuClick = (order) => {
+    dispatch(addOrderAction(order));
+  };
+
+  const removeOrder = (order) => {
+    console.log("remove ");
+    dispatch(removeOrderAction(order));
   };
 
   useEffect(() => {
@@ -73,7 +54,18 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     }
   }, []);
 
-  console.log(orderData, "order table");
+  useEffect(() => {
+    const totalPrice =
+      userCheck.orders.reduce(
+        (total, item) => total + item.order.price * item.orderCount,
+        0
+      ) +
+      (userCheck.table.deposit || 0) +
+      (userCheck.table.oneMinutePrice || 0) * totalMin;
+    setTotalPrice(totalPrice);
+  }, [userCheck]);
+
+  console.log(userCheck);
 
   return (
     <div className="order-page">
@@ -85,14 +77,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 <div className="back" onClick={() => setOrderModal(false)}>
                   <BackIcon />
                 </div>
-                <h4>Masa nömrəsi: {orderData.tableNumber}</h4>
+                <h4>Masa nömrəsi: {selectedTable.tableNumber}</h4>
               </div>
               <div className="order-side-input">
                 <input
                   type="number"
-                  value={totalMin || ""}
+                  value={totalMin}
                   onChange={(e) => setTotalMin(e.target.value)}
-                  placeholder="Müddət"
                 />
               </div>
             </div>
@@ -100,16 +91,18 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
             <div className="product-order-container">
               <div className="product-list">
                 <ul>
-                  {selectedProducts.map((item) => (
-                    <li key={item.order._id}>
-                      {item.order?.productName} - {item.orderCount} ədəd -{" "}
-                      {item.order?.totalAmount}
+                  {userCheck.orders.map((item) => (
+                    <li key={item._id}>
+                      {item.order.product.productName} - {item.orderCount}{" "}
+                      {item.order.product.unitMeasure} -
+                      {item.order?.price * item.orderCount}AZN {"   "}
                       <span
-                      // onClick={() =>
-                      //   handleMenuClick(
-                      //     item
-                      //   )
-                      // }
+                        onClick={() => removeOrder(item.order)}
+                        style={{
+                          cursor: "pointer",
+                          border: "1px solid red",
+                          borderRadius: "10px",
+                        }}
                       >
                         Azalt
                       </span>
@@ -117,64 +110,66 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   ))}
                 </ul>
               </div>
-              {userCheck?.data?.orders ? (
-                <>
-                  {userCheck?.data?.orders.map((item) => (
+              {userCheck?.data?.orders
+                ? userCheck?.data?.orders.map((item) => (
                     <ul key={item._id}>
                       <li>{item.order.productName}</li>
                     </ul>
-                  ))}
-                </>
-              ) : null}
-
+                  ))
+                : null}
               <div className="product-bottom-container">
                 {/* <div className="product-price"> */}
-                
-                  <p>Hesab: {totalPrice} AZN </p>
-                  <div className="product-bottom-btns">
-                  <button className="open-table"
+
+                <p>Hesab: {totalPrice} AZN </p>
+                <div className="product-bottom-btns">
+                  <button
+                    className="open-table"
                     onClick={() => {
                       createOrder(selectedTable);
-                      setOpenOrderModal(true);
                       // setOrderModal(false);
                     }}
                   >
                     {selectedTable.checkId ? "Yenilə" : "Masa aç"}
                   </button>
-                  <button className="confirm-table"
-                    onClick={() => {
-                      createOrder(orderData);
-                      setOpenOrderModal(true);
-                      setOpenOrderModal(true)
-                      // setOrderModal(false);
-                    }}
-                  >
-                    Təsdiqlə
-                  </button>
-                  <button className="cancel-table"
-                    onClick={() => {
-                      createOrder(orderData);
-                      setOpenOrderModal(true);
-                      // setOrderModal(false);
-                    }}
-                  >
-                    Ləğv et
-                  </button>
-                  </div>
+                  {selectedTable.checkId && (
+                    <>
+                      <button
+                        className="confirm-table"
+                        onClick={() => {
+                          createOrder(selectedTable);
+                          setOpenOrderModal(true);
+                          setOpenOrderModal(true);
+                          // setOrderModal(false);
+                        }}
+                      >
+                        Təsdiqlə
+                      </button>
+                      <button
+                        className="cancel-table"
+                        onClick={() => {
+                          createOrder(selectedTable);
+                          setOpenOrderModal(true);
+                          // setOrderModal(false);
+                        }}
+                      >
+                        Ləğv et
+                      </button>
+                    </>
+                  )}
                 </div>
-              {/* </div> */}
+              </div>
             </div>
           </div>
         </div>
         <div className="menu-side">
           <div className="menus">
-            {menuUser.map((menu) => (
+            {menuUser.map((order) => (
               <div
-                key={menu._id}
+                key={order._id}
                 className="menu-content"
-                onClick={() => handleMenuClick(menu.product)}
+                onClick={() => handleMenuClick(order)}
               >
-                <span>{menu.product.productName}</span>
+                <span>{order.product.productName}</span>
               </div>
             ))}
           </div>

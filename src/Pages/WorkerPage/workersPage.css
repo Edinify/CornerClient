@@ -80,6 +80,13 @@
   align-items: center;
   /* margin-bottom: 10px; */
 }
+.order-page
+  .order-page-container
+  .order-side
+  .order-side-head
+  .order-side-content .back {
+    cursor: pointer;
+  }
 .order-page .order-page-container .order-side .order-side-head h4 {
   color: white;
   font-size: 16px;
