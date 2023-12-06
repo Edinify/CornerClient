@@ -77,7 +77,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     //   );
     //   setTimeDifference(difference);
     // }, 60000);
-
+// 
     setTimeDifference(difference);
   }, [userCheck]);
 
