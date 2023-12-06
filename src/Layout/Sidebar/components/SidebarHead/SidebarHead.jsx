@@ -14,7 +14,7 @@ const SidebarHead = ({ closeSidebar }) => {
     <div className="sidebar-head">
       <div className="top">
         <div>
-          <LogoIcon />
+          {/* <LogoIcon /> */}
         </div>
 
         <div className="close-sidebar-icon" onClick={() => closeSidebar()}>

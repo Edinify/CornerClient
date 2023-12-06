@@ -81,7 +81,9 @@ export const Header = () => {
         case "/menu":
           return "Menyu"
           case "/workers":
-            return "User"
+            return "İstifadəçi"
+            case "/checks":
+              return "Çeklər"
       default:
         return "";
     }
