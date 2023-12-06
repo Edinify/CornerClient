@@ -79,6 +79,7 @@ export const Login = () => {
           {/* <h2>CORNER</h2> */}
           {/* <LoginLogo /> */}
           <h2>Daxil olun</h2>
+          {/*  */}
         </div>
 
         <Box
