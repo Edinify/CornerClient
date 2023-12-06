@@ -18,9 +18,85 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
 
+
+  
+
   const [openOrderModal, setOpenOrderModal] = useState(false);
+  const [timeDifference, setTimeDifference] = useState(null);
+
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
+  const formatDate = (date) => {
+    const options = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Baku",
+    };
+
+    return new Intl.DateTimeFormat("az-AZ", options).format(new Date(date));
+  };
+
+
+
+  function getTimeDifference(targetDate) {
+    const now = new Date();
+    const target = new Date(targetDate);
+
+    let diff = now.getTime() - target.getTime();
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * 1000 * 60 * 60;
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * 1000 * 60;
+
+    // const seconds = Math.floor(diff / 1000);
+
+    return minutes
+
+    // return `${hours} saat, ${minutes} dəqiqə, `;
+  }
+  
+  let date
+  let difference 
+  useEffect(() => {
+    
+    console.log(userCheck)
+
+    difference = getTimeDifference(
+      formatDate(new Date(userCheck.createdAt))
+    );
+
+    // const intervalId = setInterval(() => {
+    //   const difference = getTimeDifference(
+    //     formatDate(new Date(userCheck.createdAt))
+    //   );
+    //   setTimeDifference(difference);
+    // }, 60000);
+
+    setTimeDifference(difference);
+  }, [userCheck]);
+
+  useEffect(()=>{
+    if(timeDifference !== null){
+      const intervalId = setInterval(() => {
+        const difference = getTimeDifference(
+          formatDate(new Date(userCheck.createdAt))
+        );
+        setTimeDifference(difference);
+      }, 60000);
+  
+      setTimeDifference(difference);
+      return () => clearInterval(intervalId);
+    }
+    
+  },[timeDifference])
+
+  console.log(timeDifference)
 
   const createOrder = () => {
     console.log("salam 123");
@@ -52,7 +128,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         payload: { table: selectedTable },
       });
     }
-  }, []);
+  }, [timeDifference]);
 
   useEffect(() => {
     const totalPrice =
@@ -65,26 +141,32 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     setTotalPrice(totalPrice);
   }, [userCheck]);
 
-  console.log(userCheck);
-
   return (
     <div className="order-page">
       <div className="order-page-container">
         <div className="order-side">
           <div className="order-side-container">
-            <div className="order-side-head">
-              <div className="order-side-content">
-                <div className="back" onClick={() => setOrderModal(false)}>
-                  <BackIcon />
+            <div className="a">
+              <div className="order-side-head">
+                <div className="order-side-content">
+                  <div className="back" onClick={() => setOrderModal(false)}>
+                    <BackIcon />
+                  </div>
+                  <h4>Masa nömrəsi: {selectedTable.tableNumber}</h4>
                 </div>
-                <h4>Masa nömrəsi: {selectedTable.tableNumber}</h4>
+                <div className="order-side-input">
+                  <input
+                    type="number"
+                    value={totalMin}
+                    onChange={(e) => setTotalMin(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className="order-side-input">
-                <input
-                  type="number"
-                  value={totalMin}
-                  onChange={(e) => setTotalMin(e.target.value)}
-                />
+
+              <div className="table-data-container">
+                <div>Otağın depositi:{selectedTable.deposit}AZN </div>
+                <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice}</div>
+                <div> saat: {timeDifference}</div>
               </div>
             </div>
 
@@ -126,6 +208,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                     className="open-table"
                     onClick={() => {
                       createOrder(selectedTable);
+                      setOpenOrderModal(true);
                       // setOrderModal(false);
                     }}
                   >
