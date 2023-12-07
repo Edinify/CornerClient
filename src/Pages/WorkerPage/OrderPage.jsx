@@ -107,7 +107,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         (total, item) => total + item.order.price * item.orderCount,
         0
       ) +
-      (userCheck.table.oneMinutePrice || 0) * totalMin;
+      (userCheck.table.oneMinutePrice || 0) * userCheck.totalDate;
 
     if (deposit && deposit > ordersPrice) {
       dispatch({
@@ -120,7 +120,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         payload: { totalPayment: ordersPrice },
       });
     }
-  }, [userCheck.orders, userCheck.table]);
+  }, [userCheck.orders, userCheck.table, userCheck.totalDate]);
 
   // console.log(userCheck, "bla bla bla");
   return (
