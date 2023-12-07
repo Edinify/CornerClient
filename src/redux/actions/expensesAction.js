@@ -8,7 +8,7 @@ import { apiRoot } from "../../apiRoot";
 
 const API = axios.create({
   baseURL: `${apiRoot}/expense`,
-   // withCredentials:true
+   withCredentials:true
 });
 
 
