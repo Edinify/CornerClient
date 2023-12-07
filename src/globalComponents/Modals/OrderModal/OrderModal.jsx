@@ -56,7 +56,9 @@ const OrderModal = ({
             className="delete-btn"
             onClick={() => {
               changeCheckStatus();
-              setOrderModal(false);
+              setTimeout(() => {
+                setOrderModal(false);
+              }, 3000);
             }}
           >
             

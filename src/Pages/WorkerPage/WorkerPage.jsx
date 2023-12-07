@@ -18,8 +18,8 @@ const WorkersPage = () => {
 
   useEffect(() => {
     if (!orderModal) {
-      dispatch(getTablesUserAction());
       dispatch({ type: CHECK_ACTION_TYPE.RESET_USER_CHECK });
+      dispatch(getTablesUserAction());
     }
   }, [orderModal]);
   return (

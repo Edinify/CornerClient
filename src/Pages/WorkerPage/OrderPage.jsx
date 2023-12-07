@@ -10,20 +10,19 @@ import {
   updateCheckAction,
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
-import { CHECK_ACTION_TYPE } from "../../redux/actions-type";
+import { CHECK_ACTION_TYPE, USER_ACTION_TYPE } from "../../redux/actions-type";
 import { toast } from "react-toastify";
 
 const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
-  const {loading} = useSelector(state=>state.checkLoading);
-  console.log(loading,"loading")
+  const { loading } = useSelector((state) => state.checkLoading);
+  console.log(loading, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
 
-  const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
 
   const [status, setStatus] = useState(null);
@@ -73,15 +72,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   }, []);
 
   useEffect(() => {
-    const totalPrice =
-      userCheck.orders.reduce(
-        (total, item) => total + item.order.price * item.orderCount,
-        0
-      ) +
-      (userCheck.table.deposit || 0) +
-      (userCheck.table.oneMinutePrice || 0) * totalMin;
-    setTotalPrice(totalPrice);
-
     const calcMinute = () => {
       const currentDate = new Date();
       const createdDate = new Date(userCheck.createdAt);
@@ -107,6 +97,28 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     }
   }, [userCheck]);
 
+  useEffect(() => {
+    const deposit = userCheck.table.deposit;
+    const ordersPrice =
+      userCheck.orders.reduce(
+        (total, item) => total + item.order.price * item.orderCount,
+        0
+      ) +
+      (userCheck.table.oneMinutePrice || 0) * totalMin;
+
+    if (deposit && deposit > ordersPrice) {
+      dispatch({
+        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+        payload: { totalPayment: deposit },
+      });
+    } else {
+      dispatch({
+        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+        payload: { totalPayment: ordersPrice },
+      });
+    }
+  }, [userCheck.orders, userCheck.table]);
+
   console.log(userCheck, "bla bla bla");
   return (
     <div className="order-page">
@@ -124,8 +136,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 <div className="order-side-input">
                   <input
                     type="number"
-                    value={totalMin}
-                    onChange={(e) => setTotalMin(e.target.value)}
+                    value={userCheck.totalDate}
+                    onChange={(e) =>
+                      dispatch({
+                        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+                        payload: { totalDate: e.target.value },
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -133,7 +150,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="table-data-container">
                 <div>Otağın depositi:{selectedTable.deposit}AZN </div>
                 <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice}</div>
-                {/* <div>: {timeDifference}</div> */}
+                <div>Keçən müddət : {totalMin} dəqiqə</div>
               </div>
             </div>
 
@@ -165,7 +182,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-bottom-container">
                 {/* <div className="product-price"> */}
 
-                <p>Hesab: {totalPrice} AZN </p>
+                <p>Hesab: {userCheck.totalPayment} AZN </p>
                 <div className="product-bottom-btns">
                   <button
                     className="open-table"
@@ -222,7 +239,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       </div>
       {openOrderModal && (
         <OrderModal
-        toastSuccess={toastSuccess}
+          toastSuccess={toastSuccess}
           selectedTable={selectedTable}
           status={status}
           setStatus={setStatus}

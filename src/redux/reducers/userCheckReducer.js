@@ -5,7 +5,7 @@ const initialState = {
     table: {},
     orders: [],
     totalDate: 0,
-    totalPayment: null,
+    totalPayment: 0,
     status: "open",
   },
   loading: false,
@@ -87,7 +87,7 @@ export const userCheckReducer = (state = initialState, action) => {
           totalPayment: null,
           status: "open",
         },
-        loading:false
+        loading: false,
       };
     }
     case CHECK_ACTION_TYPE.CHECK_USER_LOADING:
