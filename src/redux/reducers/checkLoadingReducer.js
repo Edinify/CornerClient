@@ -1,7 +1,8 @@
 import { CHECK_ACTION_TYPE } from "../actions-type";
 
 const initialState={
-    loading:false
+    loading:false,
+    submitLoading:false
 }
 
 export const checkLoadingReducer=(state=initialState,action)=>{
@@ -10,8 +11,14 @@ export const checkLoadingReducer=(state=initialState,action)=>{
             console.log(action.payload)
             return{
                 ...state,
-                loading:action.payload
+                loading:action.payload,
+                submitLoading:false,
             }
+            case CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING:
+                return{
+                    ...state,
+                    submitLoading:action.payload
+                }
             default:
                 return state;
     }

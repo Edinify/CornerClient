@@ -16,6 +16,7 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
     { id: 4, label: "Depozit" },
     { id: 6, label: "Ümumi məbləğ" },
     { id: 5, label: "Ümumi vaxt" },
+    { id: 7, label: "1 dəq-lik qiymət" },
   ];
 
   console.log(checks, "check");
@@ -26,7 +27,7 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
         <Loading />
       ) : (
         <>
-          <table className="details-table teacher-table">
+          <table className="details-table check-table">
             <thead>
               <tr>
                 {tableHead.map((head, i) => (

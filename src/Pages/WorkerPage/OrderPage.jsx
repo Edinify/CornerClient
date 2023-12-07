@@ -88,6 +88,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       const intervalId = setInterval(() => {
         console.log("salam");
         setTotalMin(calcMinute());
+        
       }, 60000);
 
       if (!userCheck.createdAt) {

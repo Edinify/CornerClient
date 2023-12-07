@@ -25,6 +25,14 @@ export const setLoadingCheckction = (loadingValue) => (
   }
 );
 
+export const setLoadingSubmitCheckction = (loadingValue) => (
+  console.log(loadingValue, "loadinggggg"),
+  {
+    type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
+    payload: loadingValue,
+  }
+);
+
 const toastSuccess = (message) => {
   toast.success(message, {
     position: "top-right",
@@ -107,7 +115,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
 };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
-  dispatch(setLoadingCheckction(true));
+  dispatch(setLoadingSubmitCheckction(true));
 
   try {
     const { data } = await API.patch(`/${_id}`, checkData);
@@ -115,8 +123,8 @@ export const updateCheckAction = (_id, checkData) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-  finally{
-    dispatch(setLoadingCheckction(false));
+  // finally{
+  //   dispatch(setLoadingCheckction(false));
 
-  }
+  // }
 };
