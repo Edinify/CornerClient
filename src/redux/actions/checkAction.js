@@ -35,8 +35,7 @@ const toastSuccess = (message) => {
   });
 };
 export const createCheckAction = (checkData) => async (dispatch) => {
-  console.log(checkData, "test 111111");
-  setLoadingCheckction(true)
+  dispatch(setLoadingCheckction(true)) 
   try {
     const { data } = await API.post("/", checkData);
     console.log(data, "create check");
@@ -47,16 +46,20 @@ export const createCheckAction = (checkData) => async (dispatch) => {
     console.log(error);
   }
   finally{
-    setLoadingCheckction(false)
+    dispatch(setLoadingCheckction(false)) 
   }
 };
 
 export const getCheckUserAction = (_id) => async (dispatch) => {
+  dispatch(setLoadingCheckction(true))
   try {
     const { data } = await API.get(`/${_id}`);
     dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
   } catch (error) {
     console.log(error);
+  }
+  finally{
+    dispatch(setLoadingCheckction(false)) 
   }
 };
 

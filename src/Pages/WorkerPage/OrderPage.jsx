@@ -12,13 +12,14 @@ import {
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
 import { CHECK_ACTION_TYPE } from "../../redux/actions-type";
 import { toast } from "react-toastify";
+import LoadingBtn from "../../globalComponents/Loading/components/LoadingBtn/LoadingBtn";
 
 const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
-  const {loading} = useSelector(state=>state.checkLoading);
-  console.log(loading,"loading")
+  const { loading } = useSelector((state) => state.checkLoading);
+  console.log(loading, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
@@ -48,6 +49,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       toastSuccess("Sifariş yeniləndi");
     } else {
       dispatch(createCheckAction(userCheck));
+      // dispatch({type:CHECK_ACTION_TYPE.CHECK_USER_LOADING,payload:true})
     }
   };
 
@@ -175,8 +177,15 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                       // setOrderModal(false);
                     }}
                   >
-                    {userCheck._id ? "Yenilə" : "Masa aç"}
+                    {loading ? (
+                      <LoadingBtn />
+                    ) : userCheck._id ? (
+                      "Yenilə"
+                    ) : (
+                      "Masa aç"
+                    )}
                   </button>
+
                   {userCheck._id && (
                     <>
                       <button
@@ -222,7 +231,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       </div>
       {openOrderModal && (
         <OrderModal
-        toastSuccess={toastSuccess}
+          toastSuccess={toastSuccess}
           selectedTable={selectedTable}
           status={status}
           setStatus={setStatus}

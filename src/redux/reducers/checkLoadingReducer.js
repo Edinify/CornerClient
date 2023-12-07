@@ -1,7 +1,7 @@
 import { CHECK_ACTION_TYPE } from "../actions-type";
 
 const initialState={
-    loading:true
+    loading:false
 }
 
 export const checkLoadingReducer=(state=initialState,action)=>{
