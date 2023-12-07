@@ -11,8 +11,8 @@ import { useCustomHook } from "../../../../../globalComponents/GlobalFunctions/g
 export default function SubmitBtn({
   funcType,
   expensesModalData,
-  closeModal,
   setDeleteModal,
+  formik
 }) {
   const dispatch = useDispatch();
   const { expensesModalLoading } = useSelector((state) => state.expensesModal);
@@ -52,7 +52,9 @@ export default function SubmitBtn({
         </div>
       ) : (
         <div className="create-update-modal-btn">
-          <button onClick={expensesCreate} disabled={expensesModalLoading}>
+          <button onClick={expensesCreate} 
+           disabled={!(formik.isValid && expensesModalData?.date && !expensesModalLoading)}
+          >
             {expensesModalLoading ? (
               <LoadingBtn />
             ) : funcType === "update" ? (

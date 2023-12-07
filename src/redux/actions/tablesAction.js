@@ -36,6 +36,11 @@ export const setLoadingTablesAction = (loadingValue) => ({
   payload: loadingValue,
 });
 
+export const setLoadingTablesUserAction = (loadingValue) => ({
+  type: TABLES_USER_ACTION_TYPE.USER_TABLES_LOADING,
+  payload: loadingValue,
+});
+
 const tablesModalLoading = (loadingValue) => ({
   type: TABLES_M0DAL_ACTION_TYPE.TABLES_MODAL_LOADING,
   payload: loadingValue,
@@ -77,21 +82,21 @@ export const getTablesAction = (pageNumber) => async (dispatch) => {
       payload: pageNumber,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingTablesAction(false));
   }
 };
 
 export const getTablesUserAction = () => async (dispatch) => {
-  dispatch(setLoadingTablesAction(true));
+  dispatch(setLoadingTablesUserAction(true));
   try {
     const { data } = await APIUSER.get("/");
     dispatch({ type: TABLES_USER_ACTION_TYPE.GET_TABLES_USER, payload: data });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
-    dispatch(setLoadingTablesAction(false));
+    dispatch(setLoadingTablesUserAction(false));
   }
 };
 
@@ -103,7 +108,7 @@ export const createTablesAction = (tablesData) => async (dispatch) => {
     dispatch(getTablesAction());
     toastSuccess("Yeni masa yarandı");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
     if (error.response.data.key === "table-already-exists") {
       toastError("Eyni nömrəli masa mövcuddur");
     }
@@ -121,7 +126,7 @@ export const updateTableAction = (_id, tablesData) => async (dispatch) => {
     dispatch(tablesModalOpen(false));
     toastSuccess(" Masa yeniləndi");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(tablesModalLoading(false));
   }
@@ -133,6 +138,6 @@ export const deleteTablesAction = (_id) => async (dispatch) => {
     dispatch({ type: TABLES_ACTION_TYPE.DELETE_TABLES, payload: _id });
     toastSuccess("Masa silindi");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
 };

@@ -21,7 +21,7 @@ const MenuData = ({ menusPageNum,getPageNumber }) => {
         <Loading />
       ) : (
         <>
-          <table className="details-table teacher-table">
+          <table className="details-table menu-table">
             <thead>
               <tr>
                 {tableHead.map((head, i) => (

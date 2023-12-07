@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCheckAction } from "../../../redux/actions/checkAction";
+import { toast } from "react-toastify";
+import LoadingBtn from "../../Loading/components/LoadingBtn/LoadingBtn";
+import { CHECK_ACTION_TYPE } from "../../../redux/actions-type";
 
 const OrderModal = ({
   setOpenOrderModal,
@@ -8,10 +11,11 @@ const OrderModal = ({
   selectedTable,
   status,
   setStatus,
+  toastSuccess,
 }) => {
   const { userCheck } = useSelector((state) => state.userCheck);
+  const { submitLoading } = useSelector((state) => state.checkLoading);
   const dispatch = useDispatch();
-
   const changeCheckStatus = () => {
     if (status === "confirm") {
       dispatch(
@@ -20,6 +24,7 @@ const OrderModal = ({
           status: "confirmed",
         })
       );
+      toastSuccess("Sifariş təsdiqləndi");
     } else if (status === "cancel") {
       dispatch(
         updateCheckAction(userCheck._id, {
@@ -27,6 +32,7 @@ const OrderModal = ({
           status: "cancelled",
         })
       );
+      toastSuccess("Sifariş ləğv edildi");
     }
   };
 
@@ -48,10 +54,20 @@ const OrderModal = ({
             className="delete-btn"
             onClick={() => {
               changeCheckStatus();
-              setOrderModal(false);
+              setTimeout(() => {
+                setOrderModal(false);
+                dispatch({type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
+                  payload: false,})
+              }, 3000);
             }}
           >
-            {status === "confirm" ? "Təstiqlə" : "Ləğv et"}
+            {submitLoading ? (
+              <LoadingBtn />
+            ) : status === "confirm" ? (
+              "Təstiqlə"
+            ) : (
+              "Ləğv et"
+            )}
           </button>
         </div>
       </div>

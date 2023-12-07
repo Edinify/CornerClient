@@ -63,7 +63,7 @@ export const userLoginAction = (authData) => async (dispatch,navigate) => {
     const { data } = await API.post("/login",{accessCode:authData});
     dispatch({type:USER_AUTH_ACTION_TYPE.LOGIN_USER,payload:data})
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
     if(error.response.data.key==="invalid-code"){
       toastError("Daxil edilən kod yalnışdır")
     }
@@ -81,7 +81,7 @@ export const getUserAction=()=>async(dispatch)=>{
     
 
   } catch (error) {
-    console.log(error)
+    // console.log(data, "data");(error)
     
   }
   finally{
@@ -98,7 +98,7 @@ export const createUserAction=(userData)=>async(dispatch)=>{
     dispatch(getUserAction())
     toastSuccess("Kod yeniləndi")
   } catch (error) {
-    console.log(error)
+    // console.log(data, "data");(error)
   }
   finally{
     dispatch(userModalLoading(false))

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "../workersPage.css";
 import OrderPage from "../OrderPage";
+import Loading from "../../../globalComponents/Loading/Loading";
 
 const WorkersData = ({ orderModal, setOrderModal }) => {
-  const { userTables } = useSelector((state) => state.userTables);
+  const { userTables,loading } = useSelector((state) => state.userTables);
+
 
   const [selectedTable, setSelectedTable] = useState(null);
 
@@ -21,6 +23,10 @@ const WorkersData = ({ orderModal, setOrderModal }) => {
             setOrderModal={setOrderModal}
           />
         )}
+        {loading ? 
+        <Loading/>
+        :
+        <>
         {userTables?.map((table) => (
           <div
             key={table._id}
@@ -38,6 +44,9 @@ const WorkersData = ({ orderModal, setOrderModal }) => {
             </div>
           </div>
         ))}
+        </>
+        }
+        
       </div>
     </>
   );

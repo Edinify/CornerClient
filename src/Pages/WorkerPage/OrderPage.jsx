@@ -10,99 +10,45 @@ import {
   updateCheckAction,
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
-import { CHECK_ACTION_TYPE } from "../../redux/actions-type";
-import { getTablesUserAction } from "../../redux/actions/tablesAction";
+import { CHECK_ACTION_TYPE, USER_ACTION_TYPE } from "../../redux/actions-type";
+import { toast } from "react-toastify";
+import LoadingBtn from "../../globalComponents/Loading/components/LoadingBtn/LoadingBtn";
 
 const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
-
-  console.log(userCheck.table,"user check")
+  const { loading } = useSelector((state) => state.checkLoading);
+  console.log(userCheck, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
 
-  const [totalPrice, setTotalPrice] = useState(0);
   const [totalMin, setTotalMin] = useState(0);
-  const formatDate = (date) => {
-    const options = {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-      timeZone: "Asia/Baku",
-    };
 
-    return new Intl.DateTimeFormat("az-AZ", options).format(new Date(date));
+  const [status, setStatus] = useState(null);
+
+  // console.log(totalMin);
+  const toastSuccess = (message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
-
-  function getTimeDifference(targetDate) {
-    const now = new Date();
-    const target = new Date(targetDate);
-
-    let diff = now.getTime() - target.getTime();
-
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    diff -= hours * 1000 * 60 * 60;
-
-    const minutes = Math.floor(diff / (1000 * 60));
-    diff -= minutes * 1000 * 60;
-
-    // const seconds = Math.floor(diff / 1000);
-
-    return minutes;
-
-    // return `${hours} saat, ${minutes} dəqiqə, `;
-  }
-  
-  let date
-  let difference 
-  useEffect(() => {
-    
-    console.log(userCheck)
-
-    difference = getTimeDifference(
-      formatDate(new Date(userCheck.createdAt))
-    );
-
-    // const intervalId = setInterval(() => {
-    //   const difference = getTimeDifference(
-    //     formatDate(new Date(userCheck.createdAt))
-    //   );
-    //   setTimeDifference(difference);
-    // }, 60000);
-
-    setTimeDifference(difference);
-  }, [userCheck]);
-
-  useEffect(()=>{
-    if(timeDifference !== null){
-      const intervalId = setInterval(() => {
-        const difference = getTimeDifference(
-          formatDate(new Date(userCheck.createdAt))
-        );
-        setTimeDifference(difference);
-      }, 60000);
-  
-      setTimeDifference(difference);
-      return () => clearInterval(intervalId);
-    }
-    
-  },[timeDifference])
-
-  console.log(timeDifference)
-
   const createOrder = () => {
-    console.log("salam 123");
-    dispatch(getTablesUserAction());
-    if (selectedTable.checkId) {
-      dispatch(updateCheckAction(selectedTable.checkId, userCheck));
+    if (userCheck._id) {
+      dispatch(updateCheckAction(userCheck._id, userCheck));
+      toastSuccess("Sifariş yeniləndi");
     } else {
       dispatch(createCheckAction(userCheck));
+      // dispatch({type:CHECK_ACTION_TYPE.CHECK_USER_LOADING,payload:true})
     }
   };
 
@@ -111,7 +57,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   };
 
   const removeOrder = (order) => {
-    console.log("remove ");
     dispatch(removeOrderAction(order));
   };
 
@@ -126,25 +71,64 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         payload: { table: selectedTable },
       });
     }
-  }, [timeDifference]);
+  }, []);
 
   useEffect(() => {
-    const totalPrice =
+    const calcMinute = () => {
+      const currentDate = new Date();
+      const createdDate = new Date(userCheck.createdAt);
+      const diffTime = currentDate.getTime() - createdDate.getTime();
+      const diffMinute = diffTime / (1000 * 60);
+      return Math.floor(diffMinute);
+    };
+
+    if (userCheck?.createdAt) {
+      // console.log(data, "data");(userCheck.createdAt);
+      setTotalMin(calcMinute());
+
+      const intervalId = setInterval(() => {
+        // console.log(data, "data");("salam");
+        setTotalMin(calcMinute());
+        
+      }, 60000);
+
+      if (!userCheck.createdAt) {
+        clearInterval(intervalId);
+      }
+
+      return () => clearInterval(intervalId);
+    }
+  }, [userCheck]);
+
+  useEffect(() => {
+    const deposit = userCheck.table.deposit;
+    const ordersPrice =
       userCheck.orders.reduce(
         (total, item) => total + item.order.price * item.orderCount,
         0
       ) +
-      (userCheck.table.deposit || 0) +
-      (userCheck.table.oneMinutePrice || 0) * totalMin;
-    setTotalPrice(totalPrice);
-  }, [userCheck]);
+      (userCheck.table.oneMinutePrice || 0) * userCheck.totalDate;
 
+    if (deposit && deposit > ordersPrice) {
+      dispatch({
+        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+        payload: { totalPayment: deposit },
+      });
+    } else {
+      dispatch({
+        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+        payload: { totalPayment: ordersPrice },
+      });
+    }
+  }, [userCheck.orders, userCheck.table, userCheck.totalDate]);
+
+  // console.log(userCheck, "bla bla bla");
   return (
     <div className="order-page">
       <div className="order-page-container">
         <div className="order-side">
           <div className="order-side-container">
-            <div className="a">
+            <div className="order-side-head-container">
               <div className="order-side-head">
                 <div className="order-side-content">
                   <div className="back" onClick={() => setOrderModal(false)}>
@@ -155,16 +139,21 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 <div className="order-side-input">
                   <input
                     type="number"
-                    value={totalMin}
-                    onChange={(e) => setTotalMin(e.target.value)}
+                    value={userCheck.totalDate}
+                    onChange={(e) =>
+                      dispatch({
+                        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+                        payload: { totalDate: e.target.value },
+                      })
+                    }
                   />
                 </div>
               </div>
 
               <div className="table-data-container">
                 <div>Otağın depositi:{selectedTable.deposit}AZN </div>
-                <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice}</div>
-                {/* <div> saat: {timeDifference}</div> */}
+                <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice} AZN</div>
+                <div>Keçən müddət : {totalMin} dəqiqə</div>
               </div>
             </div>
 
@@ -172,27 +161,23 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-list">
                 <ul>
                   {userCheck.orders.map((item) => (
-                    <li key={item._id}>
+                    <li key={item.order._id}>
                       {item.order.product.productName} - {item.orderCount}{" "}
                       {item.order.product.unitMeasure} -
                       {item.order?.price * item.orderCount}AZN {"   "}
-                      <span
+                      <button
+                        className="decrease-btn"
                         onClick={() => removeOrder(item.order)}
-                        style={{
-                          cursor: "pointer",
-                          border: "1px solid red",
-                          borderRadius: "10px",
-                        }}
                       >
                         Azalt
-                      </span>
+                      </button>
                     </li>
                   ))}
                 </ul>
               </div>
               {userCheck?.data?.orders
                 ? userCheck?.data?.orders.map((item) => (
-                    <ul key={item._id}>
+                    <ul key={item.order._id}>
                       <li>{item.order.productName}</li>
                     </ul>
                   ))
@@ -200,36 +185,32 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-bottom-container">
                 {/* <div className="product-price"> */}
 
-                <p>Hesab: {totalPrice} AZN </p>
+                <p>Hesab: {userCheck.totalPayment} AZN </p>
                 <div className="product-bottom-btns">
                   <button
                     className="open-table"
                     onClick={() => {
-                      createOrder(selectedTable);
-                      // setOpenOrderModal(true);
+                      createOrder();
+                      setOpenOrderModal(false);
                       // setOrderModal(false);
                     }}
                   >
-                    Masa aç
+                    {loading ? (
+                      <LoadingBtn />
+                    ) : userCheck._id ? (
+                      "Yenilə"
+                    ) : (
+                      "Masa aç"
+                    )}
                   </button>
-                  {selectedTable?.checkId && (
+
+                  {userCheck._id && (
                     <>
-                    <button
-                    className="open-table"
-                    onClick={() => {
-                      createOrder(selectedTable);
-                      // setOpenOrderModal(true);
-                      // setOrderModal(false);
-                    }}
-                  >
-                   Yenilə
-                  </button>
                       <button
                         className="confirm-table"
                         onClick={() => {
-                          createOrder(selectedTable);
                           setOpenOrderModal(true);
-                          setOpenOrderModal(true);
+                          setStatus("confirm");
                           // setOrderModal(false);
                         }}
                       >
@@ -238,8 +219,8 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                       <button
                         className="cancel-table"
                         onClick={() => {
-                          createOrder(selectedTable);
                           setOpenOrderModal(true);
+                          setStatus("cancel");
                           // setOrderModal(false);
                         }}
                       >
@@ -268,6 +249,10 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       </div>
       {openOrderModal && (
         <OrderModal
+          toastSuccess={toastSuccess}
+          selectedTable={selectedTable}
+          status={status}
+          setStatus={setStatus}
           setOpenOrderModal={setOpenOrderModal}
           setOrderModal={setOrderModal}
         />

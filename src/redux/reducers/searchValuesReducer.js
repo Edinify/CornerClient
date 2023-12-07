@@ -36,7 +36,7 @@ export const searchValuesReducer = (state = initialState, action) => {
         salariesSearchValues: action.payload,
       };
     case SEARCH_VALUES_ACTION_TYPES.BONUS_SEARCH_VALUE:
-      // console.log(action.payload, "bonus sarch value reducer");
+      // // console.log(data, "data");(action.payload, "bonus sarch value reducer");
       return {
         ...state,
         bonusSearchValues: action.payload,

@@ -50,12 +50,13 @@
   display: flex;
   width: 100%;
   /* height: 100%; */
-  overflow-x: auto;
+  /* overflow-x: auto; */
 }
 
 .order-page .order-page-container .order-side {
   background-color: white;
   width: 50%;
+  overflow: scroll;
 }
 .order-page .order-page-container .order-side .order-side-container {
   /* padding: 0 10px; */
@@ -84,9 +85,10 @@
   .order-page-container
   .order-side
   .order-side-head
-  .order-side-content .back {
-    cursor: pointer;
-  }
+  .order-side-content
+  .back {
+  cursor: pointer;
+}
 .order-page .order-page-container .order-side .order-side-head h4 {
   color: white;
   font-size: 16px;
@@ -132,7 +134,7 @@
   .product-bottom-container
   .product-bottom-btns
   button {
-  padding: 20px;
+  padding: 10px 5px;
   color: white;
   border-radius: 8px;
   /* width: 200px; */
@@ -158,6 +160,19 @@
   .open-table {
   background-color: var(--secondary-600);
 }
+
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns
+  .open-table
+  .lds-dual-ring
+   {
+    display: flex;
+    justify-content: center;
+   }
 .order-page
   .order-page-container
   .order-side
@@ -180,6 +195,7 @@
 .order-page .order-page-container .menu-side {
   background-color: gainsboro;
   width: 50%;
+  overflow-x: scroll;
 }
 
 .order-page .order-page-container .menu-side .menus {
@@ -198,74 +214,50 @@
   text-align: center;
   font-size: 16px;
 }
-.a .table-data-container{
+.order-side-head-container .table-data-container {
   margin-top: 10px;
   font-size: 18px;
-}
-
-/* @media screen and (max-width: 1800px) {
-  .order-page .order-page-container .menu-side .menus .menu-content {
-    padding: 40px 20px;
-    width: 140px;
-    font-size: 24px;
-  }
-  .order-page .order-page-container .order-side .order-side-head h4 {
-    font-size: 24px;
-  }
-  .order-page
-    .order-page-container
-    .order-side
-    .product-order-container
-    .product-price
-    p {
-    font-size: 24px;
-  }
-
-  .order-page
-    .order-page-container
-    .order-side
-    .product-order-container
-    .product-price
-    button {
-    font-size: 22px;
-  }
-
-  .order-page .order-page-container .order-side .product-order-container .product-list ul li{
-    font-size: 20px;
-  }
-}
-@media screen and (max-width: 1500px) {
-  .order-page .order-page-container .menu-side .menus .menu-content {
-    padding: 30px 20px;
-    font-size: 16px;
-    width: 120px;
-  }
-  .order-page .order-page-container .order-side .order-side-head h4 {
-    font-size: 20px;
-  }
-  .order-page
-  .order-page-container
-  .order-side
-  .product-order-container
-  .product-price
-  p {
-  font-size: 20px;
+  padding: 10px;
 }
 
 .order-page
   .order-page-container
   .order-side
   .product-order-container
-  .product-price
-  button {
-  font-size: 20px;
+  .product-list
+  .decrease-btn {
+  padding: 10px;
+  border-radius: 4px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  /* margin-left: 20px; */
+  width: 200px;
 }
-.order-page .order-page-container .order-side .product-order-container .product-list ul li{
-  font-size: 16px;
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-list
+  ul
+  li {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
-} */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width:1200px) {
+
+  /* .order-page .order-page-container .order-side .product-order-container .product-list ul li{
+    flex-direction: column;
+  } */
+  .order-page .order-page-container .order-side .product-order-container .product-list .decrease-btn{
+    width: 100px;
+  }
+}
+
+
+@media screen and (max-width: 650px) {
   .order-page .order-page-container .order-side .order-side-head {
     flex-direction: column;
   }
@@ -276,10 +268,37 @@
   .tables-container {
     justify-content: center;
   }
-  .order-page .order-page-container .menu-side .menus{
+  .order-page .order-page-container .menu-side .menus {
     justify-content: center;
   }
-  .order-page .order-page-container .order-side .order-side-head .order-side-content{
+  .order-page
+    .order-page-container
+    .order-side
+    .order-side-head
+    .order-side-content {
     margin-bottom: 10px;
   }
+  .order-page .order-page-container .menu-side .menus .menu-content{
+    padding: 15px 10px;
+  }
+  .order-page .order-page-container .order-side .product-order-container{
+    font-size: 14px;
+  }
+  .order-page .order-page-container .order-side .product-order-container .product-list ul li{
+    flex-direction: column;
+  }
+  .order-page .order-page-container .order-side .product-order-container .product-list .decrease-btn{
+    margin: 0;
+    margin-top: 10px;
+    width:100%;
+  }
+  .order-page .order-page-container .order-side .product-order-container .product-bottom-container .product-bottom-btns button{
+    padding: 10px;
+    font-size: 14px;
+  }
+  .order-side-head-container .table-data-container{
+    font-size: 14px;
+  }
 }
+
+

@@ -8,6 +8,7 @@ import LoadingBtn from "../../../Loading/components/LoadingBtn/LoadingBtn";
 export default function SubmitBtn({
   warehouseModalData,
   funcType,
+  formik
 }) {
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ export default function SubmitBtn({
   return (
     <div className="create-update-modal-btn">
       <button
-        // disabled={!(formik.isValid && warehouseModalData?.unitMeasure && !warehouseModalLoading)}
+        disabled={!(formik.isValid && warehouseModalData?.totalAmount && !warehouseModalLoading)}
         onClick={classCreate}
       >
         {warehouseModalLoading ? (

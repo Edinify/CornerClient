@@ -28,7 +28,7 @@ export const userAction = () => async (dispatch) => {
     dispatch({ type: USER_ACTION_TYPE.ADD_USER, payload: data });
     localStorage.setItem("userData", JSON.stringify(data));
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
     //   const originalRequest = error.config;
     //   if (error?.response?.status === 403 && !originalRequest._retry) {
     //     originalRequest._retry = true;
@@ -45,7 +45,7 @@ export const userAction = () => async (dispatch) => {
     //       dispatch({ type: USER_ACTION_TYPE.ADD_USER, payload: data });
     //       localStorage.setItem("userData",JSON.stringify(data))
     //     } catch (error) {
-    //       console.log(error);
+    //       // console.log(data, "data");(error);
     //       if (error?.response?.status === 401) {
     //         return dispatch(logoutAction());
     //       }

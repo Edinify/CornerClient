@@ -9,7 +9,7 @@ const ExpensesData = ({  getPageNumber,  page, dataHead = [],expensesPageNum }) 
   const expensesHead = page !== 'finance' ? [
     { id: 1, label: " Təyinat" },
     {id:5,label:"Xərcin miqdarı"},
-    { id: 2, label: "Xərcin dəyəri" },
+    { id: 2, label: "Xərcin miqdarı" },
     { id: 3, label: "Xərcin tarixi" },
     { id: 4, label: "" },
   ] : [...dataHead];

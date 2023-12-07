@@ -26,7 +26,7 @@ const WarehouseData = ({ warehousePageNum,getPageNumber }) => {
         <Loading />
       ) : (
         <>
-          <table className="details-table teacher-table">
+          <table className="details-table warehouse-table ">
             <thead>
               <tr>
                 {tableHead.map((head, i) => (

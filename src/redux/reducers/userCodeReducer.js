@@ -12,7 +12,7 @@ export const userCodeReducer = (state = initialState, action) => {
         userCode: action.payload,
       };
     case USER_AUTH_ACTION_TYPE.CREATE_ACCESS_CODE:
-      console.log(action.payload)
+      // console.log(data, "data");(action.payload)
       return {
         ...state,
         userCode: { ...action.payload.accessCode},

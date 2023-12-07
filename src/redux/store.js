@@ -37,6 +37,7 @@ import { userTablesReducer } from "./reducers/userTablesReducer";
 import { menuUserReducer } from "./reducers/menuUserReducer";
 import { checkReducer } from "./reducers/checkReducer";
 import { userCheckReducer } from "./reducers/userCheckReducer";
+import { checkLoadingReducer } from "./reducers/checkLoadingReducer";
 
 const initialState = {};
 const reducers = combineReducers({
@@ -73,7 +74,8 @@ const reducers = combineReducers({
   userTables:userTablesReducer,
   menuUser:menuUserReducer,
   checks:checkReducer,
-  userCheck:userCheckReducer
+  userCheck:userCheckReducer,
+  checkLoading:checkLoadingReducer
 });
 // test
 

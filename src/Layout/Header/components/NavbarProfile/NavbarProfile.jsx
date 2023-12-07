@@ -8,15 +8,15 @@ import { logoutAction } from "../../../../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangePasswordModal } from "../../../../globalComponents/Header/ChangePasswordModal/ChangePasswordModal";
 import UserCodeModal from "../../components/UserCodeModal";
-import {ReactComponent as UserChangeCodeIcon} from "../../../../assets/icons/header/note-svgrepo-com.svg"
+import { ReactComponent as UserChangeCodeIcon } from "../../../../assets/icons/header/note-svgrepo-com.svg";
 
 const NavbarProfile = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [changeUserIcon, setChangeUserIcon] = useState(false);
-  const [openUserCode,setOpenUserCode] = useState(false)
-  const {user} = useSelector(state=>state.user)
+  const [openUserCode, setOpenUserCode] = useState(false);
+  const { user } = useSelector((state) => state.user);
 
   const navigateExit = () => {
     dispatch(logoutAction());
@@ -30,7 +30,7 @@ const NavbarProfile = () => {
   const handleActive = (e) => {
     setIsOpen(!isOpen);
     setChangeUserIcon(!changeUserIcon);
-    setOpenUserCode(false)
+    setOpenUserCode(false);
 
     e.stopPropagation();
   };
@@ -51,10 +51,11 @@ const NavbarProfile = () => {
   return (
     <>
       <div className="main-nav-icons">
-       {user.role==="admin" && <div className="user" onClick={()=>setOpenUserCode(!openUserCode)} >
-        <UserChangeCodeIcon />
-        </div>
-}
+        {user.role === "admin" && (
+          <div className="user" onClick={() => setOpenUserCode(!openUserCode)}>
+            <UserChangeCodeIcon />
+          </div>
+        )}
         <div className="profile-img-con">
           <div className="profile-img" onClick={(e) => handleActive(e)}>
             {changeUserIcon ? (
@@ -75,10 +76,12 @@ const NavbarProfile = () => {
               className="user-modal"
             >
               <div className="user-func">
-                <div className="password-change-func">
-                  <ChangePasswordIcon />
-                  <p onClick={handleOpenModal}>Şifrəni dəyiş</p>
-                </div>
+                {user.role === "admin" && (
+                  <div className="password-change-func">
+                    <ChangePasswordIcon />
+                    <p onClick={handleOpenModal}>Şifrəni dəyiş</p>
+                  </div>
+                )}
                 <div className="logout-func" onClick={navigateExit}>
                   <LogoutIcon />
                   <p>Çıxış</p>
@@ -91,7 +94,7 @@ const NavbarProfile = () => {
         </div>
       </div>
       {openModal && <ChangePasswordModal setOpenModal={setOpenModal} />}
-     { openUserCode &&  <UserCodeModal openUserCode={openUserCode} />}
+      {openUserCode && <UserCodeModal openUserCode={openUserCode} />}
     </>
   );
 };

@@ -20,58 +20,12 @@ export const Header = () => {
 
   const getPageTitle = (pathname) => {
     switch (pathname) {
-      case "/dashboard":
-        return "İdarəetmə paneli";
-      case "/":
-      case "/student":
-        return "Davamiyyət";
-      case "/courses":
-        return "Fənlər";
-      case "/teachers":
-        return "Müəllimlər";
-      case "/students":
-        return "Tələbələr";
-      case "/admins":
-        return "Adminlər";
-      case "/table":
-        return "Cədvəl";
-      case "/expenses":
-        return "Xərclər";
-      case "/salary":
-        return "Əmək haqqı";
-      case "/incomes":
-        return "Mədaxil ";
-      case "/student-panel":
-        return "Cədvəl";
-      case "/teacher-panel":
-        return "Cədvəl";
-      case "/teacher-panel/home":
-        return "Ana səhifə";
-      case "/teacher-panel/salary":
-        return "Əmək haqqı";
-      case "/stimulations":
-        return "Həvəsləndirmə";
-      case "/stimulations/fine":
-        return "Həvəsləndirmə";
-      case "/stimulations/bonus":
-        return "Həvəsləndirmə";
       case "/finance":
         return "Maliyyə";
       case "/finance/expenses":
         return "Maliyyə";
       case "/finance/incomes":
         return "Maliyyə";
-      case "/feedback":
-        return "Rəylər";
-      case "/feedback/teacher":
-        return "Rəylər";
-      case "/feedback/student":
-        return "Rəylər";
-        {
-          /* temporary table */
-        }
-      case "/temporary-table":
-        return "Müvəqqəti cədvəl";
       case "/category":
         return "Kateqoriya";
       case "/tables":
