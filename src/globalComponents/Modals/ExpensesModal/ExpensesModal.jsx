@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, TextField } from "@mui/material";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
 import { EXPENSES_MODAL_ACTION_TYPE } from "../../../redux/actions-type";
 import InputField from "./components/InputField/InputField";
 import SubmitBtn from "./components/SubmitBtn/SubmitBtn";
-import Category from "./components/InputDropdowns/Category";
+import {ValidationSchema} from "./components/ValidationSchema"
+import { useFormik } from "formik";
 export const ExpensesModal = () => {
   const dispatch = useDispatch();
   const inputNameArr = ["name","amount","price","date"];
@@ -33,23 +34,33 @@ export const ExpensesModal = () => {
       },
     });
   };
-  const handleDeleteModal = () => {
-    setDeleteModal(!deleteModal);
-  };
+
+
+  const formik = useFormik({
+    initialValues: {
+      name: expensesModalData?.name ? expensesModalData?.name : "",
+      amount: expensesModalData?.amount
+        ? expensesModalData?.amount
+        : "",
+      price: expensesModalData?.price ? expensesModalData?.price : "",
+      date: expensesModalData?.date ? expensesModalData?.date : "",
+    },
+    validationSchema: ValidationSchema,
+  });
+  const setInputValue = useCallback(
+    (key, value) =>
+      formik.setValues({
+        ...formik.values,
+        [key]: value,
+      }),
+    [formik]
+  );
 
   const closeModal = () => {
     dispatch({
       type: EXPENSES_MODAL_ACTION_TYPE.GET_EXPENSES_MODAL,
       payload: { data: {}, openModal: false },
     });
-  };
-  const categoryDropdown = () => {
-    setCategoryOpen(!categoryOpen);
-  };
-  const categoryAddData = (item) => {
-    updateModalState("category", item.key);
-    setCategoryOpen(false);
-    setSelectedCategory(item);
   };
 
  
@@ -88,19 +99,14 @@ export const ExpensesModal = () => {
           }}
         >
           <div className="create-update-modal-form">
-            {/* <Category
-              selectedCategory={selectedCategory}
-              categoryDropdown={categoryDropdown}
-              categoryOpen={categoryOpen}
-              selectedCategoryList={selectedCategoryList}
-              categoryAddData={categoryAddData}
-            /> */}
             {inputNameArr.map((name, index) => (
               <InputField
                 key={index}
                 inputName={name}
                 expensesModalData={expensesModalData}
                 updateModalState={updateModalState}
+                formik={formik}
+                setInputValue={setInputValue}
               />
             ))}
           </div>
@@ -112,6 +118,7 @@ export const ExpensesModal = () => {
             expensesModalData={expensesModalData}
             closeModal={closeModal}
             setDeleteModal={setDeleteModal}
+            formik={formik}
           />
         ) : (
           <SubmitBtn
@@ -119,6 +126,7 @@ export const ExpensesModal = () => {
             expensesModalData={expensesModalData}
             closeModal={closeModal}
             setDeleteModal={setDeleteModal}
+            formik={formik}
 
           />
         )}

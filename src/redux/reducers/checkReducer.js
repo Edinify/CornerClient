@@ -27,7 +27,7 @@ export const checkReducer = (state=initialState, action) => {
           item._id === action.payload.id ? action.payload : item
         ),
       };
-      case CHECK_ACTION_TYPE.CHECK_LOADING:
+      case CHECK_ACTION_TYPE.CHECK_USER_LOADING:
         return{
           ...state,
           loading:action.payload

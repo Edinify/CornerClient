@@ -32,7 +32,9 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
               <div className="table-scroll-text phone">
                 {data.orders.map((item) => (
                   <ul key={item._id}>
-                    <li>{item.order.productName}</li>
+                    <li>
+                      <span>{item.order.product.productName}</span>
+                    </li>
                   </ul>
                 ))}
               </div>
@@ -79,7 +81,7 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
                 <div>
                   {data.orders.map((item) => (
                     <ul key={item._id}>
-                      <li>{item.order.productName}</li>
+                      <li>{item.order.product.productName}</li>
                     </ul>
                   ))}
                 </div>

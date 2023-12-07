@@ -6,6 +6,8 @@ export default function InputField({
   expensesModalData,
   inputName,
   updateModalState,
+  formik,
+  setInputValue
 }) {
   const [shrink, setShrink] = useState(false);
   const inputData = [
@@ -28,7 +30,7 @@ export default function InputField({
     {
       inputName: "price",
       label: "Xərcin məbləği",
-      type: "string",
+      type: "number",
       marginTop: "20px",
       marginBottom: "0",
       inputValue: expensesModalData[inputName] || "",
@@ -85,8 +87,10 @@ export default function InputField({
         onWheel={(e) => e.target.blur()}
         onChange={(e) => {
           updateModalState(inputName, e.target.value)
+          setInputValue(inputName, e.target.value);
         }}
         onBlur={(e) => {
+          formik.setFieldTouched(inputName, true);
           setShrink(!!e.target.value);
         }}
         onFocus={() => setShrink(true)}

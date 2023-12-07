@@ -17,8 +17,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const setLoadingMenuAction = (loadingValue) => ({
-  type: CHECK_ACTION_TYPE.CHECK_LOADING,
+export const setLoadingCheckction = (loadingValue) => ({
+  type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
   payload: loadingValue,
 });
 
@@ -36,6 +36,7 @@ const toastSuccess = (message) => {
 };
 export const createCheckAction = (checkData) => async (dispatch) => {
   console.log(checkData, "test 111111");
+  setLoadingCheckction(true)
   try {
     const { data } = await API.post("/", checkData);
     console.log(data, "create check");
@@ -44,6 +45,9 @@ export const createCheckAction = (checkData) => async (dispatch) => {
     
   } catch (error) {
     console.log(error);
+  }
+  finally{
+    setLoadingCheckction(false)
   }
 };
 
@@ -63,6 +67,7 @@ export const updateUserCheckAction = (_id, checkData) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+
 };
 
 export const addOrderAction = (order) => async (dispatch) => {
@@ -84,7 +89,7 @@ export const removeOrderAction = (order) => async (dispatch) => {
 // admin check action
 
 export const getCheckAction = (pageNumber) => async (dispatch) => {
-  dispatch(setLoadingMenuAction(true));
+  dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
     // console.log(data)
@@ -96,7 +101,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   } finally {
-    dispatch(setLoadingMenuAction(false));
+    dispatch(setLoadingCheckction(false));
   }
 };
 

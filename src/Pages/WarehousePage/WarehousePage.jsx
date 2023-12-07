@@ -43,7 +43,7 @@ const WarehousePage = () => {
   },[])
 
   return (
-    <div className="details-page courses ">
+    <div className="details-page  ">
       <GlobalHead
         openModal={openModal}
         DATA_SEARCH_VALUE={"COURSES_SEARCH_VALUE"}

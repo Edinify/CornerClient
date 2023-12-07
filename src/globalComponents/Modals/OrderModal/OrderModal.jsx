@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCheckAction } from "../../../redux/actions/checkAction";
+import { toast } from "react-toastify";
 
 const OrderModal = ({
   setOpenOrderModal,
@@ -8,9 +9,13 @@ const OrderModal = ({
   selectedTable,
   status,
   setStatus,
+  toastSuccess
+
 }) => {
   const { userCheck } = useSelector((state) => state.userCheck);
+  // const {loading} = useSelector(state=>state.checks);
   const dispatch = useDispatch();
+  
 
   const changeCheckStatus = () => {
     if (status === "confirm") {
@@ -19,7 +24,9 @@ const OrderModal = ({
           ...userCheck,
           status: "confirmed",
         })
+        
       );
+      toastSuccess("Sifariş təsdiqləndi");
     } else if (status === "cancel") {
       dispatch(
         updateCheckAction(userCheck._id, {
@@ -27,6 +34,7 @@ const OrderModal = ({
           status: "cancelled",
         })
       );
+      toastSuccess("Sifariş ləğv edildi");
     }
   };
 
@@ -51,6 +59,7 @@ const OrderModal = ({
               setOrderModal(false);
             }}
           >
+            
             {status === "confirm" ? "Təstiqlə" : "Ləğv et"}
           </button>
         </div>

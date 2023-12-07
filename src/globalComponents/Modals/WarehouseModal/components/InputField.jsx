@@ -5,7 +5,8 @@ export default function InputField({
   warehouseModalData,
   inputName,
   updateModalState,
-  // formik,
+  formik,
+  setInputValue
 }) {
 
   const [shrink, setShrink] = useState(false);
@@ -64,10 +65,10 @@ export default function InputField({
         onWheel={(e) => e.target.blur()}
         onChange={(e) => {
           updateModalState(inputName, e.target.value)
-          // setInputValue(inputName, e.target.value);
+          setInputValue(inputName, e.target.value);
         }}
         onBlur={(e) => {
-          // formik.setFieldTouched(inputName, true);
+          formik.setFieldTouched(inputName, true);
           setShrink(!!e.target.value);
         }}
         onFocus={() => setShrink(true)}
