@@ -12,6 +12,11 @@ const initialState = {
 
 export const userCheckReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CHECK_ACTION_TYPE.CREAT_USER_CHECK:
+      console.log(action.payload, "bla bla bla");
+      return {
+        userCheck: action.payload,
+      };
     case CHECK_ACTION_TYPE.GET_USER_CHECK:
       // console.log(action.payload)
       return {
@@ -70,6 +75,17 @@ export const userCheckReducer = (state = initialState, action) => {
       return {
         ...state,
         userCheck: { ...state.userCheck, orders: newOrders },
+      };
+    }
+    case CHECK_ACTION_TYPE.RESET_USER_CHECK: {
+      return {
+        userCheck: {
+          table: {},
+          orders: [],
+          totalDate: 0,
+          totalPayment: null,
+          status: "open",
+        },
       };
     }
     default:

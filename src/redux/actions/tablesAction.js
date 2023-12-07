@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 
 const API = axios.create({
   baseURL: `${apiRoot}/table`,
-  withCredentials: true,
+   // withCredentials: true,
 });
 
 const APIUSER = axios.create({
   baseURL: `${apiRoot}/table/all`,
-  withCredentials: true,
+   // withCredentials: true,
 });
 
 API.interceptors.request.use((req) => {

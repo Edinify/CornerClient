@@ -58,39 +58,43 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
     // return `${hours} saat, ${minutes} dəqiqə, `;
   }
+  
+  let date
+  let difference 
+  useEffect(() => {
+    
+    console.log(userCheck)
 
-  // let difference;
+    difference = getTimeDifference(
+      formatDate(new Date(userCheck.createdAt))
+    );
 
-  // useEffect(() => {
+    // const intervalId = setInterval(() => {
+    //   const difference = getTimeDifference(
+    //     formatDate(new Date(userCheck.createdAt))
+    //   );
+    //   setTimeDifference(difference);
+    // }, 60000);
 
+    setTimeDifference(difference);
+  }, [userCheck]);
 
-  //   difference = getTimeDifference(formatDate(new Date(userCheck?.createdAt)));
+  useEffect(()=>{
+    if(timeDifference !== null){
+      const intervalId = setInterval(() => {
+        const difference = getTimeDifference(
+          formatDate(new Date(userCheck.createdAt))
+        );
+        setTimeDifference(difference);
+      }, 60000);
+  
+      setTimeDifference(difference);
+      return () => clearInterval(intervalId);
+    }
+    
+  },[timeDifference])
 
-  //   // const intervalId = setInterval(() => {
-  //   //   const difference = getTimeDifference(
-  //   //     formatDate(new Date(userCheck.createdAt))
-  //   //   );
-  //   //   setTimeDifference(difference);
-  //   // }, 60000);
-  //   //
-  //   setTimeDifference(difference);
-  // }, [userCheck]);
-
-  // useEffect(() => {
-  //   console.log(timeDifference,"time")
-  //   if (timeDifference !== null) {
-  //     const intervalId = setInterval(() => {
-  //       const difference = getTimeDifference(
-  //         formatDate(new Date(userCheck?.createdAt))
-  //       );
-  //       setTimeDifference(difference);
-  //     }, 60000);
-
-  //     setTimeDifference(difference);
-  //     return () => clearInterval(intervalId);
-  //   }
-  // }, [timeDifference]);
-
+  console.log(timeDifference)
 
   const createOrder = () => {
     console.log("salam 123");
