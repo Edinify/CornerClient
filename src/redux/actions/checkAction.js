@@ -111,6 +111,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
 };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
+  dispatch(setLoadingCheckction(true));
   // console.log(data, "data");(checkData, "salam necesen");
   try {
     const { data } = await API.patch(`/${_id}`, checkData);
