@@ -38,10 +38,10 @@ export const createCheckAction = (checkData) => async (dispatch) => {
   console.log(checkData, "test 111111");
   try {
     const { data } = await API.post("/", checkData);
-    dispatch(getCheckAction());
     console.log(data, "create check");
     toastSuccess("Yeni masa açıldı");
-    dispatch({ type: CHECK_ACTION_TYPE.CREATE_CHECK, payload: { data } });
+    dispatch({ type: CHECK_ACTION_TYPE.CREAT_USER_CHECK, payload: data });
+    
   } catch (error) {
     console.log(error);
   }

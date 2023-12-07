@@ -3,10 +3,9 @@ import { useSelector } from "react-redux";
 import "../workersPage.css";
 import OrderPage from "../OrderPage";
 
-const WorkersData = () => {
+const WorkersData = ({ orderModal, setOrderModal }) => {
   const { userTables } = useSelector((state) => state.userTables);
 
-  const [orderModal, setOrderModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
 
   const handleTableClick = (table) => {
@@ -40,7 +39,6 @@ const WorkersData = () => {
           </div>
         ))}
       </div>
-      
     </>
   );
 };
