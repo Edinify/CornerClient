@@ -17,10 +17,13 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const setLoadingCheckction = (loadingValue) => ({
-  type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
-  payload: loadingValue,
-});
+export const setLoadingCheckction = (loadingValue) => (
+  console.log(loadingValue, "loadinggggg"),
+  {
+    type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
+    payload: loadingValue,
+  }
+);
 
 const toastSuccess = (message) => {
   toast.success(message, {
@@ -36,18 +39,16 @@ const toastSuccess = (message) => {
 };
 export const createCheckAction = (checkData) => async (dispatch) => {
   console.log(checkData, "test 111111");
-  setLoadingCheckction(true)
+  dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.post("/", checkData);
     console.log(data, "create check");
     toastSuccess("Yeni masa açıldı");
     dispatch({ type: CHECK_ACTION_TYPE.CREAT_USER_CHECK, payload: data });
-    
   } catch (error) {
     console.log(error);
-  }
-  finally{
-    setLoadingCheckction(false)
+  } finally {
+    dispatch(setLoadingCheckction(false));
   }
 };
 
@@ -67,7 +68,6 @@ export const updateUserCheckAction = (_id, checkData) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-
 };
 
 export const addOrderAction = (order) => async (dispatch) => {

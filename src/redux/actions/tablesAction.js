@@ -36,6 +36,11 @@ export const setLoadingTablesAction = (loadingValue) => ({
   payload: loadingValue,
 });
 
+export const setLoadingTablesUserAction = (loadingValue) => ({
+  type: TABLES_USER_ACTION_TYPE.USER_TABLES_LOADING,
+  payload: loadingValue,
+});
+
 const tablesModalLoading = (loadingValue) => ({
   type: TABLES_M0DAL_ACTION_TYPE.TABLES_MODAL_LOADING,
   payload: loadingValue,
@@ -84,14 +89,14 @@ export const getTablesAction = (pageNumber) => async (dispatch) => {
 };
 
 export const getTablesUserAction = () => async (dispatch) => {
-  dispatch(setLoadingTablesAction(true));
+  dispatch(setLoadingTablesUserAction(true));
   try {
     const { data } = await APIUSER.get("/");
     dispatch({ type: TABLES_USER_ACTION_TYPE.GET_TABLES_USER, payload: data });
   } catch (error) {
     console.log(error);
   } finally {
-    dispatch(setLoadingTablesAction(false));
+    dispatch(setLoadingTablesUserAction(false));
   }
 };
 
