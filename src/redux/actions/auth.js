@@ -5,7 +5,7 @@ import { apiRoot } from "../../apiRoot";
 
 const API = axios.create({
   baseURL: `${apiRoot}/auth`,
-  withCredentials:true
+   // withCredentials:true
 });
 
 

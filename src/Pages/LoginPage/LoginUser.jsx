@@ -4,13 +4,13 @@ import { ReactComponent as Eye } from "../../assets/icons/eye.svg";
 import { ReactComponent as EyeSlash } from "../../assets/icons/eye-slash.svg";
 import { ReactComponent as LoginLogo } from "../../assets/icons/Login-Logo.svg";
 import { Box, TextField } from "@mui/material";
-import { useFormik } from "formik";
-import { ValidationSchema } from "./components/Validation/ValidationSchema";
 import Loading from "../../globalComponents/Loading/Loading";
 import PreviewImg from "./components/PreviewImg/PreviewImg";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
 import { useNavigate } from "react-router-dom";
 import { userLoginAction } from "../../redux/actions/userAuthAction";
+import { useFormik } from "formik";
+import { ValidationUserSchema } from "./components/Validation/ValidationSchema";
 
 export const LoginUser = () => {
   const dispatch = useDispatch();
@@ -20,17 +20,35 @@ export const LoginUser = () => {
   const [view, setView] = useState(true);
   const [accessCode, setAccessCode] = useState("");
 
-
   const handleView = () => {
     setView(!view);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userLoginAction(accessCode));
+    authFunc();
   };
 
+  const formik = useFormik({
+    initialValues: {
+      code: "",
+    },
+    validationSchema: ValidationUserSchema,
+  });
+  const setInputValue = useCallback(
+    (key, value) =>
+      formik.setValues({
+        ...formik.values,
+        [key]: value,
+      }),
+    [formik]
+  );
 
-  console.log(accessCode)
+  const authFunc = () => {
+    formik.setFieldTouched("password", true);
+    if (formik.isValid && !(accessCode.trim() === "")) {
+      dispatch(userLoginAction(accessCode));
+    }
+  };
 
   useEffect(() => {
     changeShowNav(true);
@@ -47,7 +65,8 @@ export const LoginUser = () => {
 
       <div className="login-right">
         <div className="login-right-header">
-          <LoginLogo />
+          {/* <LoginLogo /> */}
+          {/* <h2>CORNER</h2> */}
           <h2>Daxil olun</h2>
         </div>
 
@@ -90,16 +109,11 @@ export const LoginUser = () => {
                   backgroundColor: "white",
                 },
               }}
-              // helperText={
-              //   formik.errors.password && formik.touched.password
-              //     ? formik.errors.password
-              //     : ""
-              // }
-              // error={
-              //   formik.errors.password && formik.touched.password ? true : false
-              // }
               value={accessCode}
-              onChange={(e) => setAccessCode(e.target.value)}
+              onChange={(e) => {
+                setInputValue("code", e.target.value);
+                setAccessCode(e.target.value);
+              }}
             />
             <div className="view-icon" onClick={handleView}>
               {view ? <EyeSlash /> : <Eye />}

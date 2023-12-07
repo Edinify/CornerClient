@@ -8,16 +8,15 @@ const initialState = {
 export const userAuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_AUTH_ACTION_TYPE.LOGIN_USER:
-      localStorage.setItem("user",JSON.stringify(action.payload.data))
       return {
         ...state,
-        userAuth: action.payload.data,
+        userAuth: action.payload,
         loading: action.payload,
       };
       case USER_AUTH_ACTION_TYPE.USER_AUTH_LOADING:
         return{
           ...state,
-          loading:action.payload
+          loading:action.payload.loading
         }
 
 

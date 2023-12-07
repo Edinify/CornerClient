@@ -45,22 +45,10 @@ const SidebarAdmin = ({ closeSidebar }) => {
           Anbar
         </NavLink>
       </li>
-      {/* <li>
+      <li>
         <NavLink to="/checks" onClick={closeSidebar}>
           <CheckIcon/>
           Çeklər
-        </NavLink>
-      </li> */}
-      <li>
-        <NavLink to="/user" onClick={closeSidebar}>
-          <CheckIcon/>
-          User
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/workers" onClick={closeSidebar}>
-          <CheckIcon/>
-          User
         </NavLink>
       </li>
     </ul>

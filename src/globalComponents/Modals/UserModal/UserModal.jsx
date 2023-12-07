@@ -12,8 +12,6 @@ export const UserModal = () => {
   const dispatch = useDispatch();
   const { userModalData } = useSelector((state) => state.userModal);
 
-
-
   // formik
   const formik = useFormik({
     initialValues: {

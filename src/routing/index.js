@@ -7,9 +7,11 @@ import { Header } from "../Layout/Header/Header";
 import LoginRoute from "./LoginRoute";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import Sidebar from "../Layout/Sidebar/Sidebar";
-import SuperAdminPanelRoute from "./SuperAdminPanelRoute";
+import UserPanelRoute from "./UserPanelRoute";
 import AdminPanelRoute from "./AdminPanelRoute";
 import { LoginUser } from "../Pages/LoginPage/LoginUser";
+import WorkersPage from "../Pages/WorkerPage/WorkerPage";
+import { getUserAction } from "../redux/actions/userAuthAction";
 
 export const Routing = () => {
   const dispatch = useDispatch();
@@ -22,13 +24,23 @@ export const Routing = () => {
   const { show } = useSelector((state) => state.show);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const token = localStorage.getItem("auth");
+  const { userAuth } = useSelector((state) => state.userAuth);
 
-  // console.log(user)
+
+
 
   useEffect(() => {
+    
+    if (userAuth?.role === "user" && !notFound) {
+      if (location.pathname.startsWith("/login")) {
+        // console.log(userAuth?.role === "user" && !notFound)
+        navigate("/workers");
+      }
+    }
+
+    
     if (token) {
       if (!user._id) {
-        // console.log(token);
         dispatch(userAction());
       }
       if (user.role === "admin" && !notFound) {
@@ -38,7 +50,7 @@ export const Routing = () => {
           return () => {};
         }
       }
-    } else if (forgetPassword.login) {
+    } else if (forgetPassword.login && !userAuth?._id) {
       navigate("/login");
     } else {
       if (forgetPassword.email) {
@@ -49,26 +61,34 @@ export const Routing = () => {
         navigate("/change");
       }
     }
-  }, [auth, user, forgetPassword]);
-  const [notFound, setNotFound] = useState(false);
+    
+  }, [auth, user, forgetPassword,userAuth]);
 
+  
+
+ 
+  const [notFound, setNotFound] = useState(false);
+  // console.log(userAuth?.role === "user")
   return (
     <div className={show ? "" : "main-container"}>
-      {!show && <Sidebar />}
+      {!show &&  <Sidebar />}
       <div className="left">
         {!show && <Header />}
 
         <Routes>
           <Route path="/login" element={<LoginUser />} />
           <Route path="/login-admin" element={<Login />} />
+          
+
+          {LoginRoute()}
+           <Route path="/workers" element={<WorkersPage />} />
+          
+          {/* {userAuth?.role === "user" && UserPanelRoute()} */}
+          {userData?.role === "admin" && AdminPanelRoute()}
           <Route
             path="*"
             element={<NotFoundPage setNotFound={setNotFound} />}
           />
-
-          {LoginRoute()}
-          {userData?.role === "super-admin" && SuperAdminPanelRoute()}
-          {userData?.role === "admin" && AdminPanelRoute()}
         </Routes>
       </div>
     </div>

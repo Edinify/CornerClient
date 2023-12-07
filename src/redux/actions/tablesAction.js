@@ -1,11 +1,20 @@
-import { TABLES_ACTION_TYPE, TABLES_M0DAL_ACTION_TYPE } from "../actions-type";
+import {
+  TABLES_ACTION_TYPE,
+  TABLES_M0DAL_ACTION_TYPE,
+  TABLES_USER_ACTION_TYPE,
+} from "../actions-type";
 import axios from "axios";
 import { apiRoot } from "../../apiRoot";
 import { toast } from "react-toastify";
 
 const API = axios.create({
   baseURL: `${apiRoot}/table`,
-  withCredentials: true,
+   // withCredentials: true,
+});
+
+const APIUSER = axios.create({
+  baseURL: `${apiRoot}/table/all`,
+   // withCredentials: true,
 });
 
 API.interceptors.request.use((req) => {
@@ -63,7 +72,22 @@ export const getTablesAction = (pageNumber) => async (dispatch) => {
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
     dispatch({ type: TABLES_ACTION_TYPE.GET_TABLES, payload: data });
-    dispatch({type:TABLES_ACTION_TYPE.GET_TABLES_LAST_PAGE,payload:pageNumber})
+    dispatch({
+      type: TABLES_ACTION_TYPE.GET_TABLES_LAST_PAGE,
+      payload: pageNumber,
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    dispatch(setLoadingTablesAction(false));
+  }
+};
+
+export const getTablesUserAction = () => async (dispatch) => {
+  dispatch(setLoadingTablesAction(true));
+  try {
+    const { data } = await APIUSER.get("/");
+    dispatch({ type: TABLES_USER_ACTION_TYPE.GET_TABLES_USER, payload: data });
   } catch (error) {
     console.log(error);
   } finally {

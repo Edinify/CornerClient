@@ -19,10 +19,14 @@ const GlobalHead = ({
         <div className="details-header-container">
           <div className="details-header-content">
 
-            <button className="add-detail" onClick={openModal}>
+           {statusType==="check"?
+           ""
+           :
+           <button className="add-detail" onClick={openModal}>
               <PlusIcon />
               Əlavə et
             </button>
+           } 
           </div>
           {statusType === "teacher" && (
             <StatusDropdown statusType="teacher" deviceType="mobile" />

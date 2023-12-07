@@ -5,7 +5,7 @@ import { logoutAction } from "./auth";
 
 const API = axios.create({
   baseURL: `${apiRoot}/finance`,
-  withCredentials:true
+   // withCredentials:true
 });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {
@@ -19,7 +19,7 @@ API.interceptors.request.use((req) => {
 
 const refreshApi = axios.create({
   baseURL: `${apiRoot}/user/auth/refresh_token`,
-  withCredentials:true
+   // withCredentials:true
 });
 
 export const getFinanceChartAction =

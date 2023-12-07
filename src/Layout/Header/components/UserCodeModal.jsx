@@ -8,7 +8,7 @@ const UserCodeModal = ({ openUserCode }) => {
   const dispatch = useDispatch();
   const { userCode } = useSelector((state) => state.userCode);
 
-  console.log(userCode);
+
 
   useEffect(() => {
     dispatch(getUserAction());
@@ -28,7 +28,7 @@ const UserCodeModal = ({ openUserCode }) => {
           <h2>İstifadəçi kodu</h2>
           <div className="user-code-bottom">
             <div className="user-code"></div>
-            <p>{userCode.accessCode}</p>
+            <p>{userCode?.accessCode}</p>
             <div className="user-code-btn">
               <button onClick={openModal}>Yenilə</button>
             </div>

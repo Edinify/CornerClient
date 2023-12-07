@@ -28,30 +28,13 @@ export const WarehouseModal = () => {
   ];
 
 
-  const formik = useFormik({
-    initialValues:{
-      productName:warehouseModalData?.productName ? warehouseModalData.productName : "",
-      totalAmount : warehouseModalData?.totalAmount ? warehouseModalData.totalAmount  :"",
-      unitMeasure:warehouseModalData?.unitMeasure ? warehouseModalData.unitMeasure : ""
-    },
-    validationSchema:ValidationSchema
-  })
 
-  const setInputValue = useCallback(
-    (key, value) =>
-      formik.setValues({
-        ...formik.values,
-        [key]: value,
-      }),
-    [formik]
-  );
 
 
   const categoryDropdown = () => {
     setCategoryOpen(!categoryOpen);
   };
   const categoryAddData = (item) => {
-    setInputValue("unitMeasure",item.key)
     updateModalState("unitMeasure", item.key);
     setCategoryOpen(false);
     setSelectedCategory(item);
@@ -59,10 +42,10 @@ export const WarehouseModal = () => {
 
   useEffect(() => {
     if (warehouseModalData?._id) {
-      if (warehouseModalData.category) {
+      if (warehouseModalData.unitMeasure) {
         setSelectedCategory({
           name: selectedCategoryList.filter(
-            (item) => item.key === warehouseModalData.category
+            (item) => item.key === warehouseModalData.unitMeasure
           )[0]?.name,
         });
       }
@@ -91,15 +74,16 @@ export const WarehouseModal = () => {
     });
   };
 
-  useEffect(() => {
-    if (warehouseModalData?.id && category) {
-      if (warehouseModalData.category) {
-        setSelectedCategoryName(
-          category.filter((item) => item.id === warehouseModalData.category)[0]
-        );
-      }
-    }
-  }, [category]);
+
+  // useEffect(() => {
+  //   if (warehouseModalData?.id ) {
+  //     if (warehouseModalData.unitMeasure) {
+  //       setSelectedCategoryName(
+  //         category.filter((item) => item.id === warehouseModalData.unitMeasure)[0]
+  //       );
+  //     }
+  //   }
+  // }, [category]);
 
   return (
     <div className="create-update-modal-con bonus-modal">
@@ -127,8 +111,6 @@ export const WarehouseModal = () => {
                 inputName={name}
                 warehouseModalData={warehouseModalData}
                 updateModalState={updateModalState}
-                setInputValue={setInputValue}
-                formik={formik}
               />
             ))}
             <Category
@@ -147,7 +129,6 @@ export const WarehouseModal = () => {
             warehouseModalData={warehouseModalData}
             closeModal={closeModal}
             setDeleteModal={setDeleteModal}
-            formik={formik}
           />
         ) : (
           <SubmitBtn
@@ -155,7 +136,6 @@ export const WarehouseModal = () => {
             warehouseModalData={warehouseModalData}
             closeModal={closeModal}
             setDeleteModal={setDeleteModal}
-            formik={formik}
           />
         )}
       </div>

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { TABLES_M0DAL_ACTION_TYPE } from "../../redux/actions-type";
-import { getTablesAction } from "../../redux/actions/tablesAction";
+import { useDispatch } from "react-redux";
+import { getTablesUserAction } from "../../redux/actions/tablesAction";
 import WorkersData from "./components/WorkersData";
-import GlobalHead from "../../globalComponents/GlobalHead/GlobalHead";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
+import { CHECK_ACTION_TYPE } from "../../redux/actions-type";
 
 const WorkersPage = () => {
   const dispatch = useDispatch();
-  const { lastPage } = useSelector((state) => state.tables);
+  const [orderModal, setOrderModal] = useState(false);
   const { changeShowNav } = useCustomHook();
-
   useEffect(() => {
     changeShowNav(false);
     return () => {
@@ -18,13 +16,15 @@ const WorkersPage = () => {
     };
   }, [dispatch]);
 
-
   useEffect(() => {
-    dispatch(getTablesAction(1));
-  }, []);
+    if (!orderModal) {
+      dispatch(getTablesUserAction());
+      dispatch({ type: CHECK_ACTION_TYPE.RESET_USER_CHECK });
+    }
+  }, [orderModal]);
   return (
-    <div className="details-page courses ">
-      <WorkersData />
+    <div className="details-page ">
+      <WorkersData orderModal={orderModal} setOrderModal={setOrderModal} />
     </div>
   );
 };

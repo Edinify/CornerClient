@@ -1,0 +1,285 @@
+.tables-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.tables-container .table-box {
+  background-color: gray;
+  height: 150px;
+  margin: 0 20px 10px 20px;
+  width: 200px;
+  cursor: pointer;
+}
+.tables-container .table-box.open {
+  background-color: var(--primary-600);
+}
+.tables-container .table-box .table-box-container {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+}
+.tables-container .table-box .table-box-container h3 {
+  color: white;
+  font-size: 18px;
+}
+.tables-container .table-box .table-box-container p {
+  color: white;
+  font-size: 18px;
+}
+
+/*  order page */
+
+.order-page {
+  position: fixed;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* color: white; */
+}
+.order-page .container {
+  width: 100%;
+}
+.order-page .order-page-container {
+  display: flex;
+  width: 100%;
+  /* height: 100%; */
+  overflow-x: auto;
+}
+
+.order-page .order-page-container .order-side {
+  background-color: white;
+  width: 50%;
+}
+.order-page .order-page-container .order-side .order-side-container {
+  /* padding: 0 10px; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.order-page .order-page-container .order-side .order-side-head {
+  background-color: var(--primary-200);
+  padding: 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-page
+  .order-page-container
+  .order-side
+  .order-side-head
+  .order-side-content {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+}
+.order-page
+  .order-page-container
+  .order-side
+  .order-side-head
+  .order-side-content .back {
+    cursor: pointer;
+  }
+.order-page .order-page-container .order-side .order-side-head h4 {
+  color: white;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.order-page
+  .order-page-container
+  .order-side
+  .order-side-head
+  .order-side-input
+  input {
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  /* margin-bottom: 10px; */
+  /* padding: 0 10px; */
+}
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns
+  button {
+  padding: 20px;
+  color: white;
+  border-radius: 8px;
+  /* width: 200px; */
+  cursor: pointer;
+  margin: 5px 0;
+  font-size: 18px;
+}
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns
+  .confirm-table {
+  background-color: green;
+}
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns
+  .open-table {
+  background-color: var(--secondary-600);
+}
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns
+  .cancel-table {
+  background-color: var(--error-700);
+}
+
+.order-page .order-page-container .order-side .product-order-container {
+  display: flex;
+  flex-direction: column;
+  /* height: 90%; */
+  justify-content: space-between;
+  font-size: 20px;
+  padding: 10px;
+  /* margin-top: 20px; */
+}
+.order-page .order-page-container .menu-side {
+  background-color: gainsboro;
+  width: 50%;
+}
+
+.order-page .order-page-container .menu-side .menus {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.order-page .order-page-container .menu-side .menus .menu-content {
+  background-color: var(--secondary-600);
+  color: white;
+  border-radius: 4px;
+  padding: 30px 20px;
+  width: 120px;
+  margin: 20px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+.a .table-data-container{
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* @media screen and (max-width: 1800px) {
+  .order-page .order-page-container .menu-side .menus .menu-content {
+    padding: 40px 20px;
+    width: 140px;
+    font-size: 24px;
+  }
+  .order-page .order-page-container .order-side .order-side-head h4 {
+    font-size: 24px;
+  }
+  .order-page
+    .order-page-container
+    .order-side
+    .product-order-container
+    .product-price
+    p {
+    font-size: 24px;
+  }
+
+  .order-page
+    .order-page-container
+    .order-side
+    .product-order-container
+    .product-price
+    button {
+    font-size: 22px;
+  }
+
+  .order-page .order-page-container .order-side .product-order-container .product-list ul li{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .order-page .order-page-container .menu-side .menus .menu-content {
+    padding: 30px 20px;
+    font-size: 16px;
+    width: 120px;
+  }
+  .order-page .order-page-container .order-side .order-side-head h4 {
+    font-size: 20px;
+  }
+  .order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-price
+  p {
+  font-size: 20px;
+}
+
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-price
+  button {
+  font-size: 20px;
+}
+.order-page .order-page-container .order-side .product-order-container .product-list ul li{
+  font-size: 16px;
+}
+} */
+
+@media screen and (max-width: 600px) {
+  .order-page .order-page-container .order-side .order-side-head {
+    flex-direction: column;
+  }
+  .tables-container .table-box {
+    width: 100px;
+    height: 100px;
+  }
+  .tables-container {
+    justify-content: center;
+  }
+  .order-page .order-page-container .menu-side .menus{
+    justify-content: center;
+  }
+  .order-page .order-page-container .order-side .order-side-head .order-side-content{
+    margin-bottom: 10px;
+  }
+}

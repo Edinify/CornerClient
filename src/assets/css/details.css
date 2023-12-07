@@ -43,7 +43,7 @@
 .details-table tr td:last-child,
 .details-table tr th:last-child {
   text-align: end;
-  width: 60px;
+  width: 120px;
   border-right: none;
 }
 

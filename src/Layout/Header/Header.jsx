@@ -7,7 +7,12 @@ import { SIDEBAR_ACTION_TYPE } from "../../redux/actions-type";
 
 export const Header = () => {
   const location = useLocation();
+  // const [openMenu, setOpenMenu] = useState(true);
   const dispatch = useDispatch();
+
+  // const handleOpenMenu = () => {
+  //   setOpenMenu(!openMenu);
+  // };
 
   const openSidebar = () => {
     dispatch({ type: SIDEBAR_ACTION_TYPE.SIDEBAR_OPEN_MODAL, payload: true });
@@ -75,6 +80,10 @@ export const Header = () => {
         return "Anbar";
         case "/menu":
           return "Menyu"
+          case "/workers":
+            return "İstifadəçi"
+            case "/checks":
+              return "Çeklər"
       default:
         return "";
     }

@@ -8,6 +8,8 @@ const Category = ({
   selectedCategoryList,
   categoryAddData,
 }) => {
+
+
   return (
     <>
         <div className="class-input">

@@ -21,7 +21,9 @@ export const MenuModal = () => {
   const { category } = useSelector((state) => state.category);
   const {warehouses} = useSelector(state=>state.warehouses);
   const categoryList = category?.filter((category) => category?.name);
-  const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const [selectedCategoryName, setSelectedCategoryName] = useState({
+    name:""
+  });
   const [categoryNameOpen, setCategoryNameOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
@@ -29,7 +31,9 @@ export const MenuModal = () => {
 
 
   const warehousesList = warehouses?.filter(ware=>ware.productName)
-  const [selectedWarehouseName, setSelectedWarehouseName] = useState("");
+  const [selectedWarehouseName, setSelectedWarehouseName] = useState({
+    productName:""
+  });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
 
 
@@ -65,7 +69,7 @@ export const MenuModal = () => {
   }
   const categoryNameAddData = (item) => {
     setInputValue("category",item.key)
-    updateModalState("category", item);
+    updateModalState("category", item.name);
     dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
     setSelectedCategoryName(item);
@@ -99,14 +103,27 @@ export const MenuModal = () => {
   };
 
   useEffect(() => {
-    if (menusModalData?._id && category) {
-      if (menusModalData.category) {
-        setSelectedCategoryName(
-          category.filter((item) => item._id === menusModalData.category)[0]
-        );
+    if (menusModalData?._id) {
+      if (menusModalData?.category) {
+        setSelectedCategoryName({
+          ...selectedCategoryName,
+          name: menusModalData.category,
+        });
       }
     }
-  }, [category]);
+  }, []);
+  useEffect(() => {
+    if (menusModalData?._id) {
+      if (menusModalData?.product) {
+        setSelectedWarehouseName({
+          ...selectedWarehouseName,
+          productName: menusModalData.product.productName,
+        });
+      }
+    }
+  }, []);
+
+
 
   useEffect(() => {
     dispatch(getCategoryAction(""));

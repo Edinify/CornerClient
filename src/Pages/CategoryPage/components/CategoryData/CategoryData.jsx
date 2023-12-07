@@ -44,7 +44,7 @@ const CategoryData = ({ categoryPageNum, getPageNumber }) => {
           </table>
 
           <div className="details-list-tablet course-list-mobile">
-            <h3 className="details-list-title">Fənn adı</h3>
+            <h3 className="details-list-title">Kateqoriya adı</h3>
             {category.map((courseName, i) => (
               <CategoryCard
                 key={i}
