@@ -19,7 +19,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
-  console.log(loading, "loading");
+  console.log(userCheck, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
@@ -28,7 +28,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
   const [status, setStatus] = useState(null);
 
-  console.log(totalMin);
+  // console.log(totalMin);
   const toastSuccess = (message) => {
     toast.success(message, {
       position: "top-right",
@@ -120,7 +120,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     }
   }, [userCheck.orders, userCheck.table]);
 
-  console.log(userCheck, "bla bla bla");
+  // console.log(userCheck, "bla bla bla");
   return (
     <div className="order-page">
       <div className="order-page-container">
@@ -150,7 +150,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
               <div className="table-data-container">
                 <div>Otağın depositi:{selectedTable.deposit}AZN </div>
-                <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice}</div>
+                <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice} AZN</div>
                 <div>Keçən müddət : {totalMin} dəqiqə</div>
               </div>
             </div>
