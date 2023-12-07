@@ -17,10 +17,13 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const setLoadingCheckction = (loadingValue) => ({
-  type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
-  payload: loadingValue,
-});
+export const setLoadingCheckction = (loadingValue) => (
+  console.log(loadingValue, "loadinggggg"),
+  {
+    type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
+    payload: loadingValue,
+  }
+);
 
 const toastSuccess = (message) => {
   toast.success(message, {
@@ -35,13 +38,13 @@ const toastSuccess = (message) => {
   });
 };
 export const createCheckAction = (checkData) => async (dispatch) => {
-  dispatch(setLoadingCheckction(true)) 
+  console.log(checkData, "test 111111");
+  dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.post("/", checkData);
     // console.log(data, "data");(data, "create check");
     toastSuccess("Yeni masa açıldı");
     dispatch({ type: CHECK_ACTION_TYPE.CREAT_USER_CHECK, payload: data });
-    
   } catch (error) {
     // console.log(data, "data");(error);
   }
@@ -70,7 +73,6 @@ export const updateUserCheckAction = (_id, checkData) => async (dispatch) => {
   } catch (error) {
     // console.log(data, "data");(error);
   }
-
 };
 
 export const addOrderAction = (order) => async (dispatch) => {
@@ -115,5 +117,9 @@ export const updateCheckAction = (_id, checkData) => async (dispatch) => {
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
+  }
+  finally{
+    dispatch(setLoadingCheckction(false));
+
   }
 };

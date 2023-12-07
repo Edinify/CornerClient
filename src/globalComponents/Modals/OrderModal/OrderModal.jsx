@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCheckAction } from "../../../redux/actions/checkAction";
 import { toast } from "react-toastify";
+import LoadingBtn from "../../Loading/components/LoadingBtn/LoadingBtn";
 
 const OrderModal = ({
   setOpenOrderModal,
@@ -9,13 +10,11 @@ const OrderModal = ({
   selectedTable,
   status,
   setStatus,
-  toastSuccess
-
+  toastSuccess,
 }) => {
   const { userCheck } = useSelector((state) => state.userCheck);
-  // const {loading} = useSelector(state=>state.checks);
+  const { loading } = useSelector((state) => state.checkLoading);
   const dispatch = useDispatch();
-  
 
   const changeCheckStatus = () => {
     if (status === "confirm") {
@@ -24,7 +23,6 @@ const OrderModal = ({
           ...userCheck,
           status: "confirmed",
         })
-        
       );
       toastSuccess("Sifariş təsdiqləndi");
     } else if (status === "cancel") {
@@ -59,8 +57,13 @@ const OrderModal = ({
               setOrderModal(false);
             }}
           >
-            
-            {status === "confirm" ? "Təstiqlə" : "Ləğv et"}
+            {loading ? (
+              <LoadingBtn />
+            ) : status === "confirm" ? (
+              "Təstiqlə"
+            ) : (
+              "Ləğv et"
+            )}
           </button>
         </div>
       </div>

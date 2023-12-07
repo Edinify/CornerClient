@@ -21,7 +21,7 @@ export default function InputField({
     },
     {
       inputName: "amount",
-      label: "Xərcin dəyəri",
+      label: "Xərcin miqdarı",
       type: "number",
       marginTop: "20px",
       marginBottom: "0",

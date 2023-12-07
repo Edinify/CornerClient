@@ -160,6 +160,19 @@
   .open-table {
   background-color: var(--secondary-600);
 }
+
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-bottom-container
+  .product-bottom-btns
+  .open-table
+  .lds-dual-ring
+   {
+    display: flex;
+    justify-content: center;
+   }
 .order-page
   .order-page-container
   .order-side
