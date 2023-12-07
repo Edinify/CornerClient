@@ -16,7 +16,6 @@ const OrderModal = ({
   const { userCheck } = useSelector((state) => state.userCheck);
   const { submitLoading } = useSelector((state) => state.checkLoading);
   const dispatch = useDispatch();
-  console.log(loading)
   const changeCheckStatus = () => {
     if (status === "confirm") {
       dispatch(
