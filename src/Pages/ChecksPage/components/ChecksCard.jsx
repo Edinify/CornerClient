@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { MENU_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import UpdateDeleteModal from "../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
 
-const ChecksCard = ({ data, mode,cellNumber }) => {
+const ChecksCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
+
+  console.log(data, "data");
 
   return (
     <>
@@ -19,18 +21,27 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text">{data.table?.name} <span>{data.table.tableNumber}</span></div>
+              <div className="table-scroll-text">
+                {data.table?.name} - <span>{data.table.tableNumber}</span>
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.orders.map((item,i)=>(
-                <ul key={i} >
-                  {console.log(item)}
-                <li>{item.order.productName}</li>
-                </ul>
-              ))}</div>
+              <div className="table-scroll-text phone">
+                {data.orders.map((item) => (
+                  <ul key={item._id}>
+                    <li>{item.order.productName}</li>
+                  </ul>
+                ))}
+              </div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+            <div className="td-con">
+              <div className="table-scroll-text phone">{data.table.deposit}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -47,7 +58,6 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
               data={data}
             />
           </td> */}
-         
         </tr>
       ) : (
         <div className="content-box">
@@ -58,8 +68,25 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
                 <p>{data.table?.category ? data.table?.category : "boş"}</p>
               </li>
               <li>
-                <span className="type">Masa:</span>
-                <p>{data.table?.name? data.table?.name: "boş"} - {data.table.tableNumber}</p>
+                <span className="type">Masa adı :</span>
+                <p>
+                  {data.table?.name ? data.table?.name : "boş"} -{" "}
+                  {data.table.tableNumber}
+                </p>
+              </li>
+              <li>
+                <span className="type">Sifarişlər :</span>
+                <div>
+                  {data.orders.map((item) => (
+                    <ul key={item._id}>
+                      <li>{item.order.productName}</li>
+                    </ul>
+                  ))}
+                </div>
+              </li>
+              <li>
+                <span className="type">Depozit:</span>
+                <p>{data.table.deposit}</p>
               </li>
               <li>
                 <span className="type">Ümumi vaxt:</span>
@@ -67,7 +94,6 @@ const ChecksCard = ({ data, mode,cellNumber }) => {
               </li>
             </ul>
           </div>
-
         </div>
       )}
     </>

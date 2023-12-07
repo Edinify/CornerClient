@@ -18,8 +18,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
 
-
-  
+  console.log(userCheck.table,"user check")
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
@@ -41,7 +40,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   };
 
 
-
   function getTimeDifference(targetDate) {
     const now = new Date();
     const target = new Date(targetDate);
@@ -56,46 +54,43 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
     // const seconds = Math.floor(diff / 1000);
 
-    return minutes
+    return minutes;
 
     // return `${hours} saat, ${minutes} dəqiqə, `;
   }
-  
-  let difference 
-  useEffect(() => {
-    
-    console.log(userCheck)
 
-    difference = getTimeDifference(
-      formatDate(new Date(userCheck?.createdAt))
-    );
+  // let difference;
 
-    // const intervalId = setInterval(() => {
-    //   const difference = getTimeDifference(
-    //     formatDate(new Date(userCheck.createdAt))
-    //   );
-    //   setTimeDifference(difference);
-    // }, 60000);
-// 
-    setTimeDifference(difference);
-  }, [userCheck]);
+  // useEffect(() => {
 
-  useEffect(()=>{
-    if(timeDifference !== null){
-      const intervalId = setInterval(() => {
-        const difference = getTimeDifference(
-          formatDate(new Date(userCheck?.createdAt))
-        );
-        setTimeDifference(difference);
-      }, 60000);
-  
-      setTimeDifference(difference);
-      return () => clearInterval(intervalId);
-    }
-    
-  },[timeDifference])
 
-  console.log(timeDifference)
+  //   difference = getTimeDifference(formatDate(new Date(userCheck?.createdAt)));
+
+  //   // const intervalId = setInterval(() => {
+  //   //   const difference = getTimeDifference(
+  //   //     formatDate(new Date(userCheck.createdAt))
+  //   //   );
+  //   //   setTimeDifference(difference);
+  //   // }, 60000);
+  //   //
+  //   setTimeDifference(difference);
+  // }, [userCheck]);
+
+  // useEffect(() => {
+  //   console.log(timeDifference,"time")
+  //   if (timeDifference !== null) {
+  //     const intervalId = setInterval(() => {
+  //       const difference = getTimeDifference(
+  //         formatDate(new Date(userCheck?.createdAt))
+  //       );
+  //       setTimeDifference(difference);
+  //     }, 60000);
+
+  //     setTimeDifference(difference);
+  //     return () => clearInterval(intervalId);
+  //   }
+  // }, [timeDifference]);
+
 
   const createOrder = () => {
     console.log("salam 123");
@@ -165,7 +160,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="table-data-container">
                 <div>Otağın depositi:{selectedTable.deposit}AZN </div>
                 <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice}</div>
-                <div> saat: {timeDifference}</div>
+                {/* <div> saat: {timeDifference}</div> */}
               </div>
             </div>
 
@@ -207,14 +202,24 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                     className="open-table"
                     onClick={() => {
                       createOrder(selectedTable);
-                      setOpenOrderModal(true);
+                      // setOpenOrderModal(true);
                       // setOrderModal(false);
                     }}
                   >
-                    {selectedTable.checkId ? "Yenilə" : "Masa aç"}
+                    Masa aç
                   </button>
-                  {selectedTable.checkId && (
+                  {selectedTable?.checkId && (
                     <>
+                    <button
+                    className="open-table"
+                    onClick={() => {
+                      createOrder(selectedTable);
+                      // setOpenOrderModal(true);
+                      // setOrderModal(false);
+                    }}
+                  >
+                   Yenilə
+                  </button>
                       <button
                         className="confirm-table"
                         onClick={() => {

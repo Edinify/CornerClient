@@ -11,12 +11,13 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
 
   const tableHead = [
     { id: 1, label: "Kateqoriya" },
-    { id: 2, label: "Masa" },
-    {id:3,label:"Sifarişlər"},
+    { id: 2, label: "Masa adı" },
+    { id: 3, label: "Sifarişlər" },
+    { id: 4, label: "Depozit" },
     { id: 5, label: "Ümumi vaxt" },
   ];
 
-  console.log(checks,"check")
+  console.log(checks, "check");
 
   return (
     <>

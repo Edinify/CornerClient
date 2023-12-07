@@ -4,6 +4,7 @@ const initialState = {
   expensesModalData: { category: "", appointment: "", amount: "", date: "" },
   expensesOpenModal: false,
   expensesModalLoading: false,
+  expensesActivateGet:false
 };
 
 export const expensesModalReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ export const expensesModalReducer = (state = initialState, action) => {
         ...state,
         expensesModalLoading: action.payload,
       };
+      case EXPENSES_MODAL_ACTION_TYPE.EXPENSES_MODAL_ACTIVATE_GET:
+        return {
+          ...state,
+          expensesActivateGet: action.payload,
+        };
     default:
       return state;
   }

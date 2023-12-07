@@ -76,6 +76,7 @@ export const createExpensesAction=(expensesData)=>async(dispatch)=>{
     dispatch({type:EXPENSES_ACTION_TYPE.CREATE_EXPENSES,payload:data})
     dispatch(getExpensesAction())
     dispatch(expensesModalOpen(false))
+    dispatch({type:EXPENSES_MODAL_ACTION_TYPE.EXPENSES_MODAL_ACTIVATE_GET,payload:"create"})
     toastSuccess("Yeni mədaxil yaradıldı")
   } catch (error) {
     console.log(error)
@@ -91,6 +92,7 @@ export const updateExpensesAction=(_id,expensesData)=> async(dispatch)=>{
   try {
     const {data} = await API.patch(`/${_id}`,expensesData);
     dispatch({type:EXPENSES_ACTION_TYPE.UPDATE_EXPENSES,payload:data})
+    dispatch({type:EXPENSES_MODAL_ACTION_TYPE.EXPENSES_MODAL_ACTIVATE_GET,payload:"update"})
     dispatch(expensesModalOpen(false))
     toastSuccess("Mədaxil yeniləndi")
   } catch (error) {
@@ -105,6 +107,7 @@ export const deleteExpensesAction=(_id)=>async(dispatch)=>{
   try {
       await API.delete(`/${_id}`)
       dispatch({type:EXPENSES_ACTION_TYPE.DELETE_EXPENSES,payload:_id})
+      dispatch({type:EXPENSES_MODAL_ACTION_TYPE.EXPENSES_MODAL_ACTIVATE_GET,payload:"delete"})
       toastSuccess("mədaxil silindi")
   } catch (error) {
     console.log(error)
