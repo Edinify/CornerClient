@@ -71,7 +71,7 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
     });
     dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingCategoryAction(false));
   }
@@ -89,7 +89,7 @@ export const createCategoryAction = (categoryData) => async (dispatch) => {
     if ((error.response.data.key = "category-already-exists")) {
       toastError("Bu kateqoriya mövcuddur");
     }
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(categoryModalLoading(false));
   }
@@ -104,7 +104,7 @@ export const updateCategoryAction = (_id, categoryData) => async (dispatch) => {
     dispatch(categoryModalOpen(false));
     toastSuccess(" Kateqoriya yeniləndi");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(categoryModalLoading(false));
   }
@@ -116,6 +116,6 @@ export const deleteCategoryAction = (_id) => async (dispatch) => {
     dispatch({ type: CATEGORY_ACTION_TYPE.DELETE_CATEGORY, payload: _id });
     toastSuccess(" Kateqoriya silinidi");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
 };

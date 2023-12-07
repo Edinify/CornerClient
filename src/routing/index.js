@@ -33,7 +33,7 @@ export const Routing = () => {
     
     if (userAuth?.role === "user" && !notFound) {
       if (location.pathname.startsWith("/login")) {
-        // console.log(userAuth?.role === "user" && !notFound)
+        // // console.log(data, "data");(userAuth?.role === "user" && !notFound)
         navigate("/workers");
       }
     }
@@ -68,7 +68,7 @@ export const Routing = () => {
 
  
   const [notFound, setNotFound] = useState(false);
-  // console.log(userAuth?.role === "user")
+  // // console.log(data, "data");(userAuth?.role === "user")
   return (
     <div className={show ? "" : "main-container"}>
       {!show &&  <Sidebar />}

@@ -76,7 +76,7 @@ export const ChangePass = () => {
         navigate("/login");
       })
       .catch((error) => {
-       console.log(error)
+       // console.log(data, "data");(error)
       });
   };
   

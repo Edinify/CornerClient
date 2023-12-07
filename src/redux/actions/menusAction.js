@@ -71,7 +71,7 @@ export const getMenusAction = (pageNumber) => async (dispatch) => {
     dispatch({ type: MENU_ACTION_TYPE.GET_MENU, payload: data });
     dispatch({type:MENU_ACTION_TYPE.GET_MENU_LAST_PAGE,payload:pageNumber})
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
   finally{
     dispatch(setLoadingMenuAction(false))
@@ -83,7 +83,7 @@ export const getMenusUserAction = () => async (dispatch) => {
     const { data } = await APIUSER.get("/");
     dispatch({ type: MENU_USER_ACTION_TYPE.GET_MENU_USER, payload: data });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
   finally{
     dispatch(setLoadingMenuAction(false))
@@ -99,7 +99,7 @@ export const createMenusAction = (menuData) => async (dispatch) => {
     toastSuccess("Yeni məhsul yaradıldı")
 
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
   finally{
     dispatch(menuModalLoading(false))
@@ -108,7 +108,7 @@ export const createMenusAction = (menuData) => async (dispatch) => {
 
 export const updateMenusAction = (_id, menuData) => async (dispatch) => {
   dispatch(menuModalLoading(true))
-  console.log(menuData)
+  // console.log(data, "data");(menuData)
   try {
     const { data } = await API.patch(`/${_id}`, menuData);
     
@@ -116,7 +116,7 @@ export const updateMenusAction = (_id, menuData) => async (dispatch) => {
     dispatch(menuModalOpen(false))
     toastSuccess("Məhsul yeniləndi")
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
   finally{
     dispatch(menuModalLoading(false))
@@ -129,6 +129,6 @@ export const deleteMenusAction = (_id) => async (dispatch) => {
     dispatch({ type: MENU_ACTION_TYPE.DELETE_MENU, payload: _id });
     toastSuccess("Məhsul silindi")
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
 };

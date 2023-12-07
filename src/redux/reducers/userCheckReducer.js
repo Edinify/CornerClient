@@ -18,7 +18,7 @@ export const userCheckReducer = (state = initialState, action) => {
         userCheck: action.payload,
       };
     case CHECK_ACTION_TYPE.GET_USER_CHECK:
-      // console.log(action.payload)
+      // // console.log(data, "data");(action.payload)
       return {
         ...state,
         userCheck: { ...state.userCheck, ...action.payload },

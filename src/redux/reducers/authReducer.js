@@ -8,7 +8,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_ALL_ACTION_TYPE.LOGIN:
-      // console.log(action.payload.data);
+      // // console.log(data, "data");(action.payload.data);
       localStorage.setItem("auth", JSON.stringify(action.payload.data));
       return {
         ...state,

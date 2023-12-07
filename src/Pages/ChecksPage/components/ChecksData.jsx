@@ -17,7 +17,7 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
     { id: 5, label: "Ümumi vaxt" },
   ];
 
-  console.log(checks, "check");
+  // console.log(data, "data");(checks, "check");
 
   return (
     <>

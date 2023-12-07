@@ -6,7 +6,7 @@ import UpdateDeleteModal from "../../../globalComponents/Modals/UpdateDeleteModa
 const ChecksCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
-  console.log(data, "data");
+  // // console.log(data, "data");(data, "data");
 
   return (
     <>

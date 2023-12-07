@@ -19,7 +19,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
-  console.log(loading, "loading");
+  // console.log(data, "data");(loading, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
@@ -29,7 +29,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
   const [status, setStatus] = useState(null);
 
-  console.log(totalMin);
+  // console.log(data, "data");(totalMin);
   const toastSuccess = (message) => {
     toast.success(message, {
       position: "top-right",
@@ -93,11 +93,11 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     };
 
     if (userCheck?.createdAt) {
-      console.log(userCheck.createdAt);
+      // console.log(data, "data");(userCheck.createdAt);
       setTotalMin(calcMinute());
 
       const intervalId = setInterval(() => {
-        console.log("salam");
+        // console.log(data, "data");("salam");
         setTotalMin(calcMinute());
       }, 60000);
 
@@ -109,7 +109,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     }
   }, [userCheck]);
 
-  console.log(userCheck, "bla bla bla");
+  // console.log(data, "data");(userCheck, "bla bla bla");
   return (
     <div className="order-page">
       <div className="order-page-container">
