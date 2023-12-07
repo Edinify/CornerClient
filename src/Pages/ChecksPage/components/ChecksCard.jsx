@@ -41,9 +41,16 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
               <div className="right-fade"></div>
             </div>
           </td>
+         
           <td>
             <div className="td-con">
               <div className="table-scroll-text phone">{data.table.deposit}</div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+            <div className="td-con">
+              <div className="table-scroll-text phone">{data.totalPayment}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -89,6 +96,10 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
               <li>
                 <span className="type">Depozit:</span>
                 <p>{data.table.deposit}</p>
+              </li>
+              <li>
+                <span className="type">Ümumi məbləğ:</span>
+                <p>{data.totalPayment}</p>
               </li>
               <li>
                 <span className="type">Ümumi vaxt:</span>

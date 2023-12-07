@@ -14,6 +14,7 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
     { id: 2, label: "Masa adı" },
     { id: 3, label: "Sifarişlər" },
     { id: 4, label: "Depozit" },
+    { id: 6, label: "Ümumi məbləğ" },
     { id: 5, label: "Ümumi vaxt" },
   ];
 
