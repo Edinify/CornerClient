@@ -25,6 +25,14 @@ export const setLoadingCheckction = (loadingValue) => (
   }
 );
 
+export const setLoadingSubmitCheckction = (loadingValue) => (
+  console.log(loadingValue, "loadinggggg"),
+  {
+    type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
+    payload: loadingValue,
+  }
+);
+
 const toastSuccess = (message) => {
   toast.success(message, {
     position: "top-right",
@@ -57,6 +65,7 @@ export const getCheckUserAction = (_id) => async (dispatch) => {
   dispatch(setLoadingCheckction(true))
   try {
     const { data } = await API.get(`/${_id}`);
+    console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
@@ -97,7 +106,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    // // console.log(data, "data");(data)
+    console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
     dispatch({
       type: CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,
@@ -111,16 +120,16 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
 };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
-  dispatch(setLoadingCheckction(true));
-  // console.log(data, "data");(checkData, "salam necesen");
+  dispatch(setLoadingSubmitCheckction(true));
+
   try {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
   }
-  finally{
-    dispatch(setLoadingCheckction(false));
+  // finally{
+  //   dispatch(setLoadingCheckction(false));
 
-  }
+  // }
 };

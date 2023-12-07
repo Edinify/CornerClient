@@ -4,10 +4,7 @@ import { MENU_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import UpdateDeleteModal from "../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
 
 const ChecksCard = ({ data, mode, cellNumber }) => {
-  const dispatch = useDispatch();
-
-  // // console.log(data, "data");(data, "data");
-
+  console.log(data.table.oneMinutePrice, "data");
   return (
     <>
       {mode === "desktop" ? (
@@ -32,24 +29,44 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
               <div className="table-scroll-text phone">
                 {data.orders.map((item) => (
                   <ul key={item._id}>
-                    <li>
-                      <span>{item.order.product.productName}</span>
-                    </li>
+                    {/* <li> */}
+                      <span>
+                        {item.order.product.productName} - {item.orderCount}{" "}
+                        ədəd{" "}
+                      </span>
+                    {/* </li> */}
                   </ul>
                 ))}
               </div>
               <div className="right-fade"></div>
             </div>
           </td>
+
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.table.deposit}</div>
+              <div className="table-scroll-text phone">
+                {data.table.deposit}
+              </div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+            <div className="td-con">
+              <div className="table-scroll-text phone">{data.totalPayment}</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
               <div className="table-scroll-text phone">{data.totalDate}</div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+            <div className="td-con">
+              <div className="table-scroll-text phone">
+                {data.table.oneMinutePrice}
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -91,8 +108,16 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
                 <p>{data.table.deposit}</p>
               </li>
               <li>
+                <span className="type">Ümumi məbləğ:</span>
+                <p>{data.totalPayment}</p>
+              </li>
+              <li>
                 <span className="type">Ümumi vaxt:</span>
                 <p>{data.totalDate}</p>
+              </li>
+              <li>
+                <span className="type">1 dəq-lik qiymət:</span>
+                <p>{data.table.oneMinutePrice}</p>
               </li>
             </ul>
           </div>

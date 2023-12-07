@@ -6,6 +6,7 @@ import UpdateDeleteModal from "../../../../globalComponents/Modals/UpdateDeleteM
 const TablesCard = ({ data, mode,cellNumber }) => {
   const dispatch = useDispatch();
 
+
   const updateItem = () => {
     const { category,
       deposit,

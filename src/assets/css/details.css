@@ -48,6 +48,12 @@
   width: 120px;
   border-right: none;
 }
+.details-table.check-table tr td:last-child,
+.details-table.checl-table tr th:last-child {
+  /* width: 200px; */
+  border-right: none;
+}
+
 
 .details-table.menu-table tr td:nth-last-child(2),
 .details-table.menu-table tr th:nth-last-child(2),
