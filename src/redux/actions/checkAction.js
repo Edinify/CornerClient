@@ -106,11 +106,16 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
 };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
-  console.log(checkData, "salam necesen");
+  dispatch(setLoadingCheckction(true));
+
   try {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
     console.log(error);
+  }
+  finally{
+    dispatch(setLoadingCheckction(false));
+
   }
 };

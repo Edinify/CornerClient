@@ -7,7 +7,6 @@ import Loading from "../../../globalComponents/Loading/Loading";
 const WorkersData = ({ orderModal, setOrderModal }) => {
   const { userTables,loading } = useSelector((state) => state.userTables);
 
-  console.log(loading,"user loading")
 
   const [selectedTable, setSelectedTable] = useState(null);
 

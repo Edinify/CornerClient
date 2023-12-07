@@ -19,7 +19,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
-  console.log(loading, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
@@ -49,7 +48,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       toastSuccess("Sifariş yeniləndi");
     } else {
       dispatch(createCheckAction(userCheck));
-      // dispatch({type:CHECK_ACTION_TYPE.CHECK_USER_LOADING,payload:true})
     }
   };
 
