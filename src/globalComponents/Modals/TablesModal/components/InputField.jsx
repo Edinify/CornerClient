@@ -20,7 +20,7 @@ export default function InputField({
     },
     {
       inputName: "oneMinutePrice",
-      label: "Dəqiqə başına qiymət",
+      label: "Saat başına qiymət",
       type: "number",
       marginTop: "24px",
       marginBottom: "0",
