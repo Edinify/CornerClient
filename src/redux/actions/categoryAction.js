@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const API = axios.create({
   baseURL: `${apiRoot}/category`,
-   // withCredentials: true,
+   withCredentials: true,
 });
 
 API.interceptors.request.use((req) => {
@@ -64,6 +64,24 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
+
+    dispatch({
+      type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
+      payload: pageNumber,
+    });
+    dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
+  } catch (error) {
+    // console.log(data, "data");(error);
+  } finally {
+    dispatch(setLoadingCategoryAction(false));
+  }
+};
+
+export const getCategoryProductAction = (pageNumber) => async (dispatch) => {
+  dispatch(setLoadingCategoryAction(true));
+  try {
+    console.log('getCategoryProductAction')
+    const { data } = await API.get('/product');
 
     dispatch({
       type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,

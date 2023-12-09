@@ -10,7 +10,7 @@ import InputField from "./components/InputField";
 import SubmitBtn from "./components/SubmitBtn";
 import CategoryLists from "./components/CategoryList";
 import { getCategoryAction } from "../../../redux/actions/categoryAction";
-import { getWarehouseAction } from "../../../redux/actions/wareHouseAction";
+import { getWarehouseAction, getWarehouseActionList } from "../../../redux/actions/wareHouseAction";
 import WarehouseLists from "./components/WarehouseLists";
 import { useFormik } from "formik";
 import {ValidationSchema} from "./components/ValidationSchema"
@@ -127,7 +127,7 @@ export const MenuModal = () => {
 
   useEffect(() => {
     dispatch(getCategoryAction(""));
-    dispatch(getWarehouseAction())
+    dispatch(getWarehouseActionList())
   }, []);
 
   return (
