@@ -102,12 +102,15 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
   useEffect(() => {
     const deposit = userCheck.table.deposit;
+    const oneMinutePrice = userCheck.table.oneMinutePrice / 60 || 0;
+
+    console.log(oneMinutePrice * 10);
+
     const ordersPrice =
       userCheck.orders.reduce(
         (total, item) => total + item.order.price * item.orderCount,
         0
-      ) +
-      (userCheck.table.oneMinutePrice || 0) * userCheck.totalDate;
+      ) + parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2));
 
     if (deposit && deposit > ordersPrice) {
       dispatch({
@@ -151,9 +154,11 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
 
               <div className="table-data-container">
-                <div>Otağın depositi:{selectedTable.deposit}AZN </div>
-                <div>1 dəq-lik ödəniş:{selectedTable.oneMinutePrice} AZN</div>
-                <div>Keçən müddət : {totalMin} dəqiqə</div>
+                <div>Otağın depositi: {userCheck.table.deposit} AZN </div>
+                <div>
+                  1 saatlıq qiymət: {userCheck.table.oneMinutePrice || 0} AZN
+                </div>
+                <div>Keçən müddət: {totalMin} dəqiqə</div>
               </div>
             </div>
 
@@ -162,9 +167,24 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 <ul>
                   {userCheck.orders.map((item) => (
                     <li key={item.order._id}>
-                      {item.order.product.productName} - {item.orderCount}{" "}
-                      {item.order.product.unitMeasure} -
-                      {item.order?.price * item.orderCount}AZN {"   "}
+                      <span>
+                        {item.order.product.productName} -{" "}
+                        <div
+                          style={{
+                            color: "white",
+                            backgroundColor: "#05a5ea",
+                            display: "inline-flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width: "28px",
+                            height: "28px",
+                            borderRadius: "50%",
+                          }}
+                        >
+                          <span>{item.orderCount}</span>
+                        </div>{" "}
+                        - {item.order?.price * item.orderCount}AZN {"   "}
+                      </span>
                       <button
                         className="decrease-btn"
                         onClick={() => removeOrder(item.order)}
@@ -185,7 +205,19 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-bottom-container">
                 {/* <div className="product-price"> */}
 
-                <p>Hesab: {userCheck.totalPayment} AZN </p>
+                <div
+                  style={{
+                    backgroundColor: "#05a5ea",
+                    width: "200px",
+                    textAlign: "center",
+                    padding: "10px 0",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <p style={{ color: "white" }}>
+                    Hesab: {userCheck.totalPayment} AZN{" "}
+                  </p>
+                </div>
                 <div className="product-bottom-btns">
                   <button
                     className="open-table"

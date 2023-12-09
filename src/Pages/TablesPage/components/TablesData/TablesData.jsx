@@ -5,16 +5,14 @@ import { Pagination } from "antd";
 import Loading from "../../../../globalComponents/Loading/Loading";
 import { TABLES_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
 
-const TablesData = ({ tablePageNum,getPageNumber }) => {
+const TablesData = ({ tablePageNum, getPageNumber }) => {
   const { tables, loading, totalPages } = useSelector((state) => state.tables);
-
-
 
   const tableHead = [
     { id: 1, label: "Masa nömrəsi" },
     { id: 2, label: "Kateqoriya" },
     { id: 4, label: "Depozit" },
-    { id: 5, label: "Dəqiqə başına qiymət" },
+    { id: 5, label: "Saat başına qiymət" },
     { id: 7, label: "Masa adı" },
     { id: 3, label: "", type: "more-options-head" },
   ];
