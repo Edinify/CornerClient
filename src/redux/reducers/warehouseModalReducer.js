@@ -2,6 +2,7 @@ import { WAREHOUSE_M0DAL_ACTION_TYPE } from "../actions-type";
 
 const initialState = {
   warehouseModalData: {
+    category:"",
     productName: "",
     unitMeasure: "",
     totalAmount: "",

@@ -8,11 +8,11 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
   const updateItem = () => {
-    const { productName, _id, totalAmount, unitMeasure } = data;
+    const { productName, _id, totalAmount, unitMeasure ,category} = data;
     dispatch({
       type: WAREHOUSE_M0DAL_ACTION_TYPE.GET_WAREHOUSE_MODAL,
       payload: {
-        data: { productName, _id, totalAmount, unitMeasure },
+        data: { productName, _id, totalAmount, unitMeasure,category },
         openModal: true,
       },
     });
@@ -28,6 +28,12 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="cell-number">{cellNumber}.</div>
+              <div className="table-scroll-text">{data.category}</div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+            <div className="td-con">
               <div className="table-scroll-text">{data.productName}</div>
               <div className="right-fade"></div>
             </div>
@@ -56,6 +62,10 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
         <div className="content-box">
           <div className="left">
             <ul>
+            <li>
+                <span className="type">Kateqoriya:</span>
+                <p>{data.category ? data.category : "boş"}</p>
+              </li>
               <li>
                 <span className="type">Məhsulun adı:</span>
                 <p>{data.productName ? data.productName : "boş"}</p>

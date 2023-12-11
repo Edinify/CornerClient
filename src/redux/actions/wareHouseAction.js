@@ -63,7 +63,7 @@ export const getWarehouseAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data)
+    // console.log(data)
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE, payload: data });
     dispatch({type:WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LAST_PAGE,payload:pageNumber})
   } catch (error) {
@@ -74,13 +74,12 @@ export const getWarehouseAction = (pageNumber) => async (dispatch) => {
 };
 
 
-export const getWarehouseActionList = (pageNumber) => async (dispatch) => {
+export const getWarehouseActionList = (categoryId) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
-    const { data } = await API.get("/list");
-    console.log(data)
+    const { data } = await API.get(`/list?categoryId=${categoryId}`);
+    console.log(data,"list")
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST, payload: data });
-    dispatch({type:WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LAST_PAGE,payload:pageNumber})
   } catch (error) {
     // console.log(data, "data");(error);
   } finally {

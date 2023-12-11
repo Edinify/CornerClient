@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import InputField from "./components/InputField";
 import SubmitBtn from "./components/SubmitBtn";
 import CategoryLists from "./components/CategoryList";
-import { getCategoryAction } from "../../../redux/actions/categoryAction";
 import { getWarehouseAction, getWarehouseActionList } from "../../../redux/actions/wareHouseAction";
 import WarehouseLists from "./components/WarehouseLists";
 import { useFormik } from "formik";
@@ -28,6 +27,7 @@ export const MenuModal = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
   const inputArr = [ "price", "unitAmount"];
+
 
 
   const warehousesList = warehouses?.filter(ware=>ware.productName)

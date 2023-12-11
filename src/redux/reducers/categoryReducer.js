@@ -5,6 +5,7 @@ const initialState = {
   totalPages: 1,
   lastPage: "",
   loading: false,
+  
 };
 
 export const categoryReducer = (state =initialState, action) => {
@@ -43,6 +44,11 @@ export const categoryReducer = (state =initialState, action) => {
             ...state,
             lastPage:action.payload
           }
+          case CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY:
+            return{
+              ...state,
+              category:action.payload.categories
+            }
     default:
       return state;
   }

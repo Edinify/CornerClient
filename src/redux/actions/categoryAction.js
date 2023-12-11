@@ -77,17 +77,13 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   }
 };
 
-export const getCategoryProductAction = (pageNumber) => async (dispatch) => {
+export const getCategoryBaseAction = (categoryKey) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
     console.log('getCategoryProductAction')
-    const { data } = await API.get('/product');
+    const { data } = await API.get(`/all?categoryKey=${categoryKey}`);
 
-    dispatch({
-      type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
-      payload: pageNumber,
-    });
-    dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
+    dispatch({ type: CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
   } finally {
