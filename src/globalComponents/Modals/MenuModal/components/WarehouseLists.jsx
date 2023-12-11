@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getWarehouseAction } from "../../../../redux/actions/wareHouseAction";
 
 const WarehouseLists = ({
     setSelectedWarehouseName,
@@ -14,6 +15,7 @@ const WarehouseLists = ({
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
+  const dispatch = useDispatch()
 
 
   const searchData = (e) => {
@@ -21,6 +23,10 @@ const WarehouseLists = ({
     setSelectedWarehouseName("");
     setWarehouseNameOpen(true);
   };
+
+  useEffect(()=>{
+    dispatch(getWarehouseAction())
+  },[])
 
 
   const changeOpenDropdown = () => {

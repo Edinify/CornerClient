@@ -125,10 +125,6 @@ export const MenuModal = () => {
 
 
 
-  useEffect(() => {
-    dispatch(getCategoryAction(""));
-    dispatch(getWarehouseAction())
-  }, []);
 
   return (
     <div className="create-update-modal-con bonus-modal">

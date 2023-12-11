@@ -102,6 +102,9 @@
   align-items: center;
   position: relative;
 }
+.details-table .more{
+  cursor: pointer;
+}
 .details-table tr td:last-child .delete-modal {
   display: flex;
   align-items: center;
