@@ -162,7 +162,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   {userCheck.orders.map((item) => (
                     <li key={item.order._id}>
                       {item.order.product.productName} - {item.orderCount}{" "}
-                      {item.order.product.unitMeasure} -
+                      {/* {item.order.product.unitMeasure} - */}
                       {item.order?.price * item.orderCount}AZN {"   "}
                       <button
                         className="decrease-btn"
