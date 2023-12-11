@@ -48,6 +48,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       toastSuccess("Sifariş yeniləndi");
     } else {
       dispatch(createCheckAction(userCheck));
+      // dispatch({type:CHECK_ACTION_TYPE.CHECK_USER_LOADING,payload:true})
     }
   };
 
@@ -82,11 +83,11 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     };
 
     if (userCheck?.createdAt) {
-      console.log(userCheck.createdAt);
+      // console.log(data, "data");(userCheck.createdAt);
       setTotalMin(calcMinute());
 
       const intervalId = setInterval(() => {
-        console.log("salam");
+        // console.log(data, "data");("salam");
         setTotalMin(calcMinute());
       }, 60000);
 

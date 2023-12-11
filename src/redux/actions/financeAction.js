@@ -5,7 +5,7 @@ import { logoutAction } from "./auth";
 
 const API = axios.create({
   baseURL: `${apiRoot}/finance`,
-   // withCredentials:true
+   withCredentials:true
 });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {
@@ -19,7 +19,7 @@ API.interceptors.request.use((req) => {
 
 const refreshApi = axios.create({
   baseURL: `${apiRoot}/user/auth/refresh_token`,
-   // withCredentials:true
+   withCredentials:true
 });
 
 export const getFinanceChartAction =
@@ -57,7 +57,7 @@ export const getFinanceChartAction =
             payload: data,
           });
         } catch (error) {
-          console.log(error);
+          // console.log(data, "data");(error);
           if (error?.response?.status === 401) {
             return dispatch(logoutAction());
           }
@@ -79,7 +79,7 @@ export const getFinanceDataAction =
         payload: data,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(data, "data");(error);
       const originalRequest = error.config;
       if (error?.response?.status === 403 && !originalRequest._retry) {
         originalRequest._retry = true;
@@ -97,13 +97,13 @@ export const getFinanceDataAction =
               endDate || ""
             }&monthCount=${monthCount}`
           );
-          // console.log(data)
+          // // console.log(data, "data");(data)
           dispatch({
             type: FINANCE_ACTIONS_TYPE.GET_FINANCE_DATA,
             payload: data,
           });
         } catch (error) {
-          console.log(error);
+          // console.log(data, "data");(error);
           if (error?.response?.status === 401) {
             return dispatch(logoutAction());
           }
