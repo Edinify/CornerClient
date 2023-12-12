@@ -4,9 +4,11 @@ import { getMenusUserAction } from "../../redux/actions/menusAction";
 import OrderModal from "../../globalComponents/Modals/OrderModal/OrderModal";
 import {
   addOrderAction,
+  addSetAction,
   createCheckAction,
   getCheckUserAction,
   removeOrderAction,
+  removeSetAction,
   updateCheckAction,
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
@@ -57,6 +59,14 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
   const removeOrder = (order) => {
     dispatch(removeOrderAction(order));
+  };
+
+  const addSet = (set) => {
+    dispatch(addSetAction(set));
+  };
+
+  const removeSet = (set) => {
+    dispatch(removeSetAction(set));
   };
 
   useEffect(() => {

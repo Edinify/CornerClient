@@ -55,7 +55,7 @@ export const createCheckAction = (checkData) => async (dispatch) => {
 export const getCheckUserAction = (_id) => async (dispatch) => {
   try {
     const { data } = await API.get(`/${_id}`);
-    console.log(data)
+    console.log(data);
     dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
   } catch (error) {
     console.log(error);
@@ -87,13 +87,29 @@ export const removeOrderAction = (order) => async (dispatch) => {
   }
 };
 
+export const addSetAction = (set) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.ADD_SET_ACTION, payload: set });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const removeSetAction = (set) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.REMOVE_SET_ACTION, payload: set });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // admin check action
 
 export const getCheckAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data)
+    console.log(data);
     dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
     dispatch({
       type: CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,
@@ -114,9 +130,7 @@ export const updateCheckAction = (_id, checkData) => async (dispatch) => {
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
     console.log(error);
-  }
-  finally{
+  } finally {
     dispatch(setLoadingCheckction(false));
-
   }
 };
