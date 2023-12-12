@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import InputField from "./components/InputField";
 import SubmitBtn from "./components/SubmitBtn";
 import CategoryLists from "./components/CategoryList";
-import { getCategoryAction } from "../../../redux/actions/categoryAction";
-import { getWarehouseAction } from "../../../redux/actions/wareHouseAction";
 import WarehouseLists from "./components/WarehouseLists";
 import { useFormik } from "formik";
 import {ValidationSchema} from "./components/ValidationSchema"
@@ -28,6 +26,7 @@ export const MenuModal = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
   const inputArr = [ "price", "unitAmount"];
+
 
 
   const warehousesList = warehouses?.filter(ware=>ware.productName)
@@ -125,10 +124,6 @@ export const MenuModal = () => {
 
 
 
-  useEffect(() => {
-    dispatch(getCategoryAction(""));
-    dispatch(getWarehouseAction())
-  }, []);
 
   return (
     <div className="create-update-modal-con bonus-modal">

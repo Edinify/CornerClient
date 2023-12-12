@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Pagination } from "antd";
 import Loading from "../../../globalComponents/Loading/Loading";
 import ChecksCard from "./ChecksCard";
+import { useState } from "react";
+import MoreModal from "../../../globalComponents/Modals/MoreModal/MoreModal";
 
 const ChecksData = ({ menusPageNum, getPageNumber }) => {
   const { loading, totalPages } = useSelector((state) => state.checks);
-
+  const [selectedMoreDetails, setSelectedMoreDetails] = useState(null);
   const { checks } = useSelector((state) => state.checks?.checks);
+  const [openMoreModal, setOpenMoreModal] = useState(false);
 
   const tableHead = [
     { id: 1, label: "Kateqoriya" },
@@ -16,17 +18,28 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
     { id: 4, label: "Depozit" },
     { id: 6, label: "Ümumi məbləğ" },
     { id: 5, label: "Ümumi vaxt" },
+    { id: 7, label: "1 saatlıq qiymət" },
+    { id: 8, label: "Çekin yaranma tarixi" },
+    { id: 9, label: "" },
   ];
 
-  console.log(checks, "check");
 
+  const openMoreDetails = (data) => {
+    setSelectedMoreDetails(data);
+  };
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <>
-          <table className="details-table teacher-table">
+        {openMoreModal && (
+            <MoreModal
+              data={selectedMoreDetails}
+              setOpenMoreModal={setOpenMoreModal}
+            />
+          )}
+          <table className="details-table check-table">
             <thead>
               <tr>
                 {tableHead.map((head, i) => (
@@ -44,6 +57,8 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
                   data={item}
                   mode="desktop"
                   cellNumber={i + 1 + (menusPageNum - 1) * 10}
+                  setOpenMoreModal={setOpenMoreModal}
+                  openMoreDetails={openMoreDetails}
                 />
               ))}
             </tbody>
@@ -56,6 +71,8 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
                 data={item}
                 mode="tablet"
                 cellNumber={i + 1 + (menusPageNum - 1) * 10}
+                setOpenMoreModal={setOpenMoreModal}
+                openMoreDetails={openMoreDetails}
               />
             ))}
           </div>
@@ -67,6 +84,7 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
                 defaultCurrent={1}
                 total={totalPages * 10}
                 onChange={getPageNumber}
+                
               />
             </div>
           )}

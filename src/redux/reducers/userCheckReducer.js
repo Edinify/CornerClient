@@ -19,7 +19,7 @@ export const userCheckReducer = (state = initialState, action) => {
         userCheck: action.payload,
       };
     case CHECK_ACTION_TYPE.GET_USER_CHECK:
-      // console.log(action.payload)
+      // // console.log(data, "data");(action.payload)
       return {
         ...state,
         userCheck: { ...state.userCheck, ...action.payload },
@@ -140,14 +140,8 @@ export const userCheckReducer = (state = initialState, action) => {
           totalPayment: null,
           status: "open",
         },
-        loading: false,
       };
     }
-    case CHECK_ACTION_TYPE.CHECK_USER_LOADING:
-      return {
-        ...state,
-        loading: action.payload,
-      };
     default:
       return state;
   }

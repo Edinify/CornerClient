@@ -7,7 +7,7 @@ import { apiRoot } from "../../apiRoot";
 
 const API = axios.create({
   baseURL: `${apiRoot}/user`,
-   // withCredentials:true
+   withCredentials:true
 });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {
@@ -21,7 +21,7 @@ API.interceptors.request.use((req) => {
 
 const refreshApi = axios.create({
   baseURL: `${apiRoot}/user/auth/refresh_token`,
-   // withCredentials:true
+   withCredentials:true
 });
 
 const toastError = (message) => {
@@ -60,7 +60,7 @@ export const changeAdminPasswordAction = (
         toastError("köhnə şifrə yalnışdır");
         return;
       }
-      console.log(error);
+      // console.log(data, "data");(error);
       const originalRequest = error.config;
       if (error?.response?.status === 403 && !originalRequest._retry) {
         originalRequest._retry = true;
@@ -80,7 +80,7 @@ export const changeAdminPasswordAction = (
     
           dispatch(logoutAction());
         } catch (error) {
-          console.log(error);
+          // console.log(data, "data");(error);
           if (error?.response?.status === 401) {
             return dispatch(logoutAction());
           }
@@ -108,7 +108,7 @@ export const changeTeacherPasswordAction = (oldPassword, newPassword) => {
         toastError("köhnə şifrə yalnışdır");
         return;
       }
-      console.log(error);
+      // console.log(data, "data");(error);
       const originalRequest = error.config;
       if (error?.response?.status === 403 && !originalRequest._retry) {
         originalRequest._retry = true;
@@ -128,7 +128,7 @@ export const changeTeacherPasswordAction = (oldPassword, newPassword) => {
     
           dispatch(logoutAction());
         } catch (error) {
-          console.log(error);
+          // console.log(data, "data");(error);
           if (error?.response?.status === 401) {
             return dispatch(logoutAction());
           }
@@ -161,7 +161,7 @@ export const changeStudentPasswordAction = (
         toastError("köhnə şifrə yalnışdır");
         return;
       }
-      console.log(error);
+      // console.log(data, "data");(error);
       const originalRequest = error.config;
       if (error?.response?.status === 403 && !originalRequest._retry) {
         originalRequest._retry = true;
@@ -181,7 +181,7 @@ export const changeStudentPasswordAction = (
     
           dispatch(logoutAction());
         } catch (error) {
-          console.log(error);
+          // console.log(data, "data");(error);
           if (error?.response?.status === 401) {
             return dispatch(logoutAction());
           }

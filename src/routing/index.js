@@ -7,11 +7,9 @@ import { Header } from "../Layout/Header/Header";
 import LoginRoute from "./LoginRoute";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import Sidebar from "../Layout/Sidebar/Sidebar";
-import UserPanelRoute from "./UserPanelRoute";
 import AdminPanelRoute from "./AdminPanelRoute";
 import { LoginUser } from "../Pages/LoginPage/LoginUser";
 import WorkersPage from "../Pages/WorkerPage/WorkerPage";
-import { getUserAction } from "../redux/actions/userAuthAction";
 
 export const Routing = () => {
   const dispatch = useDispatch();
@@ -33,7 +31,7 @@ export const Routing = () => {
     
     if (userAuth?.role === "user" && !notFound) {
       if (location.pathname.startsWith("/login")) {
-        // console.log(userAuth?.role === "user" && !notFound)
+        // // console.log(data, "data");(userAuth?.role === "user" && !notFound)
         navigate("/workers");
       }
     }
@@ -68,7 +66,7 @@ export const Routing = () => {
 
  
   const [notFound, setNotFound] = useState(false);
-  // console.log(userAuth?.role === "user")
+  // // console.log(data, "data");(userAuth?.role === "user")
   return (
     <div className={show ? "" : "main-container"}>
       {!show &&  <Sidebar />}

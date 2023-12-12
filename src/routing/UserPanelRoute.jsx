@@ -3,7 +3,7 @@ import { Route } from "react-router";
 import WorkersPage from "../Pages/WorkerPage/WorkerPage";
 
 const UserPanelRoute = () => {
-  console.log(true,"user")
+  // console.log(data, "data");(true,"user")
   return (
     <>
       <Route path="/workers" element={<WorkersPage />} />

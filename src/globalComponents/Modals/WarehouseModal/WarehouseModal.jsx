@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { WAREHOUSE_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
+import {
+  DROPDOWN_NAME_ACTION_TYPE,
+  WAREHOUSE_M0DAL_ACTION_TYPE,
+} from "../../../redux/actions-type";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import InputField from "./components/InputField";
@@ -8,16 +11,24 @@ import SubmitBtn from "./components/SubmitBtn";
 import Category from "./components/Category";
 import { useFormik } from "formik";
 import { ValidationSchema } from "./components/ValidationSchema";
+import CategoryLists from "./components/CategoryList";
 
 export const WarehouseModal = () => {
   const dispatch = useDispatch();
   const { warehouseModalData } = useSelector((state) => state.warehouseModal);
-  const { category } = useSelector((state) => state.category);
-  const [selectedCategoryName, setSelectedCategoryName] = useState("");
-  const [deleteModal, setDeleteModal] = useState(false);
   const inputArr = ["productName", "totalAmount"];
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  // category list
+
+  const { category } = useSelector((state) => state.category);
+  const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const categoryList = category?.filter((category) => category?.name);
+  const [categoryNameOpen, setCategoryNameOpen] = useState(false);
+  const [classIcon, setClassIcon] = useState(false);
+
+  
 
   const selectedCategoryList = [
     { key: "kq", name: "kq" },
@@ -85,15 +96,31 @@ export const WarehouseModal = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (warehouseModalData?.id ) {
-  //     if (warehouseModalData.unitMeasure) {
-  //       setSelectedCategoryName(
-  //         category.filter((item) => item.id === warehouseModalData.unitMeasure)[0]
-  //       );
-  //     }
-  //   }
-  // }, [category]);
+  // category list
+
+  const categoryNameAddData = (item) => {
+    setInputValue("category", item.key);
+    updateModalState("category", item.name);
+    dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+    setCategoryNameOpen(false);
+    setSelectedCategoryName(item);
+  };
+
+  const categoryNameDropdown = () => {
+    setCategoryNameOpen(!categoryNameOpen);
+    setClassIcon(false);
+  };
+
+  useEffect(() => {
+    if (warehouseModalData?._id) {
+      if (warehouseModalData?.category) {
+        setSelectedCategoryName({
+          ...selectedCategoryName,
+          category: warehouseModalData.category,
+        });
+      }
+    }
+  }, []);
 
   return (
     <div className="create-update-modal-con bonus-modal">
@@ -116,6 +143,16 @@ export const WarehouseModal = () => {
           }}
         >
           <div className="create-update-modal-form">
+            <CategoryLists
+              setSelectedCategoryName={setSelectedCategoryName}
+              selectedCategoryName={selectedCategoryName}
+              categoryNameDropdown={categoryNameDropdown}
+              categoryNameOpen={categoryNameOpen}
+              setCategoryNameOpen={setCategoryNameOpen}
+              categoryNameAddData={categoryNameAddData}
+              categoryList={categoryList}
+              formik={formik}
+            />
             {inputArr.map((name, index) => (
               <InputField
                 key={index}
@@ -141,18 +178,14 @@ export const WarehouseModal = () => {
             funcType="update"
             warehouseModalData={warehouseModalData}
             closeModal={closeModal}
-            setDeleteModal={setDeleteModal}
             formik={formik}
-
           />
         ) : (
           <SubmitBtn
             funcType="create"
             warehouseModalData={warehouseModalData}
             closeModal={closeModal}
-            setDeleteModal={setDeleteModal}
             formik={formik}
-
           />
         )}
       </div>

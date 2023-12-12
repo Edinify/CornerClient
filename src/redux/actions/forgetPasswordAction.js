@@ -5,7 +5,7 @@ import { apiRoot } from "../../apiRoot";
 
 const API = axios.create({
   baseURL: `${apiRoot}/user`,
-   // withCredentials:true
+   withCredentials:true
 });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("auth")) {
@@ -44,7 +44,7 @@ export const sendToEmailAction = (email) => async (dispatch) => {
     const { data } = await API.post("/auth/login/forget/send_to_email", {
       email,
     });
-    // console.log(email)
+    // // console.log(data, "data");(email)
     dispatch({ type: FORGET_PASSWORD_ACTIONS_TYPE.SEND_EMAIL, payload: data });
     localStorage.setItem("userEmail", JSON.stringify(email));
   } catch (error) {
@@ -54,7 +54,7 @@ export const sendToEmailAction = (email) => async (dispatch) => {
         payload: "Daxil etdiyiniz email düzgün deyil",
       });
     }
-    console.log(error);
+    // console.log(data, "data");(error);
     toastError(error.response.data.message);
   } finally {
     dispatch({
@@ -74,7 +74,7 @@ export const resendToEmailAction = (email) => async (dispatch) => {
         payload: "Daxil etdiyiniz email düzgün deyil",
       });
     }
-    console.log(error);
+    // console.log(data, "data");(error);
     toastError(error.response.data.message);
   }
 };
@@ -92,7 +92,7 @@ export const checkOTPAction = (otp) => async (dispatch) => {
       type: FORGET_PASSWORD_ACTIONS_TYPE.FORGET_LOADING,
       payload: false,
     });
-    console.log(error);
+    // console.log(data, "data");(error);
     if (error?.response?.status === 404) {
       dispatch({
         type: FORGET_PASSWORD_ACTIONS_TYPE.FORGET_ERROR,
@@ -124,7 +124,7 @@ export const changePasswordAction =
         payload: data,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(data, "data");(error);
       dispatch({
         type: FORGET_PASSWORD_ACTIONS_TYPE.FORGET_LOADING,
         payload: false,

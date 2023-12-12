@@ -9,12 +9,18 @@ const initialState = {
 
 export const warehouseReducer = (state = initialState, action) => {
   switch (action.type) {
+    case WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST:
+      return {
+        ...state,
+        warehouses: action.payload.products,
+      };
     case WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE:
       return {
         ...state,
         warehouses: action.payload.products,
         totalPages:action.payload.totalPages
       };
+      
     case WAREHOUSE_ACTION_TYPE.CREATE_WAREHOUSE:
       return {
         ...state,

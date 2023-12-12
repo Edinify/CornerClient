@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCheckAction } from "../../../redux/actions/checkAction";
 import { toast } from "react-toastify";
 import LoadingBtn from "../../Loading/components/LoadingBtn/LoadingBtn";
+import { CHECK_ACTION_TYPE } from "../../../redux/actions-type";
 
 const OrderModal = ({
   setOpenOrderModal,
@@ -13,9 +14,8 @@ const OrderModal = ({
   toastSuccess,
 }) => {
   const { userCheck } = useSelector((state) => state.userCheck);
-  const { loading } = useSelector((state) => state.checkLoading);
+  const { submitLoading } = useSelector((state) => state.checkLoading);
   const dispatch = useDispatch();
-
   const changeCheckStatus = () => {
     if (status === "confirm") {
       dispatch(
@@ -56,10 +56,12 @@ const OrderModal = ({
               changeCheckStatus();
               setTimeout(() => {
                 setOrderModal(false);
+                dispatch({type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
+                  payload: false,})
               }, 3000);
             }}
           >
-            {loading ? (
+            {submitLoading ? (
               <LoadingBtn />
             ) : status === "confirm" ? (
               "Təstiqlə"

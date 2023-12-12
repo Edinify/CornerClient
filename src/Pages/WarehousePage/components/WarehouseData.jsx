@@ -14,6 +14,7 @@ const WarehouseData = ({ warehousePageNum,getPageNumber }) => {
   );
 
   const tableHead = [
+    {id:5,label:"Kateqoriya"},
     { id: 1, label: "Məhsulun adı" },
     { id: 3, label: "Məhsulun miqdarı" },
     { id: 2, label: "Ölçü vahidi" },

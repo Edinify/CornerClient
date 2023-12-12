@@ -18,9 +18,15 @@ API.interceptors.request.use((req) => {
 });
 
 export const setLoadingCheckction = (loadingValue) => (
-  console.log(loadingValue, "loadinggggg"),
   {
     type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
+    payload: loadingValue,
+  }
+);
+
+export const setLoadingSubmitCheckction = (loadingValue) => (
+  {
+    type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
     payload: loadingValue,
   }
 );
@@ -38,27 +44,31 @@ const toastSuccess = (message) => {
   });
 };
 export const createCheckAction = (checkData) => async (dispatch) => {
-  console.log(checkData, "test 111111");
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.post("/", checkData);
-    console.log(data, "create check");
+    // console.log(data, "data");(data, "create check");
     toastSuccess("Yeni masa açıldı");
     dispatch({ type: CHECK_ACTION_TYPE.CREAT_USER_CHECK, payload: data });
   } catch (error) {
-    console.log(error);
-  } finally {
-    dispatch(setLoadingCheckction(false));
+    // console.log(data, "data");(error);
+  }
+  finally{
+    dispatch(setLoadingCheckction(false)) 
   }
 };
 
 export const getCheckUserAction = (_id) => async (dispatch) => {
+  dispatch(setLoadingCheckction(true))
   try {
     const { data } = await API.get(`/${_id}`);
-    console.log(data);
+    // console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
+  }
+  finally{
+    dispatch(setLoadingCheckction(false)) 
   }
 };
 
@@ -67,7 +77,7 @@ export const updateUserCheckAction = (_id, checkData) => async (dispatch) => {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
 };
 
@@ -75,7 +85,7 @@ export const addOrderAction = (order) => async (dispatch) => {
   try {
     dispatch({ type: CHECK_ACTION_TYPE.ADD_ORDER_ACTION, payload: order });
   } catch (error) {
-    console.log(error.message);
+    // console.log(data, "data");(error.message);
   }
 };
 
@@ -83,7 +93,7 @@ export const removeOrderAction = (order) => async (dispatch) => {
   try {
     dispatch({ type: CHECK_ACTION_TYPE.REMOVE_ORDER_ACTION, payload: order });
   } catch (error) {
-    console.log(error.message);
+    // console.log(data, "data");(error.message);
   }
 };
 
@@ -109,21 +119,21 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data);
+    // console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
     dispatch({
       type: CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,
       payload: pageNumber,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingCheckction(false));
   }
 };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
-  dispatch(setLoadingCheckction(true));
+  dispatch(setLoadingSubmitCheckction(true));
 
   try {
     const { data } = await API.patch(`/${_id}`, checkData);

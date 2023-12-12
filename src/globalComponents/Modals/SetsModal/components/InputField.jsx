@@ -1,48 +1,43 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
+import { useDispatch } from "react-redux";
+import moment from "moment";
 
 export default function InputField({
-  tablesModalData,
+  setsModalData,
   inputName,
   updateModalState,
-  formik,setInputValue
+  formik,
+  setInputValue
 }) {
 
   const [shrink, setShrink] = useState(false);
   const inputData = [
     {
-      inputName: "deposit",
-      label: "Depozit",
-      type: "number",
-      marginTop: "0",
-      marginBottom: "0",
-      inputValue: tablesModalData[inputName] || "",
-    },
-    {
-      inputName: "oneMinutePrice",
-      label: "Saat başına qiymət",
+      inputName: "productCount",
+      label: "Məhsulun sayı",
       type: "number",
       marginTop: "24px",
       marginBottom: "0",
-      inputValue: tablesModalData[inputName] || "",
+      inputValue: setsModalData[inputName] || "",
     },
     {
-      inputName: "tableNumber",
-      label: "Masa nömrəsi",
+      inputName: "productUnitAmount",
+      label: "Məhsulun miqdarı",
       type: "number",
       marginTop: "24px",
       marginBottom: "0",
-      inputValue: tablesModalData[inputName] || "",
+      inputValue: setsModalData[inputName] || "",
     },
     {
-      inputName: "name",
-      label: "Masa Adı",
-      type: "string",
+      inputName: "price",
+      label: "Məbləğ",
+      type: "number",
       marginTop: "24px",
       marginBottom: "0",
-      inputValue: tablesModalData[inputName] || "",
+      inputValue: setsModalData[inputName] || "",
     },
-
+ 
   ];
 
   return (

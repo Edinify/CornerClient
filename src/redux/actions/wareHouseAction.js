@@ -63,14 +63,38 @@ export const getWarehouseAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
+    // console.log(data)
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE, payload: data });
     dispatch({type:WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LAST_PAGE,payload:pageNumber})
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingWarehouseAction(false));
   }
 };
+
+
+export const getWarehouseActionList = (categoryId) => async (dispatch) => {
+  dispatch(setLoadingWarehouseAction(true));
+  try {
+    const { data } = await API.get(`/list?categoryId=${categoryId}`);
+    dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST, payload: data });
+  } catch (error) {
+    // console.log(data, "data");(error);
+  } finally {
+    dispatch(setLoadingWarehouseAction(false));
+  }
+};
+
+export const getAllWarehouseAction=()=>async(dispatch)=>{
+  try {
+    const {data} = await API.get("/all");
+    console.log(data,"alllll")
+    dispatch({type:WAREHOUSE_ACTION_TYPE.GET_ALL_WAREHOUSE,payload:data})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const createWarehouseAction = (warehouseData) => async (dispatch) => {
   dispatch(warehouseModalLoading(true));
@@ -81,7 +105,7 @@ export const createWarehouseAction = (warehouseData) => async (dispatch) => {
     dispatch(getWarehouseAction());
     toastSuccess("Yeni məhsul yarandı");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
     if (error.response.data.key === "product-already-exists") {
       toastError("Bu adda məhsul mövcuddur");
     }
@@ -100,7 +124,7 @@ export const updateWarehouseAction =
       dispatch(warehouseModalOpen(false));
       toastSuccess("Məhsul yeniləndi");
     } catch (error) {
-      console.log(error);
+      // console.log(data, "data");(error);
     } finally {
       dispatch(warehouseModalLoading(false));
     }
@@ -112,6 +136,6 @@ export const deleteWarehouseAction = (_id) => async (dispatch) => {
     dispatch({ type: WAREHOUSE_ACTION_TYPE.DELETE_WAREHOUSE, payload: _id });
     toastSuccess("Məhsul silindi");
   } catch (error) {
-    console.log(error);
+    // console.log(data, "data");(error);
   }
 };

@@ -168,11 +168,10 @@
   .product-bottom-container
   .product-bottom-btns
   .open-table
-  .lds-dual-ring
-   {
-    display: flex;
-    justify-content: center;
-   }
+  .lds-dual-ring {
+  display: flex;
+  justify-content: center;
+}
 .order-page
   .order-page-container
   .order-side
@@ -234,6 +233,10 @@
   /* margin-left: 20px; */
   width: 200px;
 }
+
+.order-page .decrease-btn {
+  background-color: var(--error-700) !important;
+}
 .order-page
   .order-page-container
   .order-side
@@ -246,16 +249,19 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width:1200px) {
-
+@media screen and (max-width: 1200px) {
   /* .order-page .order-page-container .order-side .product-order-container .product-list ul li{
     flex-direction: column;
   } */
-  .order-page .order-page-container .order-side .product-order-container .product-list .decrease-btn{
+  .order-page
+    .order-page-container
+    .order-side
+    .product-order-container
+    .product-list
+    .decrease-btn {
     width: 100px;
   }
 }
-
 
 @media screen and (max-width: 650px) {
   .order-page .order-page-container .order-side .order-side-head {
@@ -278,27 +284,42 @@
     .order-side-content {
     margin-bottom: 10px;
   }
-  .order-page .order-page-container .menu-side .menus .menu-content{
+  .order-page .order-page-container .menu-side .menus .menu-content {
     padding: 15px 10px;
   }
-  .order-page .order-page-container .order-side .product-order-container{
+  .order-page .order-page-container .order-side .product-order-container {
     font-size: 14px;
   }
-  .order-page .order-page-container .order-side .product-order-container .product-list ul li{
+  .order-page
+    .order-page-container
+    .order-side
+    .product-order-container
+    .product-list
+    ul
+    li {
     flex-direction: column;
   }
-  .order-page .order-page-container .order-side .product-order-container .product-list .decrease-btn{
+  .order-page
+    .order-page-container
+    .order-side
+    .product-order-container
+    .product-list
+    .decrease-btn {
     margin: 0;
     margin-top: 10px;
-    width:100%;
+    width: 100%;
   }
-  .order-page .order-page-container .order-side .product-order-container .product-bottom-container .product-bottom-btns button{
+  .order-page
+    .order-page-container
+    .order-side
+    .product-order-container
+    .product-bottom-container
+    .product-bottom-btns
+    button {
     padding: 10px;
     font-size: 14px;
   }
-  .order-side-head-container .table-data-container{
+  .order-side-head-container .table-data-container {
     font-size: 14px;
   }
 }
-
-

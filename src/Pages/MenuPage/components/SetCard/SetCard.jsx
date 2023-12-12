@@ -1,64 +1,59 @@
-import { useSelector, useDispatch } from "react-redux";
-import { TABLES_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
-import { deleteTablesAction } from "../../../../redux/actions/tablesAction";
+import { deleteSetAction } from "../../../../redux/actions/setsAction";
+import { useDispatch } from "react-redux";
 import UpdateDeleteModal from "../../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
+import { SETS_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
 
-const TablesCard = ({ data, mode, cellNumber }) => {
+const SetCard = ({ data, mode,cellNumber }) => {
   const dispatch = useDispatch();
 
-
   const updateItem = () => {
-    const { category, deposit, oneMinutePrice, tableNumber, name, _id } = data;
+    const { products, _id,price } = data;
     dispatch({
-      type: TABLES_M0DAL_ACTION_TYPE.GET_TABLES_MODAL,
+      type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
       payload: {
-        data: { category, deposit, oneMinutePrice, tableNumber, name, _id },
+        data: { products, _id, price },
         openModal: true,
       },
     });
   };
   const deleteItem = () => {
-    dispatch(deleteTablesAction(data._id));
+    dispatch(deleteSetAction(data._id));
   };
 
+  console.log(data,"data")
   return (
     <>
       {mode === "desktop" ? (
         <tr>
           <td>
             <div className="td-con">
-              {/* <div className="cell-number">{cellNumber}.</div> */}
-              <div className="table-scroll-text">{data.tableNumber}</div>
+              <div className="cell-number">{cellNumber}.</div>
+              {/* <div className="table-scroll-text">{data.products.map(product=>(
+                <div key={product._id} >
+                  {product.name}
+                </div>
+              ))}</div> */}
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text">{data.category}</div>
+              <div className="table-scroll-text phone">{data.price}</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.deposit}</div>
+              <div className="table-scroll-text phone">{data.price}</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">
-                {data.oneMinutePrice}
-              </div>
+              <div className="table-scroll-text phone">{data.price}</div>
               <div className="right-fade"></div>
             </div>
           </td>
-          <td>
-            <div className="td-con">
-              <div className="table-scroll-text phone">{data.name}</div>
-              <div className="right-fade"></div>
-            </div>
-          </td>
-
           <td className="more-options">
             <UpdateDeleteModal
               updateItem={updateItem}
@@ -72,24 +67,20 @@ const TablesCard = ({ data, mode, cellNumber }) => {
           <div className="left">
             <ul>
               <li>
-                <span className="type">Masa nömrəsi:</span>
-                <p className="name">{data.tableNumber}</p>
+                <span className="type">Məhsulun :</span>
+                <p>{data.product?.productName ? data.product?.productName : "boş"}</p>
               </li>
               <li>
-                <span className="type">Kateqoriya:</span>
+                <span className="type">Məhsulun sayı:</span>
                 <p>{data.category ? data.category : "boş"}</p>
               </li>
               <li>
-                <span className="type">Depozit:</span>
-                <p>{data.deposit ? data.deposit : "boş"}</p>
+                <span className="type">	Məhsulun miqdarı:</span>
+                <p>{data.price}</p>
               </li>
               <li>
-                <span className="type">Saat başına qiymət:</span>
-                <p>{data.oneMinutePrice}</p>
-              </li>
-              <li>
-                <span className="type">Masa adı:</span>
-                <p>{data.name}</p>
+                <span className="type">Məbləğ:</span>
+                <p>{data.price}</p>
               </li>
             </ul>
           </div>
@@ -107,4 +98,4 @@ const TablesCard = ({ data, mode, cellNumber }) => {
   );
 };
 
-export default TablesCard;
+export default SetCard;

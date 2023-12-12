@@ -75,18 +75,25 @@ const NavbarProfile = () => {
               }}
               className="user-modal"
             >
-              <div className="user-func">
-                {user.role === "admin" && (
+              {" "}
+              {user.role === "admin" ? (
+                <div className="user-func">
                   <div className="password-change-func">
                     <ChangePasswordIcon />
                     <p onClick={handleOpenModal}>Şifrəni dəyiş</p>
                   </div>
-                )}
-                <div className="logout-func" onClick={navigateExit}>
+
+                  <div className="logout-func" onClick={navigateExit}>
+                    <LogoutIcon />
+                    <p>Çıxış</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="logout-func-user" onClick={navigateExit}>
                   <LogoutIcon />
                   <p>Çıxış</p>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="user-modal-bg"></div>
