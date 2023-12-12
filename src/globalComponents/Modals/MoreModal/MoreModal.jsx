@@ -3,7 +3,6 @@ import { ReactComponent as CloseIcon } from "../../../assets/icons/more-modal/x-
 import "./moreModal.css";
 
 const MoreModal = ({ data, setOpenMoreModal }) => {
-  console.log(data, "more ");
   let orders =
   Array.isArray(data.orders) && data.orders.length > 0
     ? data.orders

@@ -37,11 +37,9 @@ export const loginAction = (authData) => async (dispatch) => {
     dispatch(setLoadingAction(true));
 
     const { data } = await API.post("/admin/login", authData);
-    // // console.log(data, "data");(data);
     dispatch({ type: AUTH_ALL_ACTION_TYPE.LOGIN, payload: { data: data } });
     // dispatch({ type: AUTH_ALL_ACTION_TYPE.AUTH_LOADING, payload: true });
   } catch (error) {
-    // console.log(data, "data");(error);
     if (error?.response?.status === 404) {
       toastError("Email və ya şifrə yalnışdır");
     }

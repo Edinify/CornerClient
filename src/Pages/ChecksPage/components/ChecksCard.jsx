@@ -7,7 +7,7 @@ const ChecksCard = ({
   setOpenMoreModal,
   openMoreDetails,
 }) => {
-  console.log(data.orders);
+  // console.log(data.orders);
 
   let orders =
     Array.isArray(data.orders) && data.orders.length > 0

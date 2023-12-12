@@ -3,11 +3,16 @@ import { NavLink, useLocation } from "react-router-dom";
 import { ReactComponent as TableIcon } from "../../../../assets/icons/tableIcon.svg";
 import { ReactComponent as ExpensesIcon } from "../../../../assets/icons/expensenIcon.svg";
 import { ReactComponent as CategoryIcon } from "../../../../assets/icons/sidebar/category-2-svgrepo-com.svg";
-import {ReactComponent as WarehouseIcon} from "../../../../assets/icons/sidebar/warehouse-svgrepo-com.svg"
-import {ReactComponent as MenuIcon } from "../../../../assets/icons/sidebar/food-bag-svgrepo-com.svg"
-import {ReactComponent as CheckIcon} from "../../../../assets/icons/sidebar/writing-cheque-svgrepo-com.svg"
+import { ReactComponent as WarehouseIcon } from "../../../../assets/icons/sidebar/warehouse-svgrepo-com.svg";
+import { ReactComponent as MenuIcon } from "../../../../assets/icons/sidebar/food-bag-svgrepo-com.svg";
+import { ReactComponent as CheckIcon } from "../../../../assets/icons/sidebar/writing-cheque-svgrepo-com.svg";
 
 const SidebarAdmin = ({ closeSidebar }) => {
+  const location = useLocation();
+  const menuNav = ["/menus/menu", "menus/set"];
+  const isActiveRoute=(route)=>{
+    return menuNav.includes(route)
+  }
 
   return (
     <ul className="sidebar-nav-list">
@@ -18,7 +23,7 @@ const SidebarAdmin = ({ closeSidebar }) => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/menu" onClick={closeSidebar}>
+        <NavLink to="/menus/menu" className={isActiveRoute(location.pathname) ? "active" : ""} onClick={closeSidebar}>
           <MenuIcon />
           Menyu
         </NavLink>
@@ -31,23 +36,20 @@ const SidebarAdmin = ({ closeSidebar }) => {
       </li>
 
       <li>
-        <NavLink
-          to="/finance/expenses"
-          onClick={closeSidebar}
-        >
+        <NavLink to="/finance/expenses" onClick={closeSidebar}>
           <ExpensesIcon />
           Maliyyə
         </NavLink>
       </li>
       <li>
         <NavLink to="/warehouse" onClick={closeSidebar}>
-          <WarehouseIcon/>
+          <WarehouseIcon />
           Anbar
         </NavLink>
       </li>
       <li>
         <NavLink to="/checks" onClick={closeSidebar}>
-          <CheckIcon/>
+          <CheckIcon />
           Çeklər
         </NavLink>
       </li>

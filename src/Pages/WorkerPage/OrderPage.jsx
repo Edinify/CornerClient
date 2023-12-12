@@ -19,7 +19,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { menuUser } = useSelector((state) => state.menuUser);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
-  console.log(userCheck, "loading");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
@@ -28,7 +27,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
   const [status, setStatus] = useState(null);
 
-  // console.log(totalMin);
   const toastSuccess = (message) => {
     toast.success(message, {
       position: "top-right",
@@ -103,7 +101,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     const deposit = userCheck.table.deposit;
     const oneMinutePrice = userCheck.table.oneMinutePrice / 60 || 0;
 
-    console.log(oneMinutePrice * 10);
+    // console.log(oneMinutePrice * 10);
 
     const ordersPrice =
       userCheck.orders.reduce(

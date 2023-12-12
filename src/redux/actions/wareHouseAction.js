@@ -78,7 +78,6 @@ export const getWarehouseActionList = (categoryId) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
     const { data } = await API.get(`/list?categoryId=${categoryId}`);
-    console.log(data,"list")
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
@@ -86,6 +85,16 @@ export const getWarehouseActionList = (categoryId) => async (dispatch) => {
     dispatch(setLoadingWarehouseAction(false));
   }
 };
+
+export const getAllWarehouseAction=()=>async(dispatch)=>{
+  try {
+    const {data} = await API.get("/all");
+    console.log(data,"alllll")
+    dispatch({type:WAREHOUSE_ACTION_TYPE.GET_ALL_WAREHOUSE,payload:data})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const createWarehouseAction = (warehouseData) => async (dispatch) => {
   dispatch(warehouseModalLoading(true));

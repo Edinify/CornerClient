@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import InputField from "./components/InputField";
 import SubmitBtn from "./components/SubmitBtn";
 import CategoryLists from "./components/CategoryList";
-import { getWarehouseAction, getWarehouseActionList } from "../../../redux/actions/wareHouseAction";
 import WarehouseLists from "./components/WarehouseLists";
 import { useFormik } from "formik";
 import {ValidationSchema} from "./components/ValidationSchema"

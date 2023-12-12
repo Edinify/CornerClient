@@ -23,7 +23,6 @@ const CategoryLists = ({
     setCategoryNameOpen(!categoryNameOpen);
   };
 
-  console.log(selectedCategoryName,"selected")
 
   useEffect(()=>{
     dispatch(getCategoryBaseAction(selectedCategoryName._id))

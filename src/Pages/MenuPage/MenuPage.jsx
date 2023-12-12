@@ -4,60 +4,72 @@ import { MENU_M0DAL_ACTION_TYPE } from "../../redux/actions-type";
 import GlobalHead from "../../globalComponents/GlobalHead/GlobalHead";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
 import MenuData from "./components/MenuData";
-import { getMenusAction} from "../../redux/actions/menusAction";
+import { getMenusAction } from "../../redux/actions/menusAction";
+import MenusHeader from "./components/MenusHeader";
+import { useLocation } from "react-router-dom";
+import SetData from "./components/SetCard/SetData";
+import { getSetAction } from "../../redux/actions/setsAction";
 
 const MenuPage = () => {
   const dispatch = useDispatch();
-  const { lastPage } = useSelector((state) => state.menus);
-  const { coursesSearchValues } = useSelector((state) => state.searchValues);
+  const { lastPage: menusLastPage } = useSelector((state) => state.menus);
+  const { lastPage: setsLastPage } = useSelector((state) => state.menuSet);
+  const [menuSetPageNum, setMenuSetPageNum] = useState(1);
   const [menusPageNum, setMenusPageNum] = useState(1);
   const { changeShowNav } = useCustomHook();
+  const location = useLocation();
+
+  // sets
 
 
 
-  const openModal = () => {
-    dispatch({
-      type: MENU_M0DAL_ACTION_TYPE.GET_MENU_MODAL,
-      payload: { data: {}, openModal: true },
-    });
-  };
+
   const getPageNumber = (pageNumber) => {
     setMenusPageNum(pageNumber);
-      dispatch(getMenusAction(pageNumber));
-    }
-  
+    dispatch(getMenusAction(pageNumber));
+  };
+
+  const getMenuSetPageNumber=(pageNumber)=>{
+    setMenuSetPageNum(pageNumber);
+    dispatch(getSetAction(pageNumber))
+  }
+
+
 
   useEffect(() => {
+    if (menusLastPage) {
+      setMenusPageNum(menusLastPage);
+    }
+    else if (setsLastPage){
+    setMenuSetPageNum(setsLastPage)
+    }
+  }, [menusLastPage,setsLastPage]);
 
+  useEffect(() => {
+    dispatch(getMenusAction(1));
+  }, []);
 
+  useEffect(() => {
     changeShowNav(false);
     return () => {
       changeShowNav(true);
     };
   }, [dispatch]);
-  useEffect(() => {
-    if (lastPage) {
-      setMenusPageNum(lastPage);
-    }
-  }, [lastPage]);
-
-
-  useEffect(()=>{
-    dispatch(getMenusAction(1))
-  },[])
 
   return (
     <div className="details-page courses ">
-      <GlobalHead
+      <MenusHeader />
+      {/* <GlobalHead
         openModal={openModal}
         DATA_SEARCH_VALUE={"COURSES_SEARCH_VALUE"}
         dataSearchValues={coursesSearchValues}
         statusType="courses"
-      />
-      <MenuData
-        menusPageNum={menusPageNum}
-        getPageNumber={getPageNumber}
-      />
+      /> */}
+      {location.pathname === "/menus/menu" ? (
+        <MenuData menusPageNum={menusPageNum} getPageNumber={getPageNumber} />
+      ) : (
+        <SetData getMenuSetPageNumber={getMenuSetPageNumber} menuSetPageNum={menuSetPageNum}  />
+      )}
     </div>
   );
 };
