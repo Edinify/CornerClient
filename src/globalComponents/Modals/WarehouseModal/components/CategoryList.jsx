@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategoryAction, getCategoryBaseAction } from "../../../../redux/actions/categoryAction";
+import {
+  getCategoryAction,
+  getCategoryBaseAction,
+} from "../../../../redux/actions/categoryAction";
 
 const CategoryLists = ({
   selectedCategoryName,
@@ -11,11 +14,9 @@ const CategoryLists = ({
   categoryNameAddData,
   categoryList,
   formik,
-  
 }) => {
   const { dropdownName } = useSelector((state) => state);
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const changeOpenDropdown = () => {
     if (!selectedCategoryName && dropdownName) {
@@ -23,12 +24,12 @@ const CategoryLists = ({
     setCategoryNameOpen(!categoryNameOpen);
   };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     // dispatch(getCategoryBaseAction(selectedCategoryName._id))
-    dispatch(getCategoryAction(''))
-  },[])
+    dispatch(getCategoryAction(""));
+  }, []);
 
+  console.log(selectedCategoryName);
 
   return (
     <>
@@ -49,7 +50,7 @@ const CategoryLists = ({
             label="Kateqoriya "
             name="class"
             autoComplete="off"
-            value={selectedCategoryName ? selectedCategoryName.name : ""}
+            value={selectedCategoryName}
             onBlur={() => formik.setFieldTouched("category", true)}
             onClick={categoryNameDropdown}
           />
@@ -81,9 +82,9 @@ const CategoryLists = ({
             categoryNameOpen ? "active" : ""
           }`}
         >
-          {categoryList?.map((item, i) => {
+          {categoryList?.map((item) => {
             return (
-              <li key={i} onClick={() => categoryNameAddData(item)}>
+              <li key={item._id} onClick={() => categoryNameAddData(item)}>
                 <h4>{item.name}</h4>
               </li>
             );
