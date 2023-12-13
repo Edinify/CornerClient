@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getWarehouseAction } from "../../../../redux/actions/wareHouseAction";
+import {
+  getWarehouseAction,
+  getWarehouseActionList,
+} from "../../../../redux/actions/wareHouseAction";
 
 const WarehouseLists = ({
-    setSelectedWarehouseName,
-    selectedWarehouseName,
-    warehouseNameDropdown,
-    warehouseNameOpen,
-    setWarehouseNameOpen,
-    warehouseNameAddData,
-    warehousesList,
-    formik
+  setSelectedWarehouseName,
+  selectedWarehouseName,
+  warehouseNameDropdown,
+  warehouseNameOpen,
+  setWarehouseNameOpen,
+  warehouseNameAddData,
+  warehousesList,
+  selectedCategoryName,
+  formik,
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const searchData = (e) => {
     setSearcherValue(e.target.value);
@@ -24,17 +27,17 @@ const WarehouseLists = ({
     setWarehouseNameOpen(true);
   };
 
-  useEffect(()=>{
-    dispatch(getWarehouseAction())
-  },[])
-
+  useEffect(() => {
+    if (warehouseNameOpen) {
+      dispatch(getWarehouseActionList(selectedCategoryName?._id));
+    }
+  }, [warehouseNameOpen]);
 
   const changeOpenDropdown = () => {
     if (!selectedWarehouseName && dropdownName) {
     }
     setWarehouseNameOpen(!warehouseNameOpen);
   };
-
 
   return (
     <>
@@ -56,33 +59,34 @@ const WarehouseLists = ({
             name="class"
             autoComplete="off"
             value={
-              selectedWarehouseName ? selectedWarehouseName.productName : searchedValue
+              selectedWarehouseName
+                ? selectedWarehouseName.productName
+                : searchedValue
             }
             onChange={(e) => searchData(e)}
-            onBlur={() => formik.setFieldTouched('product', true)}
+            onBlur={() => formik.setFieldTouched("product", true)}
             onClick={warehouseNameDropdown}
           />
           <div className="dropdown-icon">
-            
-              <div onClick={changeOpenDropdown}>
-                <svg
-                  className={!warehouseNameOpen ? "down" : "up"}
-                  width="24"
-                  height="25"
-                  viewBox="0 0 24 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19.92 9.4502L13.4 15.9702C12.63 16.7402 11.37 16.7402 10.6 15.9702L4.07999 9.4502"
-                    stroke="#5D5D5D"
-                    strokeWidth="1.5"
-                    strokeMiterlimit="10"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+            <div onClick={changeOpenDropdown}>
+              <svg
+                className={!warehouseNameOpen ? "down" : "up"}
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.92 9.4502L13.4 15.9702C12.63 16.7402 11.37 16.7402 10.6 15.9702L4.07999 9.4502"
+                  stroke="#5D5D5D"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -93,7 +97,9 @@ const WarehouseLists = ({
         >
           {warehousesList
             ?.filter((item) =>
-              item.productName.toLowerCase().includes(searchedValue.toLowerCase())
+              item.productName
+                .toLowerCase()
+                .includes(searchedValue.toLowerCase())
             )
             .map((item, i) => {
               return (
