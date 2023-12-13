@@ -14,12 +14,14 @@ const initialState = {
 export const warehouseModalReducer = (state = initialState, action) => {
   switch (action.type) {
     case WAREHOUSE_M0DAL_ACTION_TYPE.GET_WAREHOUSE_MODAL:
+      // console.log(action.payload)
       return {
         ...state,
         warehouseModalData: action.payload.data,
         warehouseOpenModal: action.payload.openModal,
       };
     case WAREHOUSE_M0DAL_ACTION_TYPE.WAREHOUSE_OPEN_MODAL:
+      console.log(action.payload)
       return {
         ...state,
         warehouseOpenModal: action.payload,

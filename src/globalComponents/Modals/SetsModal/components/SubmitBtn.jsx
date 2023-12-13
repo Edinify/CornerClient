@@ -18,7 +18,6 @@ export default function SubmitBtn({ formik, setsModalData, funcType }) {
     }
   });
 
-  console.log(setsModalData, "data");
 
   const newSets = {
     product:setsModalData.product,

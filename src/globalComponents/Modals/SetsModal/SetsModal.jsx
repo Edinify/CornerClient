@@ -31,7 +31,6 @@ const SetsModal = () => {
     setClassIcon(false);
   };
 
-  console.log(warehousesList, "warehouse");
 
   const warehouseNameAddData = (item) => {
     setInputValue("product", item._id);

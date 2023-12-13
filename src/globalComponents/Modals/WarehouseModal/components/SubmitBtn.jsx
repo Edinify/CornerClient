@@ -23,7 +23,6 @@ export default function SubmitBtn({
     }
     // closeModal();
 
-    console.log(warehouseModalData,"ware")
   };
   return (
     <div className="create-update-modal-btn">

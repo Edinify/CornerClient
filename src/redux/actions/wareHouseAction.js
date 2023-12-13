@@ -80,6 +80,7 @@ export const getWarehouseActionList = (categoryId) => async (dispatch) => {
     const { data } = await API.get(`/list?categoryId=${categoryId}`);
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST, payload: data });
   } catch (error) {
+    console.log(error)
     // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingWarehouseAction(false));
@@ -89,7 +90,7 @@ export const getWarehouseActionList = (categoryId) => async (dispatch) => {
 export const getAllWarehouseAction=()=>async(dispatch)=>{
   try {
     const {data} = await API.get("/all");
-    console.log(data,"alllll")
+    // console.log(data,"alllll")
     dispatch({type:WAREHOUSE_ACTION_TYPE.GET_ALL_WAREHOUSE,payload:data})
   } catch (error) {
     console.log(error)

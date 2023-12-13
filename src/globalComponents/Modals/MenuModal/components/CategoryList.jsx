@@ -22,8 +22,11 @@ const CategoryLists = ({
     setCategoryNameOpen(!categoryNameOpen);
   };
 
+
+  
   useEffect(()=>{
     dispatch(getWarehouseActionList(selectedCategoryName._id))
+    dispatch(getCategoryAction())
   },[])
 
 

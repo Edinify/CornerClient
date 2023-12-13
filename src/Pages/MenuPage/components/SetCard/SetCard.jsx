@@ -20,7 +20,8 @@ const SetCard = ({ data, mode,cellNumber }) => {
     dispatch(deleteSetAction(data._id));
   };
 
-  console.log(data,"data")
+
+  console.log(data,"set card")
   return (
     <>
       {mode === "desktop" ? (
@@ -28,11 +29,11 @@ const SetCard = ({ data, mode,cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="cell-number">{cellNumber}.</div>
-              {/* <div className="table-scroll-text">{data.products.map(product=>(
+              <div className="table-scroll-text">{data.products.map(product=>(
                 <div key={product._id} >
                   {product.name}
                 </div>
-              ))}</div> */}
+              ))}</div>
               <div className="right-fade"></div>
             </div>
           </td>
