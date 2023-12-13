@@ -28,7 +28,6 @@ export const WarehouseModal = () => {
   const [categoryNameOpen, setCategoryNameOpen] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
 
-  
   const selectedCategoryList = [
     { key: "kq", name: "kq" },
     { key: "litr", name: "litr" },
@@ -98,13 +97,13 @@ export const WarehouseModal = () => {
   // category list
 
   const categoryNameAddData = (item) => {
-
-    console.log(item._id,"item")
-    setInputValue("category", item.key);
-    updateModalState("category", item._id);
+    console.log(item, "category name add data");
+    console.log(item.key, "key");
+    setInputValue("category", item._id);
+    updateModalState("category", item);
     dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
-    setSelectedCategoryName(item._id);
+    setSelectedCategoryName(item.name);
   };
 
   const categoryNameDropdown = () => {
@@ -115,13 +114,12 @@ export const WarehouseModal = () => {
   useEffect(() => {
     if (warehouseModalData?._id) {
       if (warehouseModalData?.category) {
-        setSelectedCategoryName({
-          ...selectedCategoryName,
-          category: warehouseModalData.category,
-        });
+        setSelectedCategoryName(warehouseModalData.category.name);
       }
     }
   }, []);
+
+  console.log(selectedCategoryName, "selected category");
 
   return (
     <div className="create-update-modal-con bonus-modal">

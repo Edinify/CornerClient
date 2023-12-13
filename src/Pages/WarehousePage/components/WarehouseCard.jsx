@@ -28,6 +28,7 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
     {key:"Ölçü vahidi",value:data.unitMeasure}
   ]
 
+
   return (
     <>
       {mode === "desktop" ? (

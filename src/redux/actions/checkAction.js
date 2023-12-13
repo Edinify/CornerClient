@@ -97,6 +97,22 @@ export const removeOrderAction = (order) => async (dispatch) => {
   }
 };
 
+export const addSetAction = (set) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.ADD_SET_ACTION, payload: set });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const removeSetAction = (set) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.REMOVE_SET_ACTION, payload: set });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // admin check action
 
 export const getCheckAction = (pageNumber) => async (dispatch) => {
@@ -123,10 +139,8 @@ export const updateCheckAction = (_id, checkData) => async (dispatch) => {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
-    // console.log(data, "data");(error);
+    console.log(error);
+  } finally {
+    dispatch(setLoadingCheckction(false));
   }
-  // finally{
-  //   dispatch(setLoadingCheckction(false));
-
-  // }
 };

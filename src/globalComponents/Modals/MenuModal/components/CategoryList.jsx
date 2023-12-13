@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryAction } from "../../../../redux/actions/categoryAction";
-import { getWarehouseActionList } from "../../../../redux/actions/wareHouseAction";
 
 const CategoryLists = ({
   selectedCategoryName,
@@ -14,7 +13,7 @@ const CategoryLists = ({
   formik,
 }) => {
   const { dropdownName } = useSelector((state) => state);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const changeOpenDropdown = () => {
     if (!selectedCategoryName && dropdownName) {
@@ -22,13 +21,9 @@ const CategoryLists = ({
     setCategoryNameOpen(!categoryNameOpen);
   };
 
-
-  
-  useEffect(()=>{
-    dispatch(getWarehouseActionList(selectedCategoryName._id))
-    dispatch(getCategoryAction())
-  },[])
-
+  useEffect(() => {
+    dispatch(getCategoryAction());
+  }, []);
 
   return (
     <>

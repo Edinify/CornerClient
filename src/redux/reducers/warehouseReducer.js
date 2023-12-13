@@ -12,21 +12,22 @@ export const warehouseReducer = (state = initialState, action) => {
     case WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST:
       return {
         ...state,
-        warehouses: action.payload.products,
+        warehouses: action.payload,
       };
     case WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE:
       return {
         ...state,
         warehouses: action.payload.products,
-        totalPages:action.payload.totalPages
+        totalPages: action.payload.totalPages,
       };
-      
+
     case WAREHOUSE_ACTION_TYPE.CREATE_WAREHOUSE:
       return {
         ...state,
         warehouses: [...state.warehouses, action.payload],
       };
     case WAREHOUSE_ACTION_TYPE.UPDATE_WAREHOUSE:
+      console.log(action.payload, "bla bla bla");
       return {
         ...state,
         warehouses: state.warehouses.map((item) =>

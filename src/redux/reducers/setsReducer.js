@@ -12,7 +12,6 @@ const initialState = {
 export const setsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SETS_ACTION_TYPE.GET_SETS:
-      console.log(action.payload.sets,"set reducer")
       return {
         ...state,
         menuSet: action.payload.sets,

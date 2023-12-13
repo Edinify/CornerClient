@@ -64,6 +64,7 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
+    console.log(data)
 
     dispatch({
       type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
