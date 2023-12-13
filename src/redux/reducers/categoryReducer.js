@@ -45,9 +45,10 @@ export const categoryReducer = (state =initialState, action) => {
             lastPage:action.payload
           }
           case CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY:
+            console.log(action.payload,"reducer")
             return{
               ...state,
-              category:action.payload.categories
+              category:action.payload
             }
     default:
       return state;

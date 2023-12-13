@@ -25,7 +25,7 @@ const CategoryLists = ({
 
 
   useEffect(()=>{
-    dispatch(getCategoryBaseAction(selectedCategoryName._id))
+    // dispatch(getCategoryBaseAction(selectedCategoryName._id))
     dispatch(getCategoryAction(''))
   },[])
 

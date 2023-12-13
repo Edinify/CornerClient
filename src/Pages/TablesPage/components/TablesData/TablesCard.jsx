@@ -21,6 +21,14 @@ const TablesCard = ({ data, mode, cellNumber }) => {
     dispatch(deleteTablesAction(data._id));
   };
 
+  const listData=[
+    {key:"Masa nömrəsi",value:data.tableNumber},
+    {key:"Kateqoriya",value:data.category ? data.category : "boş"},
+    {key:"Depozit",value:data.deposit ? data.deposit : 0},
+    {key:"Saat başına qiymət",value:data.oneMinutePrice ? data.oneMinutePrice : 0},
+    {key:"Masa adı",value:data.name}
+  ]
+
   return (
     <>
       {mode === "desktop" ? (
@@ -71,26 +79,12 @@ const TablesCard = ({ data, mode, cellNumber }) => {
         <div className="content-box">
           <div className="left">
             <ul>
-              <li>
-                <span className="type">Masa nömrəsi:</span>
-                <p className="name">{data.tableNumber}</p>
-              </li>
-              <li>
-                <span className="type">Kateqoriya:</span>
-                <p>{data.category ? data.category : "boş"}</p>
-              </li>
-              <li>
-                <span className="type">Depozit:</span>
-                <p>{data.deposit ? data.deposit : "boş"}</p>
-              </li>
-              <li>
-                <span className="type">Saat başına qiymət:</span>
-                <p>{data.oneMinutePrice}</p>
-              </li>
-              <li>
-                <span className="type">Masa adı:</span>
-                <p>{data.name}</p>
-              </li>
+            {listData.map((item, index) => (
+                <li key={index}>
+                  <span className="type">{item.key}:</span>
+                  <p>{item.value}</p>
+                </li>
+              ))}
             </ul>
           </div>
 

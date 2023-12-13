@@ -18,6 +18,34 @@ const ChecksCard = ({
           .join(", ")
       : "";
 
+  const listData = [
+    {
+      key: "Kateqoriya",
+      value: data.table.category ? data.table.category : "boş",
+    },
+    {
+      key: "Masa adı",
+      value: data.table
+        ? `${data.table.name ? data.table.name : ""} - ${
+            data.table?.tableNumber
+          }`
+        : "boş",
+    },
+    { key: "Sifarişlər", value: orders },
+    {
+      key: "Depozit",
+      value: data.table.deposit ? data.table.deposit : "yoxdur",
+    },
+    { key: "Ümumi məbləğ", value: data.totalPayment },
+    { key: "Ümumi vaxt", value: data.totalDate },
+    {
+      key: "1 saatlıq qiymət",
+      value: data.table
+        ? `${data.table.oneMinutePrice ? data.table.oneMinutePrice : ""} `
+        : "yoxdur",
+    },
+  ];
+
   const openMoreModal = () => {
     setOpenMoreModal(true);
     openMoreDetails(data);

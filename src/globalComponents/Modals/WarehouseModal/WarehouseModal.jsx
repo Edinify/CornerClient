@@ -29,7 +29,6 @@ export const WarehouseModal = () => {
   const [classIcon, setClassIcon] = useState(false);
 
   
-
   const selectedCategoryList = [
     { key: "kq", name: "kq" },
     { key: "litr", name: "litr" },
@@ -99,11 +98,13 @@ export const WarehouseModal = () => {
   // category list
 
   const categoryNameAddData = (item) => {
+
+    console.log(item._id,"item")
     setInputValue("category", item.key);
-    updateModalState("category", item.name);
+    updateModalState("category", item._id);
     dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
-    setSelectedCategoryName(item);
+    setSelectedCategoryName(item._id);
   };
 
   const categoryNameDropdown = () => {

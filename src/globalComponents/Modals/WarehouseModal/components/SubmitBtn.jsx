@@ -22,6 +22,8 @@ export default function SubmitBtn({
       dispatch(createWarehouseAction(warehouseModalData));
     }
     // closeModal();
+
+    console.log(warehouseModalData,"ware")
   };
   return (
     <div className="create-update-modal-btn">
