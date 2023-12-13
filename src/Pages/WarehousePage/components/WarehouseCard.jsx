@@ -21,6 +21,13 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
     dispatch(deleteWarehouseAction(data._id));
   };
 
+  const listData=[
+    {key:"Kateqoriya",value:data.category?.name ? data.category?.name : "boş"},
+    {key:"Məhsulun adı",value:data.productName ? data.productName : "boş"},
+    {key:"Məhsulun miqdarı",value:data.totalAmount ? data.totalAmount : "boş"},
+    {key:"Ölçü vahidi",value:data.unitMeasure}
+  ]
+
   return (
     <>
       {mode === "desktop" ? (
@@ -28,7 +35,7 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="cell-number">{cellNumber}.</div>
-              <div className="table-scroll-text">{data.category}</div>
+              <div className="table-scroll-text">{data.category?.name}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -61,23 +68,13 @@ const WarehouseCard = ({ data, mode, cellNumber }) => {
       ) : (
         <div className="content-box">
           <div className="left">
-            <ul>
-            <li>
-                <span className="type">Kateqoriya:</span>
-                <p>{data.category ? data.category : "boş"}</p>
-              </li>
-              <li>
-                <span className="type">Məhsulun adı:</span>
-                <p>{data.productName ? data.productName : "boş"}</p>
-              </li>
-              <li>
-                <span className="type">Məhsulun miqdarı:</span>
-                <p>{data.totalAmount ? data.totalAmount : "boş"}</p>
-              </li>
-              <li>
-                <span className="type">Ölçü vahidi:</span>
-                <p>{data.unitMeasure}</p>
-              </li>
+          <ul>
+            {listData.map((item, index) => (
+                <li key={index}>
+                  <span className="type">{item.key}:</span>
+                  <p>{item.value}</p>
+                </li>
+              ))}
             </ul>
           </div>
 

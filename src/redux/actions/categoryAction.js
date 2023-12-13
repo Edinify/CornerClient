@@ -77,9 +77,12 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
 };
 
 export const getCategoryBaseAction = (categoryKey) => async (dispatch) => {
+  console.log(categoryKey,"key")
   dispatch(setLoadingCategoryAction(true));
   try {
     const { data } = await API.get(`/all?categoryKey=${categoryKey}`);
+
+    console.log(data,"base")
 
     dispatch({ type: CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY, payload: data });
   } catch (error) {

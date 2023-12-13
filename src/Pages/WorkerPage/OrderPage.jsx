@@ -23,7 +23,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { loading } = useSelector((state) => state.checkLoading);
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
-  const [timeDifference, setTimeDifference] = useState(null);
+  // const [timeDifference, setTimeDifference] = useState(null);
 
   const [totalMin, setTotalMin] = useState(0);
 
@@ -41,6 +41,15 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       theme: "colored",
     });
   };
+
+  const listData = [
+    { key: "Otağın depositi:", value: `${userCheck.table.deposit} AZN ` },
+    {
+      key: "1 saatlıq qiymət:",
+      value: `${userCheck.table.oneMinutePrice || 0} AZN`,
+    },
+    { key: "Keçən müddət:", value: `${totalMin} dəqiqə` },
+  ];
 
   const createOrder = () => {
     if (userCheck._id) {
@@ -161,11 +170,12 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
 
               <div className="table-data-container">
-                <div>Otağın depositi: {userCheck.table.deposit} AZN </div>
-                <div>
-                  1 saatlıq qiymət: {userCheck.table.oneMinutePrice || 0} AZN
-                </div>
-                <div>Keçən müddət: {totalMin} dəqiqə</div>
+                {listData.map((item) => (
+                  <div key={item.key}>
+                    {" "}
+                    {item.key} {item.value}
+                  </div>
+                ))}
               </div>
             </div>
 

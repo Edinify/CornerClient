@@ -105,6 +105,7 @@ export const createWarehouseAction = (warehouseData) => async (dispatch) => {
     dispatch(getWarehouseAction());
     toastSuccess("Yeni məhsul yarandı");
   } catch (error) {
+    console.log(error)
     // console.log(data, "data");(error);
     if (error.response.data.key === "product-already-exists") {
       toastError("Bu adda məhsul mövcuddur");
