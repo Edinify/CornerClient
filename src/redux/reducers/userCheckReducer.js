@@ -87,7 +87,7 @@ export const userCheckReducer = (state = initialState, action) => {
 
       let newOrders;
 
-      if (checkOrder) {
+      if (checkSet) {
         newOrders = state.userCheck.orders.map((item) =>
           item.order._id === action.payload._id
             ? { ...item, orderCount: item.orderCount + 1 }
