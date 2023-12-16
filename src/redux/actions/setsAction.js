@@ -49,7 +49,7 @@ export const getSetAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingSetAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data,"data")
+    // console.log(data,"data")
     dispatch({ type: SETS_ACTION_TYPE.GET_SETS, payload: data });
     dispatch({
       type: SETS_ACTION_TYPE.GET_SETS_LAST_PAGE,
@@ -63,12 +63,13 @@ export const getSetAction = (pageNumber) => async (dispatch) => {
 };
 
 export const createSetAction = (setData) => async (dispatch) => {
+  console.log(setData)
   dispatch(setModalLoading(true))
   try {
     const { data } = await API.post("/", setData);
     dispatch({ type: SETS_ACTION_TYPE.CREATE_SETS, payload: data });
     dispatch(getSetAction());
-    dispatch(setModalOpen(false))
+    // dispatch(setModalOpen(false))
     toastSuccess("Yeni set əlavə edildi");
   } catch (error) {
     console.log(error);
@@ -84,6 +85,7 @@ export const updateSetAction = (_id, setData) => async (dispatch) => {
     const { data } = await API.patch(`/${_id}`, setData);
     dispatch({ type: SETS_ACTION_TYPE.UPDATE_SETS, payload: data });
     dispatch(setModalOpen(false))
+    toastSuccess("Set yeniləndi");
   } catch (error) {
     console.log(error);
   }
@@ -96,6 +98,7 @@ export const deleteSetAction = (_id) => async (dispatch) => {
   try {
     await API.delete(`${_id}`);
     dispatch({ type: SETS_ACTION_TYPE.DELETE_SETS, payload: _id });
+    toastSuccess("Set silindi");
   } catch (error) {
     console.log(error);
   }

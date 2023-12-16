@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import UpdateDeleteModal from "../../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
 import { SETS_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
 
-const SetCard = ({ data, mode,cellNumber }) => {
+const 
+SetCard = ({ data, mode,cellNumber }) => {
   const dispatch = useDispatch();
 
   const updateItem = () => {
@@ -20,8 +21,9 @@ const SetCard = ({ data, mode,cellNumber }) => {
     dispatch(deleteSetAction(data._id));
   };
 
-
   console.log(data,"set card")
+
+
   return (
     <>
       {mode === "desktop" ? (
@@ -31,21 +33,29 @@ const SetCard = ({ data, mode,cellNumber }) => {
               <div className="cell-number">{cellNumber}.</div>
               <div className="table-scroll-text">{data.products.map(product=>(
                 <div key={product._id} >
-                  {product.name}
+                  {product.product.productName}
                 </div>
               ))}</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
-            <div className="td-con">
-              <div className="table-scroll-text phone">{data.price}</div>
+          <div className="td-con">
+              <div className="table-scroll-text">{data.products.map(product=>(
+                <div key={product._id} >
+                  {product.productCount}
+                </div>
+              ))}</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
-            <div className="td-con">
-              <div className="table-scroll-text phone">{data.price}</div>
+          <div className="td-con">
+              <div className="table-scroll-text">{data.products.map(product=>(
+                <div key={product._id} >
+                  {product.productUnitAmount}
+                </div>
+              ))}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -68,16 +78,28 @@ const SetCard = ({ data, mode,cellNumber }) => {
           <div className="left">
             <ul>
               <li>
-                <span className="type">Məhsulun :</span>
-                <p>{data.product?.productName ? data.product?.productName : "boş"}</p>
+                <span className="type">Məhsul :</span>
+                <div className="table-scroll-text">{data.products.map(product=>(
+                <p key={product._id} >
+                  {product.product.productName}
+                </p>
+              ))}</div>
               </li>
               <li>
                 <span className="type">Məhsulun sayı:</span>
-                <p>{data.category ? data.category : "boş"}</p>
+                <div className="table-scroll-text">{data.products.map(product=>(
+                <p key={product._id} >
+                  {product.productCount}
+                </p>
+              ))}</div>
               </li>
               <li>
                 <span className="type">	Məhsulun miqdarı:</span>
-                <p>{data.price}</p>
+                <div className="table-scroll-text">{data.products.map(product=>(
+                <p key={product._id} >
+                  {product.productUnitAmount}
+                </p>
+              ))}</div>
               </li>
               <li>
                 <span className="type">Məbləğ:</span>

@@ -131,6 +131,13 @@
   position: relative;
 }
 
+  .sets-product {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .create-update-modal-form .class-field {
   display: flex;
   position: relative;

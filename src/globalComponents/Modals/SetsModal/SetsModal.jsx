@@ -17,12 +17,17 @@ const SetsModal = () => {
   const dispatch = useDispatch();
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
-  const inputArr = ["productCount", "productUnitAmount", "price"];
+  const inputArr = ["price"];
 
   const { allWarehouses } = useSelector((state) => state.allWarehouses);
   const warehousesList = allWarehouses?.filter((ware) => ware.productName);
   const [selectedWarehouseName, setSelectedWarehouseName] = useState({
-    productName: "",
+    products:[],
+    price:0
+  });
+  const [countData, setCountData] = useState({
+    productCount:0,
+    productUnitAmount:0
   });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
 
@@ -31,14 +36,22 @@ const SetsModal = () => {
     setClassIcon(false);
   };
 
-
   const warehouseNameAddData = (item) => {
-    setInputValue("product", item._id);
-    updateModalState("product", item._id);
-    dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+    // console.log(item)
+    // setInputValue("product", item._id);
+    // updateModalState("product", item._id);
+    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setWarehouseNameOpen(false);
-    setSelectedWarehouseName(item);
+    setSelectedWarehouseName({...selectedWarehouseName,   products:[...selectedWarehouseName.products, {
+      product:item._id,
+      productName:item.productName,
+      productCount:0,
+      productUnitAmount:0
+    }]});
   };
+
+
+  console.log(setsModalData,"sets")
 
   const closeModal = () => {
     dispatch({
@@ -59,7 +72,7 @@ const SetsModal = () => {
       },
     });
   };
-
+  const [products, setProducts] = useState([]);
   const formik = useFormik({
     initialValues: {
       productCount: setsModalData?.productCount
@@ -74,12 +87,15 @@ const SetsModal = () => {
   });
   const setInputValue = useCallback(
     (key, value) =>
-      formik.setValues({
+      formik.setValues([
+        {
         ...formik.values,
         [key]: value,
-      }),
+        }
+    ]),
     [formik]
   );
+
 
   return (
     <div className="create-update-modal-con bonus-modal">
@@ -102,17 +118,26 @@ const SetsModal = () => {
           <div className="create-update-modal-form">
             <WarehouseLists
               setSelectedWarehouseName={setSelectedWarehouseName}
+              products={selectedWarehouseName.products}
               selectedWarehouseName={selectedWarehouseName}
+              setCountData={setCountData}
+              countData={countData}
               warehouseNameDropdown={warehouseNameDropdown}
               warehouseNameOpen={warehouseNameOpen}
               setWarehouseNameOpen={setWarehouseNameOpen}
               warehouseNameAddData={warehouseNameAddData}
               warehousesList={warehousesList}
               formik={formik}
+              setInputValue={setInputValue}
+              setsModalData={setsModalData}
+              updateModalState={updateModalState}
             />
 
             {inputArr.map((name, index) => (
+              
               <InputField
+                setSelectedWarehouseName={setSelectedWarehouseName}
+                selectedWarehouseName={selectedWarehouseName}
                 key={index}
                 inputName={name}
                 setInputValue={setInputValue}
@@ -121,6 +146,7 @@ const SetsModal = () => {
                 updateModalState={updateModalState}
               />
             ))}
+            {}
           </div>
         </Box>
 
@@ -137,6 +163,7 @@ const SetsModal = () => {
             formik={formik}
             funcType="create"
             setsModalData={setsModalData}
+            selectedWarehouseName={selectedWarehouseName}
             closeModal={closeModal}
             setDeleteModal={setDeleteModal}
           />

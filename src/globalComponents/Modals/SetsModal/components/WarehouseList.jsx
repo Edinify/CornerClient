@@ -2,27 +2,37 @@ import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllWarehouseAction } from "../../../../redux/actions/wareHouseAction";
-
+import { ReactComponent as MinusIcon } from "../../../../assets/icons/minus-cirlce.svg";
+import InputField from "./InputField";
 const WarehouseLists = ({
     setSelectedWarehouseName,
+    products,
     selectedWarehouseName,
+    setCountData,
+    countData,
     warehouseNameDropdown,
     warehouseNameOpen,
     setWarehouseNameOpen,
     warehouseNameAddData,
     warehousesList,
-    formik
+    formik,
+    setInputValue,
+    setsModalData,
+    updateModalState
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
+  const inputArr = ["productCount", "productUnitAmount"];
+  const  [data, setData] = useState({
 
+  })
   const dispatch = useDispatch()
 
 
 
   const searchData = (e) => {
     setSearcherValue(e.target.value);
-    setSelectedWarehouseName("");
+    // setSelectedWarehouseName("");
     setWarehouseNameOpen(true);
   };
 
@@ -36,7 +46,15 @@ const WarehouseLists = ({
     }
     setWarehouseNameOpen(!warehouseNameOpen);
   };
-
+ 
+  const setFunction = (data) =>{
+    
+    setSelectedWarehouseName({
+      ...selectedWarehouseName,
+      products:products.filter((set) => set.product !== data)
+    })
+    console.log(selectedWarehouseName)
+  }
 
   return (
     <>
@@ -100,12 +118,47 @@ const WarehouseLists = ({
             .map((item, i) => {
               return (
                 <li key={i} onClick={() => warehouseNameAddData(item)}>
-                  <h4>{item.productName}</h4>
+                  <h4>{item.productName} <span> + </span></h4>
                 </li>
               );
             })}
         </ul>
       </div>
+      {products?.length > 0 && <> 
+        
+        {products.map((item, i) => {
+          
+              return (
+                <div key={i} >
+                  <div className="sets-product"> 
+                  <h2  >{item.productName}</h2>
+                  <MinusIcon onClick={() => setFunction(item.product)} />
+                  {/* <span  > X </span>  */}
+                  </div>
+                  {/* <div>
+                    
+                  </div> */}
+                  { inputArr.map((name, index) => (
+                    <InputField
+                      setSelectedWarehouseName={setSelectedWarehouseName}
+                      item={item}
+                      products={products}
+                      selectedWarehouseName={selectedWarehouseName}
+                      setCountData={setCountData}
+                      countData={countData}
+                      // ---
+                      key={index}
+                      inputName={name}
+                      setInputValue={setInputValue}
+                      formik={formik}
+                      setsModalData={setsModalData}
+                      updateModalState={updateModalState}
+                    />
+                  ))}
+                </div>
+              );
+          })} 
+      </> }
     </>
   );
 };

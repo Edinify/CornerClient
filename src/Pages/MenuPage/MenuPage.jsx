@@ -19,10 +19,6 @@ const MenuPage = () => {
   const { changeShowNav } = useCustomHook();
   const location = useLocation();
 
-  // sets
-
-
-
 
   const getPageNumber = (pageNumber) => {
     setMenusPageNum(pageNumber);
