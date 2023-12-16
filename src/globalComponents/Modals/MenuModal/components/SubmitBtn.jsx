@@ -10,11 +10,7 @@ import {
 } from "../../../../redux/actions/menusAction";
 import LoadingBtn from "../../../Loading/components/LoadingBtn/LoadingBtn";
 
-export default function SubmitBtn({
-  formik,
-  menusModalData,
-  funcType,
-}) {
+export default function SubmitBtn({ formik, menusModalData, funcType }) {
   const dispatch = useDispatch();
   const { menuModalLoading } = useSelector((state) => state.menuModal);
   const [isDisabled, setIsDisabled] = useState(() => {
@@ -24,8 +20,6 @@ export default function SubmitBtn({
       return true;
     }
   });
-
-
 
   useEffect(() => {
     setIsDisabled(() => {
@@ -54,14 +48,14 @@ export default function SubmitBtn({
   }, [formik.errors]);
   const classCreate = () => {
     if (menusModalData?._id) {
-      dispatch(
-        updateMenusAction(menusModalData?._id, menusModalData)
-      );
+      dispatch(updateMenusAction(menusModalData?._id, menusModalData));
     } else {
       dispatch({
         type: SEARCH_VALUES_ACTION_TYPES.COURSES_SEARCH_VALUE,
         payload: "",
       });
+
+      console.log(menusModalData, "test test test");
       dispatch(createMenusAction(menusModalData));
     }
     // closeModal();
@@ -69,7 +63,9 @@ export default function SubmitBtn({
   return (
     <div className="create-update-modal-btn">
       <button
-        disabled={!(formik.isValid && menusModalData?.unitAmount && !menuModalLoading)}
+        disabled={
+          !(formik.isValid && menusModalData?.unitAmount && !menuModalLoading)
+        }
         onClick={classCreate}
       >
         {menuModalLoading ? (

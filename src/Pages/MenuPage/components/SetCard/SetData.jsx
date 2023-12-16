@@ -17,7 +17,7 @@ const SetData = ({getMenuSetPageNumber,menuSetPageNum}) => {
     { id: 7, label: "", type: "more-options-head" },
   ];
 
-
+  console.log(menuSet)
 
 
   useEffect(() => {
@@ -41,7 +41,10 @@ const SetData = ({getMenuSetPageNumber,menuSetPageNum}) => {
           </thead>
 
           <tbody>
-            {menuSet?.products?.map((item, i) => (
+            {
+              
+              menuSet.map((item, i) => (
+              console.log(item),
               <SetCard
                 key={i}
                 data={item}
