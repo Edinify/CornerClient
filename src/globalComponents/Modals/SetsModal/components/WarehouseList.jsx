@@ -21,7 +21,7 @@ const WarehouseLists = ({
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
-  const inputArr = ["productCount", "productUnitAmount"];
+  const inputArr = ["productCount", "productUnitAmount",];
   const  [data, setData] = useState({
 
   })
@@ -54,11 +54,12 @@ const WarehouseLists = ({
     })
     console.log(selectedWarehouseName)
   }
-
+  console.log(selectedWarehouseName)
   return (
     <>
       <div className="class-input">
         <div className="class-field">
+          
           <TextField
             sx={{
               "& input": {

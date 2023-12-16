@@ -20,6 +20,14 @@ export default function InputField({
   const [shrink, setShrink] = useState(false);
   const inputData = [
     {
+      inputName: "name",
+      label: "setin adı",
+      type: "text",
+      marginTop: "24px",
+      marginBottom: "0",
+      inputValue: setsModalData[inputName] || "",
+    },
+    {
       inputName: "productCount",
       label: "Məhsulun sayı",
       type: "number",
@@ -47,7 +55,7 @@ export default function InputField({
   ];
   
 
-  console.log(selectedWarehouseName)
+  console.log(inputName !=="price")
   return (
     <div onClick={() => setData(item)}>
       
@@ -81,9 +89,7 @@ export default function InputField({
       // value={item}
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
-        setSelectedWarehouseName(inputName, e.target.value)
-        setInputValue(inputName, e.target.value);
-        // inputName === inputData.sfind((item) => item.inputName === inputName) && console.log('1')
+        // setInputValue(inputName, e.target.value);
         inputName !=="price" ?
         setSelectedWarehouseName( 
           { ...selectedWarehouseName, products: [...products.map((data) =>{  
@@ -95,10 +101,13 @@ export default function InputField({
           {...data,  productUnitAmount : Number(e.target.value)} :
           data
           } )]} 
-        ) :  setSelectedWarehouseName( {...selectedWarehouseName,
+        ) : inputName ==="name" ?  setSelectedWarehouseName( {...selectedWarehouseName,
+          name: e.target.value
+        }) :
+         setSelectedWarehouseName( {...selectedWarehouseName,
             price: Number(e.target.value)
-          })
-      }}
+        }) 
+      }} 
       onBlur={(e) => {
         formik.setFieldTouched(inputName, true);
         setShrink(!!e.target.value);

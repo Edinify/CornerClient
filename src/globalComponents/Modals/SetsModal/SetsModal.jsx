@@ -17,13 +17,14 @@ const SetsModal = () => {
   const dispatch = useDispatch();
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
-  const inputArr = ["price"];
+  const inputArr = ["price","name"];
 
   const { allWarehouses } = useSelector((state) => state.allWarehouses);
   const warehousesList = allWarehouses?.filter((ware) => ware.productName);
   const [selectedWarehouseName, setSelectedWarehouseName] = useState({
     products:[],
-    price:0
+    price:0,
+    name:''
   });
   const [countData, setCountData] = useState({
     productCount:0,
@@ -36,6 +37,7 @@ const SetsModal = () => {
     setClassIcon(false);
   };
 
+  
   const warehouseNameAddData = (item) => {
     // console.log(item)
     // setInputValue("product", item._id);
