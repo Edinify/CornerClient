@@ -17,6 +17,8 @@ const NotFoundPage = ({setNotFound}) => {
     }
   }
 
+  // 
+
   useEffect(() => {
     changeShowNav(false)
     return () => {
