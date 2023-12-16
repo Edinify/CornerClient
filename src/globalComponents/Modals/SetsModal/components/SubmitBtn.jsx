@@ -7,7 +7,7 @@ import {
   updateSetAction,
 } from "../../../../redux/actions/setsAction";
 
-export default function SubmitBtn({ formik, setsModalData, funcType }) {
+export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName, funcType }) {
   const dispatch = useDispatch();
   const { menuModalLoading } = useSelector((state) => state.menuModal);
   const [isDisabled, setIsDisabled] = useState(() => {
@@ -18,7 +18,7 @@ export default function SubmitBtn({ formik, setsModalData, funcType }) {
     }
   });
 
-  console.log(setsModalData, "data");
+  // console.log(setsModalData, "data");
 
   const newSets = {
     product:setsModalData.product,
@@ -31,15 +31,17 @@ export default function SubmitBtn({ formik, setsModalData, funcType }) {
     if (setsModalData?._id) {
       dispatch(updateSetAction(setsModalData?._id, setsModalData));
     } else {
-      dispatch(createSetAction(newSets));
+      dispatch(createSetAction(selectedWarehouseName));
     }
     // closeModal();
   };
+
+
   return (
     <div className="create-update-modal-btn">
       <button
         disabled={
-          !(formik.isValid && setsModalData?.price && !menuModalLoading)
+          !(formik.isValid && !menuModalLoading)
         }
         onClick={classCreate}
       >

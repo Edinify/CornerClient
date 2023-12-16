@@ -49,7 +49,7 @@ export const getSetAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingSetAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    // console.log(data,"data")
+    console.log(data,"data")
     dispatch({ type: SETS_ACTION_TYPE.GET_SETS, payload: data });
     dispatch({
       type: SETS_ACTION_TYPE.GET_SETS_LAST_PAGE,
@@ -63,13 +63,14 @@ export const getSetAction = (pageNumber) => async (dispatch) => {
 };
 
 export const createSetAction = (setData) => async (dispatch) => {
+  console.log(setData)
   dispatch(setModalLoading(true))
   try {
     const { data } = await API.post("/", setData);
     console.log(data, "create set");
     dispatch({ type: SETS_ACTION_TYPE.CREATE_SETS, payload: data });
-    dispatch(getSetAction());
-    dispatch(setModalOpen(false))
+    // dispatch(getSetAction());
+    // dispatch(setModalOpen(false))
     toastSuccess("Yeni set əlavə edildi");
   } catch (error) {
     console.log(error);
