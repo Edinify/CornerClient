@@ -21,7 +21,6 @@ SetCard = ({ data, mode,cellNumber }) => {
     dispatch(deleteSetAction(data._id));
   };
 
-  console.log(data,"set card")
 
 
   return (
@@ -34,6 +33,16 @@ SetCard = ({ data, mode,cellNumber }) => {
               <div className="table-scroll-text">{data.products.map(product=>(
                 <div key={product._id} >
                   {product.product.productName}
+                </div>
+              ))}</div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td>
+          <div className="td-con">
+              <div className="table-scroll-text">{data.products.map(product=>(
+                <div key={product._id} >
+                  {product.productCount}
                 </div>
               ))}</div>
               <div className="right-fade"></div>
@@ -87,6 +96,14 @@ SetCard = ({ data, mode,cellNumber }) => {
               </li>
               <li>
                 <span className="type">Məhsulun sayı:</span>
+                <div className="table-scroll-text">{data.products.map(product=>(
+                <p key={product._id} >
+                  {product.productCount}
+                </p>
+              ))}</div>
+              </li>
+              <li>
+                <span className="type">Setin adı:</span>
                 <div className="table-scroll-text">{data.products.map(product=>(
                 <p key={product._id} >
                   {product.productCount}

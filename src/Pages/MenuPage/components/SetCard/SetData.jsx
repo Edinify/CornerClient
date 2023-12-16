@@ -12,6 +12,7 @@ const SetData = ({getMenuSetPageNumber,menuSetPageNum}) => {
   const tableHead = [
     { id: 1, label: "Məhsul" },
     { id: 2, label: "Məhsulun sayı" },
+    {id:5,label:"Setin adı"},
     { id: 3, label: "Məhsulun miqdarı  " },
     {id:4,label:"Məbləğ"},
     { id: 7, label: "", type: "more-options-head" },
