@@ -41,7 +41,7 @@ export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName,
     <div className="create-update-modal-btn">
       <button
         disabled={
-          !(formik.isValid && !menuModalLoading)
+          !(!menuModalLoading)
         }
         onClick={classCreate}
       >
