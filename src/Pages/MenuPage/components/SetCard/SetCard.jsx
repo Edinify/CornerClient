@@ -3,12 +3,11 @@ import { useDispatch } from "react-redux";
 import UpdateDeleteModal from "../../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
 import { SETS_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
 
-const 
-SetCard = ({ data, mode,cellNumber }) => {
+const SetCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
   const updateItem = () => {
-    const { products, _id,price } = data;
+    const { products, _id, price } = data;
     dispatch({
       type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
       payload: {
@@ -22,7 +21,6 @@ SetCard = ({ data, mode,cellNumber }) => {
   };
 
 
-
   return (
     <>
       {mode === "desktop" ? (
@@ -30,41 +28,37 @@ SetCard = ({ data, mode,cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="cell-number">{cellNumber}.</div>
-              <div className="table-scroll-text">{data.products.map(product=>(
-                <div key={product._id} >
-                  {product.product.productName}
-                </div>
-              ))}</div>
+              <div className="table-scroll-text">
+                {data.products.map((product) => (
+                  <div key={product._id}>{product.product.productName}</div>
+                ))}
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
-          <div className="td-con">
-              <div className="table-scroll-text">{data.products.map(product=>(
-                <div key={product._id} >
-                  {product.productCount}
-                </div>
-              ))}</div>
+            <div className="td-con">
+              <div className="table-scroll-text">
+                {data.products.map((product) => (
+                  <div key={product._id}>{product.productCount}</div>
+                ))}
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
-          <div className="td-con">
-              <div className="table-scroll-text">{data.products.map(product=>(
-                <div key={product._id} >
-                  {product.productCount}
-                </div>
-              ))}</div>
+            <div className="td-con">
+              <div className="table-scroll-text phone">{data.name}</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
-          <div className="td-con">
-              <div className="table-scroll-text">{data.products.map(product=>(
-                <div key={product._id} >
-                  {product.productUnitAmount}
-                </div>
-              ))}</div>
+            <div className="td-con">
+              <div className="table-scroll-text">
+                {data.products.map((product) => (
+                  <div key={product._id}>{product.productUnitAmount}</div>
+                ))}
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -88,35 +82,31 @@ SetCard = ({ data, mode,cellNumber }) => {
             <ul>
               <li>
                 <span className="type">Məhsul :</span>
-                <div className="table-scroll-text">{data.products.map(product=>(
-                <p key={product._id} >
-                  {product.product.productName}
-                </p>
-              ))}</div>
+                <div className="table-scroll-text">
+                  {data.products.map((product) => (
+                    <p key={product._id}>{product.product.productName}</p>
+                  ))}
+                </div>
               </li>
               <li>
                 <span className="type">Məhsulun sayı:</span>
-                <div className="table-scroll-text">{data.products.map(product=>(
-                <p key={product._id} >
-                  {product.productCount}
-                </p>
-              ))}</div>
+                <div className="table-scroll-text">
+                  {data.products.map((product) => (
+                    <p key={product._id}>{product.productCount}</p>
+                  ))}
+                </div>
               </li>
               <li>
                 <span className="type">Setin adı:</span>
-                <div className="table-scroll-text">{data.products.map(product=>(
-                <p key={product._id} >
-                  {product.productCount}
-                </p>
-              ))}</div>
+                <p>{data.name}</p>
               </li>
               <li>
-                <span className="type">	Məhsulun miqdarı:</span>
-                <div className="table-scroll-text">{data.products.map(product=>(
-                <p key={product._id} >
-                  {product.productUnitAmount}
-                </p>
-              ))}</div>
+                <span className="type"> Məhsulun miqdarı:</span>
+                <div className="table-scroll-text">
+                  {data.products.map((product) => (
+                    <p key={product._id}>{product.productUnitAmount}</p>
+                  ))}
+                </div>
               </li>
               <li>
                 <span className="type">Məbləğ:</span>

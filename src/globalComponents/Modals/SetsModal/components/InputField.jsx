@@ -55,7 +55,7 @@ export default function InputField({
   ];
   
 
-  console.log(inputName !=="price")
+  // console.log(inputName !=="price")
   return (
     <div onClick={() => setData(item)}>
       
@@ -90,8 +90,12 @@ export default function InputField({
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
         // setInputValue(inputName, e.target.value);
-        inputName !=="price" ?
-        setSelectedWarehouseName( 
+        inputName ==="price" ?
+        setSelectedWarehouseName( {...selectedWarehouseName,
+          price: Number(e.target.value)
+        }) : inputName ==="name" ? setSelectedWarehouseName( {...selectedWarehouseName,
+          name: e.target.value
+        }) : setSelectedWarehouseName( 
           { ...selectedWarehouseName, products: [...products.map((data) =>{  
           return data =  data.productName === Data.productName && 
           inputName === "productCount" ?  
@@ -101,12 +105,11 @@ export default function InputField({
           {...data,  productUnitAmount : Number(e.target.value)} :
           data
           } )]} 
-        ) : inputName ==="name" ?  setSelectedWarehouseName( {...selectedWarehouseName,
-          name: e.target.value
-        }) :
-         setSelectedWarehouseName( {...selectedWarehouseName,
-            price: Number(e.target.value)
-        }) 
+        ) 
+        // : inputName ==="name" ?  setSelectedWarehouseName( {...selectedWarehouseName,
+        //   name: e.target.value
+        // }) :
+         
       }} 
       onBlur={(e) => {
         formik.setFieldTouched(inputName, true);

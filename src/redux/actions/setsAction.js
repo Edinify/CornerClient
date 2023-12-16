@@ -69,7 +69,7 @@ export const createSetAction = (setData) => async (dispatch) => {
     const { data } = await API.post("/", setData);
     dispatch({ type: SETS_ACTION_TYPE.CREATE_SETS, payload: data });
     dispatch(getSetAction());
-    // dispatch(setModalOpen(false))
+    dispatch(setModalOpen(false))
     toastSuccess("Yeni set əlavə edildi");
   } catch (error) {
     console.log(error);

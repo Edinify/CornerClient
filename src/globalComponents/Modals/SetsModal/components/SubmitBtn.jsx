@@ -40,9 +40,7 @@ export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName,
   return (
     <div className="create-update-modal-btn">
       <button
-        disabled={
-          !(formik.isValid && !setModalLoading)
-        }
+        // disabled={!(formik.isValid && setsModalData?.name && !setModalLoading)}
         onClick={classCreate}
       >
         {setModalLoading ? (
