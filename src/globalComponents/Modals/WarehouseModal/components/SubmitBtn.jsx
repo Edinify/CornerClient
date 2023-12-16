@@ -5,14 +5,12 @@ import {
 } from "../../../../redux/actions/wareHouseAction";
 import LoadingBtn from "../../../Loading/components/LoadingBtn/LoadingBtn";
 
-export default function SubmitBtn({
-  warehouseModalData,
-  funcType,
-  formik
-}) {
+export default function SubmitBtn({ warehouseModalData, funcType, formik }) {
   const dispatch = useDispatch();
 
-  const { warehouseModalLoading } = useSelector((state) => state.warehouseModal);
+  const { warehouseModalLoading } = useSelector(
+    (state) => state.warehouseModal
+  );
   const classCreate = () => {
     if (warehouseModalData?._id) {
       dispatch(
@@ -23,11 +21,18 @@ export default function SubmitBtn({
     }
     // closeModal();
 
+    console.log(warehouseModalData, "ware");
   };
   return (
     <div className="create-update-modal-btn">
       <button
-        disabled={!(formik.isValid && warehouseModalData?.totalAmount && !warehouseModalLoading)}
+        disabled={
+          !(
+            formik.isValid &&
+            warehouseModalData?.totalAmount &&
+            !warehouseModalLoading
+          )
+        }
         onClick={classCreate}
       >
         {warehouseModalLoading ? (

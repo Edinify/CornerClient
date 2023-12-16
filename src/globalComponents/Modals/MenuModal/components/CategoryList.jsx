@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryAction } from "../../../../redux/actions/categoryAction";
+import { getWarehouseActionList } from "../../../../redux/actions/wareHouseAction";
+import { json } from "react-router-dom";
 
 const CategoryLists = ({
   selectedCategoryName,
@@ -25,6 +27,7 @@ const CategoryLists = ({
     dispatch(getCategoryAction());
   }, []);
 
+  console.log(selectedCategoryName, 'selectedCategoryName')
   return (
     <>
       <div className="class-input">
@@ -76,9 +79,9 @@ const CategoryLists = ({
             categoryNameOpen ? "active" : ""
           }`}
         >
-          {categoryList?.map((item, i) => {
+          {categoryList?.map((item) => {
             return (
-              <li key={i} onClick={() => categoryNameAddData(item)}>
+              <li key={item._id} onClick={() => categoryNameAddData(item)}>
                 <h4>{item.name}</h4>
               </li>
             );

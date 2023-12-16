@@ -19,9 +19,7 @@ export const MenuModal = () => {
   const { category } = useSelector((state) => state.category);
   const { warehouses } = useSelector((state) => state.warehouses);
   const categoryList = category?.filter((category) => category?.name);
-  const [selectedCategoryName, setSelectedCategoryName] = useState({
-    name: "",
-  });
+  const [selectedCategoryName, setSelectedCategoryName] = useState();
   const [categoryNameOpen, setCategoryNameOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
@@ -32,6 +30,8 @@ export const MenuModal = () => {
     productName: "",
   });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
+
+  console.log(menusModalData, "menus modal data");
 
   const formik = useFormik({
     initialValues: {
@@ -77,12 +77,12 @@ export const MenuModal = () => {
   };
 
   const updateModalState = (keyName, value) => {
+    console.log(selectedCategoryName, "bla blba");
     dispatch({
       type: MENU_M0DAL_ACTION_TYPE.GET_MENU_MODAL,
       payload: {
         data: {
           ...menusModalData,
-          category: selectedCategoryName?.name,
           [keyName]: value,
         },
         openModal: true,
@@ -99,10 +99,7 @@ export const MenuModal = () => {
   useEffect(() => {
     if (menusModalData?._id) {
       if (menusModalData?.category) {
-        setSelectedCategoryName({
-          ...selectedCategoryName,
-          name: menusModalData.category,
-        });
+        setSelectedCategoryName(menusModalData.category);
       }
     }
   }, []);
@@ -116,6 +113,12 @@ export const MenuModal = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    setSelectedWarehouseName({
+      productName: "",
+    });
+  }, [selectedCategoryName]);
 
   return (
     <div className="create-update-modal-con bonus-modal">
@@ -154,6 +157,7 @@ export const MenuModal = () => {
               setWarehouseNameOpen={setWarehouseNameOpen}
               warehouseNameAddData={warehouseNameAddData}
               warehousesList={warehousesList}
+              selectedCategoryName={selectedCategoryName}
               formik={formik}
             />
 

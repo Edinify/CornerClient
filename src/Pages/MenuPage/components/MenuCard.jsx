@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { MENU_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import UpdateDeleteModal from "../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
 
-const MenuCard = ({ data, mode,cellNumber }) => {
+const MenuCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
   const updateItem = () => {
@@ -26,13 +26,15 @@ const MenuCard = ({ data, mode,cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="cell-number">{cellNumber}.</div>
-              <div className="table-scroll-text">{data.product?.productName}</div>
+              <div className="table-scroll-text">
+                {data.product?.productName}
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text">{data.category}</div>
+              <div className="table-scroll-text">{data.category.name}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -62,11 +64,15 @@ const MenuCard = ({ data, mode,cellNumber }) => {
             <ul>
               <li>
                 <span className="type">Məhsulun adı:</span>
-                <p>{data.product?.productName ? data.product?.productName : "boş"}</p>
+                <p>
+                  {data.product?.productName
+                    ? data.product?.productName
+                    : "boş"}
+                </p>
               </li>
               <li>
                 <span className="type">Kateqoriya:</span>
-                <p>{data.category ? data.category : "boş"}</p>
+                <p>{data.category ? data.category.name : "boş"}</p>
               </li>
               <li>
                 <span className="type">Məhsulun qiyməti:</span>

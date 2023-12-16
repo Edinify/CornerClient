@@ -14,6 +14,7 @@ const WarehouseLists = ({
   setWarehouseNameOpen,
   warehouseNameAddData,
   warehousesList,
+  selectedCategoryName,
   formik,
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
@@ -27,8 +28,10 @@ const WarehouseLists = ({
   };
 
   useEffect(() => {
-    dispatch(getWarehouseActionList(selectedWarehouseName._id));
-  }, []);
+    if (warehouseNameOpen) {
+      dispatch(getWarehouseActionList(selectedCategoryName?._id));
+    }
+  }, [warehouseNameOpen]);
 
   const changeOpenDropdown = () => {
     if (!selectedWarehouseName && dropdownName) {
