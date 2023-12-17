@@ -9,7 +9,7 @@ import {
 
 export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName, funcType }) {
   const dispatch = useDispatch();
-  const { setModalLoading } = useSelector((state) => state.menuSetModal);
+  const { menuModalLoading } = useSelector((state) => state.menuModal);
   const [isDisabled, setIsDisabled] = useState(() => {
     if (funcType === "update") {
       return false;
@@ -28,8 +28,8 @@ export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName,
   };
 
   const classCreate = () => {
-    if (setsModalData?._id) {
-      dispatch(updateSetAction(setsModalData?._id, setsModalData));
+    if (selectedWarehouseName?.id) {
+      dispatch(updateSetAction(selectedWarehouseName?.id, selectedWarehouseName));
     } else {
       dispatch(createSetAction(selectedWarehouseName));
     }
@@ -40,10 +40,12 @@ export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName,
   return (
     <div className="create-update-modal-btn">
       <button
-        // disabled={!(formik.isValid && setsModalData?.name && !setModalLoading)}
+        disabled={
+          !(!menuModalLoading)
+        }
         onClick={classCreate}
       >
-        {setModalLoading ? (
+        {menuModalLoading ? (
           <LoadingBtn />
         ) : funcType === "update" ? (
           "Yenilə"

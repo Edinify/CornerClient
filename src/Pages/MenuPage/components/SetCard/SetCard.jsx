@@ -7,11 +7,12 @@ const SetCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
   const updateItem = () => {
-    const { products, _id, price } = data;
+    console.log(data)
+    const { products, _id, price,name } = data;
     dispatch({
       type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
       payload: {
-        data: { products, _id, price },
+        data: { products, _id, price,name },
         openModal: true,
       },
     });

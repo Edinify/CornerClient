@@ -49,7 +49,7 @@ export const getSetAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingSetAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data," set data")
+    // console.log(data," set data")
     dispatch({ type: SETS_ACTION_TYPE.GET_SETS, payload: data });
     dispatch({
       type: SETS_ACTION_TYPE.GET_SETS_LAST_PAGE,

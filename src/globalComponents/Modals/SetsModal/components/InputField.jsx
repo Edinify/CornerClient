@@ -13,8 +13,8 @@ export default function InputField({
   setInputValue,
   setSelectedWarehouseName,
   item,
+  value
 }) {
-  // console.log(selectedWarehouseName)
 
   const [Data, setData] = useState({})
   const [shrink, setShrink] = useState(false);
@@ -53,9 +53,6 @@ export default function InputField({
     },
  
   ];
-  
-
-  // console.log(inputName !=="price")
   return (
     <div onClick={() => setData(item)}>
       
@@ -86,10 +83,15 @@ export default function InputField({
       name={inputName}
       type={inputData.find((item) => item.inputName === inputName).type}
       label={inputData.find((item) => item.inputName === inputName).label}
-      // value={item}
+      // value={
+      //   selectedWarehouseName?.id ? inputName ==="price" ?  
+      //   selectedWarehouseName.price: 
+      //   inputName ==="name" ?
+      //   selectedWarehouseName.name:'' :''
+      // }
+      value={value}
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
-        // setInputValue(inputName, e.target.value);
         inputName ==="price" ?
         setSelectedWarehouseName( {...selectedWarehouseName,
           price: Number(e.target.value)

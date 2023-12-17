@@ -55,7 +55,7 @@ const WarehouseLists = ({
     })
     console.log(selectedWarehouseName)
   }
-  console.log(selectedWarehouseName)
+  // console.log(selectedWarehouseName)
   return (
     <>
       <div className="class-input">
@@ -128,11 +128,11 @@ const WarehouseLists = ({
       {products?.length > 0 && <> 
         
         {products.map((item, i) => {
-          
+          const {productCount,productUnitAmount} = item
               return (
                 <div key={i} >
                   <div className="sets-product"> 
-                  <h2  >{item.productName}</h2>
+                  <h2>{item.productName ? item.productName: item.product.productName}</h2>
                   <MinusIcon onClick={() => setFunction(item.product)} />
                   {/* <span  > X </span>  */}
                   </div>
@@ -147,6 +147,7 @@ const WarehouseLists = ({
                       selectedWarehouseName={selectedWarehouseName}
                       setCountData={setCountData}
                       countData={countData}
+                      value={name === "productCount" ? productCount:name === "productUnitAmount"? productUnitAmount:''  }
                       // ---
                       key={index}
                       inputName={name}

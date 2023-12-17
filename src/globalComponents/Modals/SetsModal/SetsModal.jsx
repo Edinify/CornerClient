@@ -23,7 +23,7 @@ const SetsModal = () => {
   const warehousesList = allWarehouses?.filter((ware) => ware.productName);
   const [selectedWarehouseName, setSelectedWarehouseName] = useState({
     products: [],
-    price: 0,
+    price: '',
     name: "",
   });
   const [countData, setCountData] = useState({
@@ -36,7 +36,7 @@ const SetsModal = () => {
     setWarehouseNameOpen(!warehouseNameOpen);
     setClassIcon(false);
   };
-
+  // console.log(setsModalData)
   const warehouseNameAddData = (item) => {
     // console.log(item)
     // setInputValue("product", item._id);
@@ -50,14 +50,14 @@ const SetsModal = () => {
         {
           product: item._id,
           productName: item.productName,
-          productCount: 0,
-          productUnitAmount: 0,
+          productCount: '',
+          productUnitAmount: '',
         },
       ],
     });
   };
 
-  console.log(setsModalData, "sets");
+  // console.log(setsModalData, "sets");
 
   const closeModal = () => {
     dispatch({
@@ -66,19 +66,37 @@ const SetsModal = () => {
     });
   };
 
+  // console.log(setsModalData)
+
+  useEffect(() => {
+    if(setsModalData._id){
+      const {name,price,products,_id} = setsModalData
+      // console.log(name,price,products)
+      setSelectedWarehouseName({
+        ...selectedWarehouseName,
+        name: name,
+        price: price,
+        products: products,
+        id:_id
+      });
+      
+    }
+  }, [setsModalData])
+  
+  console.log(setsModalData)
   const updateModalState = (keyName, value) => {
-    dispatch({
-      type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
-      payload: {
-        data: {
-          ...setsModalData,
-          [keyName]: value,
-        },
-        openModal: true,
-      },
-    });
+    // setSelectedWarehouseName({...setsModalData})
+    // dispatch({
+    //   type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
+    //   payload: {
+    //     data: {
+    //       ...setsModalData,
+    //       [keyName]: value,
+    //     },
+    //     openModal: true,
+    //   },
+    // });
   };
-  const [products, setProducts] = useState([]);
   const formik = useFormik({
     initialValues: {
       productCount: setsModalData?.productCount
@@ -143,6 +161,7 @@ const SetsModal = () => {
               <InputField
                 setSelectedWarehouseName={setSelectedWarehouseName}
                 selectedWarehouseName={selectedWarehouseName}
+                value={name==="name"?selectedWarehouseName.name : name==="price"? selectedWarehouseName.price : "" }
                 key={index}
                 inputName={name}
                 setInputValue={setInputValue}
@@ -160,6 +179,7 @@ const SetsModal = () => {
             formik={formik}
             funcType="update"
             setsModalData={setsModalData}
+            selectedWarehouseName={selectedWarehouseName}
             closeModal={closeModal}
             setDeleteModal={setDeleteModal}
           />
