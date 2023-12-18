@@ -6,9 +6,10 @@ import { SETS_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
 const SetCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
+
   const updateItem = () => {
-    console.log(data)
     const { products, _id, price,name } = data;
+
     dispatch({
       type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
       payload: {

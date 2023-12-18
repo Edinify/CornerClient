@@ -31,7 +31,6 @@ export const MenuModal = () => {
   });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
 
-  console.log(menusModalData, "menus modal data");
 
   const formik = useFormik({
     initialValues: {
@@ -77,7 +76,6 @@ export const MenuModal = () => {
   };
 
   const updateModalState = (keyName, value) => {
-    console.log(selectedCategoryName, "bla blba");
     dispatch({
       type: MENU_M0DAL_ACTION_TYPE.GET_MENU_MODAL,
       payload: {

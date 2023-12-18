@@ -4,31 +4,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllWarehouseAction } from "../../../../redux/actions/wareHouseAction";
 import { ReactComponent as MinusIcon } from "../../../../assets/icons/minus-cirlce.svg";
 import InputField from "./InputField";
+import WareHouseInputField from "./WareHouseInputField";
 const WarehouseLists = ({
-    setSelectedWarehouseName,
-    products,
-    selectedWarehouseName,
-    setCountData,
-    countData,
-    warehouseNameDropdown,
-    warehouseNameOpen,
-    setWarehouseNameOpen,
-    warehouseNameAddData,
-    warehousesList,
-    formik,
-    setInputValue,
-    setsModalData,
-    updateModalState
+  setSelectedWarehouseName,
+  products,
+  selectedWarehouseName,
+  setCountData,
+  countData,
+  warehouseNameDropdown,
+  warehouseNameOpen,
+  setWarehouseNameOpen,
+  warehouseNameAddData,
+  warehousesList,
+  formik,
+  setInputValue,
+  setsModalData,
+  updateModalState,
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
-  const inputArr = ["productCount", "productUnitAmount",];
-  const  [data, setData] = useState({
-
-  })
-  const dispatch = useDispatch()
-
-
+  const inputArr = ["productCount", "productUnitAmount"];
+  const [data, setData] = useState({});
+  const dispatch = useDispatch();
 
   const searchData = (e) => {
     setSearcherValue(e.target.value);
@@ -36,9 +33,9 @@ const WarehouseLists = ({
     setWarehouseNameOpen(true);
   };
 
-  useEffect(()=>{
-    dispatch(getAllWarehouseAction())
-  },[])
+  useEffect(() => {
+    dispatch(getAllWarehouseAction());
+  }, []);
 
 
   const changeOpenDropdown = () => {
@@ -46,21 +43,19 @@ const WarehouseLists = ({
     }
     setWarehouseNameOpen(!warehouseNameOpen);
   };
- 
-  const setFunction = (data) =>{
-    
+
+  const setFunction = (data) => {
     setSelectedWarehouseName({
       ...selectedWarehouseName,
-      products:products.filter((set) => set.product !== data)
-    })
-    console.log(selectedWarehouseName)
-  }
+      products: products.filter((set) => set.product !== data),
+    });
+    console.log(selectedWarehouseName);
+  };
   // console.log(selectedWarehouseName)
   return (
     <>
       <div className="class-input">
         <div className="class-field">
-          
           <TextField
             sx={{
               "& input": {
@@ -77,33 +72,34 @@ const WarehouseLists = ({
             name="class"
             autoComplete="off"
             value={
-              selectedWarehouseName ? selectedWarehouseName.productName : searchedValue
+              selectedWarehouseName
+                ? selectedWarehouseName.productName
+                : searchedValue
             }
             onChange={(e) => searchData(e)}
-            onBlur={() => formik.setFieldTouched('product', true)}
+            onBlur={() => formik.setFieldTouched("product", true)}
             onClick={warehouseNameDropdown}
           />
           <div className="dropdown-icon">
-            
-              <div onClick={changeOpenDropdown}>
-                <svg
-                  className={!warehouseNameOpen ? "down" : "up"}
-                  width="24"
-                  height="25"
-                  viewBox="0 0 24 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19.92 9.4502L13.4 15.9702C12.63 16.7402 11.37 16.7402 10.6 15.9702L4.07999 9.4502"
-                    stroke="#5D5D5D"
-                    strokeWidth="1.5"
-                    strokeMiterlimit="10"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+            <div onClick={changeOpenDropdown}>
+              <svg
+                className={!warehouseNameOpen ? "down" : "up"}
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.92 9.4502L13.4 15.9702C12.63 16.7402 11.37 16.7402 10.6 15.9702L4.07999 9.4502"
+                  stroke="#5D5D5D"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -114,40 +110,54 @@ const WarehouseLists = ({
         >
           {warehousesList
             ?.filter((item) =>
-              item.productName.toLowerCase().includes(searchedValue.toLowerCase())
+              item.productName
+                .toLowerCase()
+                .includes(searchedValue.toLowerCase())
             )
             .map((item, i) => {
               return (
                 <li key={i} onClick={() => warehouseNameAddData(item)}>
-                  <h4>{item.productName} <span> + </span></h4>
+                  <h4>
+                    {item.productName} <span> + </span>
+                  </h4>
                 </li>
               );
             })}
         </ul>
       </div>
-      {products?.length > 0 && <> 
-        
-        {products.map((item, i) => {
-          const {productCount,productUnitAmount} = item
-              return (
-                <div key={i} >
-                  <div className="sets-product"> 
-                  <h2>{item.productName ? item.productName: item.product.productName}</h2>
+      {products?.length > 0 && (
+        <>
+          {products.map((item, i) => {
+            const { productCount, productUnitAmount } = item;
+            return (
+              <div key={i}>
+                <div className="sets-product">
+                  <h2>
+                    {item.productName
+                      ? item.productName
+                      : item.product.productName}
+                  </h2>
                   <MinusIcon onClick={() => setFunction(item.product)} />
-                  {/* <span  > X </span>  */}
-                  </div>
-                  {/* <div>
+                </div>
+                {/* <div>
                     
                   </div> */}
-                  { inputArr.map((name, index) => (
-                    <InputField
+                <div className="sets-product-inputs">
+                  {inputArr.map((name, index) => (
+                    <WareHouseInputField
                       setSelectedWarehouseName={setSelectedWarehouseName}
                       item={item}
                       products={products}
                       selectedWarehouseName={selectedWarehouseName}
                       setCountData={setCountData}
                       countData={countData}
-                      value={name === "productCount" ? productCount:name === "productUnitAmount"? productUnitAmount:''  }
+                      value={
+                        name === "productCount"
+                          ? productCount
+                          : name === "productUnitAmount"
+                          ? productUnitAmount
+                          : ""
+                      }
                       // ---
                       key={index}
                       inputName={name}
@@ -158,9 +168,11 @@ const WarehouseLists = ({
                     />
                   ))}
                 </div>
-              );
-          })} 
-      </> }
+              </div>
+            );
+          })}
+        </>
+      )}
     </>
   );
 };

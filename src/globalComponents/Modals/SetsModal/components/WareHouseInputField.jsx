@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 
-export default function InputField({
+export default function WareHouseInputField({
   products,
   selectedWarehouseName,
   setsModalData,
@@ -16,17 +16,12 @@ export default function InputField({
   value
 }) {
 
+
   const [Data, setData] = useState({})
   const [shrink, setShrink] = useState(false);
+
   const inputData = [
-    {
-      inputName: "name",
-      label: "setin adı",
-      type: "text",
-      marginTop: "24px",
-      marginBottom: "0",
-      inputValue: setsModalData[inputName] || "",
-    },
+   
     {
       inputName: "productCount",
       label: "Məhsulun sayı",
@@ -43,18 +38,10 @@ export default function InputField({
       marginBottom: "0",
       inputValue: setsModalData[inputName] || "",
     },
-    {
-      inputName: "price",
-      label: "Məbləğ",
-      type: "number",
-      marginTop: "24px",
-      marginBottom: "0",
-      inputValue: setsModalData[inputName] || "",
-    },
  
   ];
   return (
-    <div onClick={() => setData(item)}>
+    <div onClick={() => setData(item)} style={{width:"80%",display:"flex",justifyContent:"center"}}>
       
     <TextField
       sx={{
@@ -89,10 +76,9 @@ export default function InputField({
       //   inputName ==="name" ?
       //   selectedWarehouseName.name:'' :''
       // }
-      value={value}
+      value={value || ""}
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
-        setInputValue(inputName, e.target.value);
         inputName ==="price" ?
         setSelectedWarehouseName( {...selectedWarehouseName,
           price: Number(e.target.value)
@@ -112,6 +98,8 @@ export default function InputField({
         // : inputName ==="name" ?  setSelectedWarehouseName( {...selectedWarehouseName,
         //   name: e.target.value
         // }) :
+
+        setInputValue(inputName, e.target.value);
          
       }} 
       onBlur={(e) => {

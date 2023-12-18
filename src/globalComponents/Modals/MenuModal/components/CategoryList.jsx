@@ -27,7 +27,6 @@ const CategoryLists = ({
     dispatch(getCategoryAction());
   }, []);
 
-  console.log(selectedCategoryName, 'selectedCategoryName')
   return (
     <>
       <div className="class-input">

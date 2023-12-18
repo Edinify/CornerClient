@@ -55,7 +55,6 @@ export default function SubmitBtn({ formik, menusModalData, funcType }) {
         payload: "",
       });
 
-      console.log(menusModalData, "test test test");
       dispatch(createMenusAction(menusModalData));
     }
     // closeModal();

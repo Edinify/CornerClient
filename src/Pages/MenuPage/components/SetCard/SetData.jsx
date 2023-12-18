@@ -20,8 +20,9 @@ const SetData = ({ getMenuSetPageNumber, menuSetPageNum }) => {
     { id: 7, label: "", type: "more-options-head" },
   ];
 
+
   useEffect(() => {
-    dispatch(getSetAction(""));
+    dispatch(getSetAction(1));
   }, []);
   return (
     <>

@@ -16,6 +16,7 @@ const MenuCard = ({ data, mode, cellNumber }) => {
       },
     });
   };
+
   const deleteItem = () => {
     dispatch(deleteMenusAction(data._id));
   };

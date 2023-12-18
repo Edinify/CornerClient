@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  DROPDOWN_NAME_ACTION_TYPE,
   SETS_M0DAL_ACTION_TYPE,
 } from "../../../redux/actions-type";
 import InputField from "./components/InputField";
@@ -26,6 +25,8 @@ const SetsModal = () => {
     price: '',
     name: "",
   });
+
+
   const [countData, setCountData] = useState({
     productCount: 0,
     productUnitAmount: 0,
@@ -36,7 +37,6 @@ const SetsModal = () => {
     setWarehouseNameOpen(!warehouseNameOpen);
     setClassIcon(false);
   };
-  // console.log(setsModalData)
   const warehouseNameAddData = (item) => {
     // console.log(item)
     // setInputValue("product", item._id);
@@ -57,7 +57,6 @@ const SetsModal = () => {
     });
   };
 
-  // console.log(setsModalData, "sets");
 
   const closeModal = () => {
     dispatch({
@@ -66,7 +65,7 @@ const SetsModal = () => {
     });
   };
 
-  // console.log(setsModalData)
+  console.log(setsModalData,"Data")
 
   useEffect(() => {
     if(setsModalData._id){
@@ -83,20 +82,20 @@ const SetsModal = () => {
     }
   }, [setsModalData])
   
-  console.log(setsModalData)
   const updateModalState = (keyName, value) => {
-    // setSelectedWarehouseName({...setsModalData})
-    // dispatch({
-    //   type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
-    //   payload: {
-    //     data: {
-    //       ...setsModalData,
-    //       [keyName]: value,
-    //     },
-    //     openModal: true,
-    //   },
-    // });
+    dispatch({
+      type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
+      payload: {
+        data: {
+          ...setsModalData,
+          [keyName]: value,
+        },
+        openModal: true,
+      },
+    });
   };
+
+
   const formik = useFormik({
     initialValues: {
       productCount: setsModalData?.productCount
@@ -105,8 +104,6 @@ const SetsModal = () => {
       productUnitAmount: setsModalData?.productUnitAmount
         ? setsModalData.productUnitAmount
         : "",
-      price: setsModalData?.price ? setsModalData.price : "",
-      name: setsModalData?.name ? setsModalData.name : "",
     },
     validationSchema: ValidationSchema,
   });
@@ -120,6 +117,7 @@ const SetsModal = () => {
       ]),
     [formik]
   );
+
 
   return (
     <div className="create-update-modal-con bonus-modal">

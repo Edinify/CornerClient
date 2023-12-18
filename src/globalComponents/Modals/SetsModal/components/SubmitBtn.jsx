@@ -7,9 +7,14 @@ import {
   updateSetAction,
 } from "../../../../redux/actions/setsAction";
 
-export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName, funcType }) {
+export default function SubmitBtn({
+  formik,
+  setsModalData,
+  selectedWarehouseName,
+  funcType,
+}) {
   const dispatch = useDispatch();
-  const { menuModalLoading } = useSelector((state) => state.menuModal);
+  const { setModalLoading } = useSelector((state) => state.menuSetModal);
   const [isDisabled, setIsDisabled] = useState(() => {
     if (funcType === "update") {
       return false;
@@ -21,7 +26,7 @@ export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName,
   // console.log(setsModalData, "data");
 
   const newSets = {
-    product:setsModalData.product,
+    product: setsModalData.product,
     productCount: setsModalData.productCount,
     productUnitAmount: setsModalData.productUnitAmount,
     price: setsModalData.price,
@@ -29,23 +34,29 @@ export default function SubmitBtn({ formik, setsModalData,selectedWarehouseName,
 
   const classCreate = () => {
     if (selectedWarehouseName?.id) {
-      dispatch(updateSetAction(selectedWarehouseName?.id, selectedWarehouseName));
+      dispatch(
+        updateSetAction(selectedWarehouseName?.id, selectedWarehouseName)
+      );
     } else {
       dispatch(createSetAction(selectedWarehouseName));
     }
     // closeModal();
   };
 
-
   return (
     <div className="create-update-modal-btn">
       <button
         disabled={
-          !(!menuModalLoading)
+          !(
+            formik.isValid &&
+            selectedWarehouseName?.price &&
+            selectedWarehouseName?.name &&
+            !setModalLoading
+          )
         }
         onClick={classCreate}
       >
-        {menuModalLoading ? (
+        {setModalLoading ? (
           <LoadingBtn />
         ) : funcType === "update" ? (
           "Yenilə"
