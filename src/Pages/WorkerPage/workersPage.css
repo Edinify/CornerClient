@@ -258,6 +258,15 @@
   width: 200px;
 }
 
+.order-page
+  .order-page-container
+  .order-side
+  .product-order-container
+  .product-list .sets-list{
+    border-bottom: 1px solid blue;
+    padding: 8px 0;
+  }
+
 .order-page .decrease-btn {
   background-color: var(--error-700) !important;
 }

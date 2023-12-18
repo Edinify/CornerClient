@@ -72,14 +72,14 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   };
 
   const addSet = (set) => {
-    console.log(set)
+    console.log(set);
     dispatch(addSetAction(set));
   };
 
   const removeSet = (set) => {
     dispatch(removeSetAction(set));
   };
-// 
+  //
   useEffect(() => {
     dispatch(getMenusUserAction());
     dispatch(getMenuSetsForUser());
@@ -92,7 +92,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       });
     }
   }, []);
-  console.log(menuSet)
+  console.log(menuSet);
   useEffect(() => {
     const calcMinute = () => {
       const currentDate = new Date();
@@ -184,7 +184,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
             <div className="product-order-container">
               <div className="product-list">
-                <b> Məhsullar </b>
+                {userCheck.orders.length > 0 && <b> Məhsullar </b>}
                 <ul>
                   {userCheck.orders.map((item) => (
                     <li key={item.order._id}>
@@ -217,11 +217,10 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 </ul>
               </div>
               <div className="product-list">
-                <b>Setlər</b>
+                {userCheck.sets.length > 0 && <b>Setlər</b>}
                 <ul>
                   {userCheck.sets.map((item) => {
-                    console.log(item.set.price)
-                    return(
+                    return (
                       <li key={item.set._id}>
                         <span>
                           {item.set.name} -{" "}
@@ -248,10 +247,22 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                           Azalt
                         </button>
                       </li>
-                    )
-                    
+                    );
                   })}
                 </ul>
+                <div>
+                  <p>Setə daxildir:</p>
+
+                  {userCheck.sets.map((setItem) => (
+                    <div className="sets-list" key={setItem._id}>
+                      {setItem.set.products.map((productItem) => (
+                        <p key={productItem._id}>
+                          {productItem.product.productName}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
               {userCheck?.data?.orders
                 ? userCheck?.data?.orders.map((item) => (
@@ -263,8 +274,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-bottom-container">
                 {/* <div className="product-price"> */}
 
-                <div className="total-price"
-                >
+                <div className="total-price">
                   <p style={{ color: "white" }}>
                     Hesab: {userCheck.totalPayment} AZN{" "}
                   </p>
@@ -315,7 +325,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
         <div className="menu-side">
@@ -330,13 +339,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
             ))}
           </div>
-          <br  />
+          <br />
           <h1> Setlər </h1>
-          <br  />
+          <br />
           <div className="menus">
             {menuSet.map((set) => {
-                // console.log(set)
-                const {name,price}= set
+              // console.log(set)
+              const { name, price } = set;
               return (
                 <div
                   key={set._id}
@@ -344,9 +353,11 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   onClick={() => addSet(set)}
                 >
                   <span>{name}</span>
-                  <p> qiymət: <span>{price}</span> </p>
+                  <p>
+                    qiymət: <span>{price}</span> AZN
+                  </p>
                 </div>
-                )
+              );
             })}
           </div>
         </div>
