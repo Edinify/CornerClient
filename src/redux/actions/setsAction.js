@@ -62,6 +62,23 @@ export const getSetAction = (pageNumber) => async (dispatch) => {
   }
 };
 
+export const getMenuSetsForUser = (pageNumber) => async (dispatch) => {
+  dispatch(setLoadingSetAction(true));
+  try {
+    const { data } = await API.get('/all');
+    console.log(data," set data")
+    dispatch({ type: SETS_ACTION_TYPE.GET_SETS_FOR_USER, payload: data });
+    // dispatch({
+    //   type: SETS_ACTION_TYPE.GET_SETS_LAST_PAGE,
+    //   payload: pageNumber,
+    // });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    dispatch(setLoadingSetAction(false));
+  }
+};
+
 export const createSetAction = (setData) => async (dispatch) => {
   console.log(setData)
   dispatch(setModalLoading(true))

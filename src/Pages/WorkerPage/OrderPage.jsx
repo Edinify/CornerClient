@@ -15,10 +15,12 @@ import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
 import { CHECK_ACTION_TYPE, USER_ACTION_TYPE } from "../../redux/actions-type";
 import { toast } from "react-toastify";
 import LoadingBtn from "../../globalComponents/Loading/components/LoadingBtn/LoadingBtn";
+import { getMenuSetsForUser } from "../../redux/actions/setsAction";
 
 const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
+  const { menuSet } = useSelector((state) => state.menuSet);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
 
@@ -70,16 +72,17 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   };
 
   const addSet = (set) => {
+    console.log(set)
     dispatch(addSetAction(set));
   };
 
   const removeSet = (set) => {
     dispatch(removeSetAction(set));
   };
-
+// 
   useEffect(() => {
     dispatch(getMenusUserAction());
-
+    dispatch(getMenuSetsForUser());
     if (selectedTable.checkId) {
       dispatch(getCheckUserAction(selectedTable.checkId));
     } else {
@@ -89,7 +92,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       });
     }
   }, []);
-
+  console.log(menuSet)
   useEffect(() => {
     const calcMinute = () => {
       const currentDate = new Date();
@@ -141,7 +144,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     }
   }, [userCheck.orders, userCheck.table, userCheck.totalDate]);
 
-  // console.log(userCheck, "bla bla bla");
+  console.log(userCheck, "bla bla bla");
   return (
     <div className="order-page">
       <div className="order-page-container">
@@ -181,6 +184,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
 
             <div className="product-order-container">
               <div className="product-list">
+                <b> mehsullar </b>
                 <ul>
                   {userCheck.orders.map((item) => (
                     <li key={item.order._id}>
@@ -212,6 +216,43 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   ))}
                 </ul>
               </div>
+              <div className="product-list">
+                <b>setler</b>
+                <ul>
+                  {userCheck.sets.map((item) => {
+                    console.log(item.set.price)
+                    return(
+                      <li key={item.set._id}>
+                        <span>
+                          {item.set.name} -{" "}
+                          <div
+                            style={{
+                              color: "white",
+                              backgroundColor: "#05a5ea",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            <span>{item.setCount}</span>
+                          </div>{" "}
+                          - {item.set.price * item.setCount}AZN {"   "}
+                        </span>
+                        <button
+                          className="decrease-btn"
+                          onClick={() => removeSet(item.set)}
+                        >
+                          Azalt
+                        </button>
+                      </li>
+                    )
+                    
+                  })}
+                </ul>
+              </div>
               {userCheck?.data?.orders
                 ? userCheck?.data?.orders.map((item) => (
                     <ul key={item.order._id}>
@@ -235,6 +276,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                     Hesab: {userCheck.totalPayment} AZN{" "}
                   </p>
                 </div>
+
                 <div className="product-bottom-btns">
                   <button
                     className="open-table"
@@ -280,6 +322,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
         <div className="menu-side">
@@ -293,6 +336,25 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 <span>{order.product.productName}</span>
               </div>
             ))}
+          </div>
+          <br  />
+          <h1> setlər </h1>
+          <br  />
+          <div className="menus">
+            {menuSet.map((set) => {
+                // console.log(set)
+                const {name,price}= set
+              return (
+                <div
+                  key={set._id}
+                  className="menu-content"
+                  onClick={() => addSet(set)}
+                >
+                  <span>{name}</span>
+                  <p> qiymət <span>{price}</span> </p>
+                </div>
+                )
+            })}
           </div>
         </div>
       </div>

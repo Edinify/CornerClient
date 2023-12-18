@@ -1,4 +1,4 @@
-import { CHECK_ACTION_TYPE } from "../actions-type";
+import { CHECK_ACTION_TYPE } from "../actions-type/index";
 import axios from "axios";
 import { apiRoot } from "../../apiRoot";
 import { toast } from "react-toastify";

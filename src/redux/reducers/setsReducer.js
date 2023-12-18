@@ -43,7 +43,11 @@ export const setsReducer = (state = initialState, action) => {
         ...state,
         lastPage: action.payload,
       };
-
+    case SETS_ACTION_TYPE.GET_SETS_FOR_USER:
+      return {
+        ...state,
+        menuSet: action.payload,
+      };
     default:
       return state;
   }
