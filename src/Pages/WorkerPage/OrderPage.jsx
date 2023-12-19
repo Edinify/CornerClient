@@ -226,7 +226,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
               <div className="product-list">
                 {userCheck.sets.length > 0 && <b>Setlər</b>}
-                <ul>
+                {/* <ul>
                   {userCheck.sets.map((item) => {
                     return (
                       <li key={item.set._id}>
@@ -257,12 +257,39 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                       </li>
                     );
                   })}
-                </ul>
+                </ul> */}
                 <div>
-                  <p>Setə daxildir:</p>
+                  
 
                   {userCheck.sets.map((setItem) => (
                     <div className="sets-list" key={setItem.set._id}>
+                      <li className="set-list"  >
+                        <span>
+                          Setin adı: {setItem.set.name} -{" "}
+                          <div
+                            style={{
+                              color: "white",
+                              backgroundColor: "#05a5ea",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            <span>{setItem.setCount}</span>
+                          </div>{" "}
+                          - {setItem.set.price * setItem.setCount}AZN {"   "}
+                        </span>
+                        <button
+                          className="decrease-btn"
+                          onClick={() => removeSet(setItem.set)}
+                        >
+                          Azalt
+                        </button>
+                      </li>
+                      <p>Setə daxildir:</p>
                       {setItem.set.products.map((productItem) => (
                         <p key={productItem._id}>
                           {productItem.product.productName}

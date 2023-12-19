@@ -76,7 +76,7 @@ export default function WareHouseInputField({
       //   inputName ==="name" ?
       //   selectedWarehouseName.name:'' :''
       // }
-      value={value || ""}
+      value={value }
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
         inputName ==="price" ?
@@ -99,7 +99,7 @@ export default function WareHouseInputField({
         //   name: e.target.value
         // }) :
 
-        setInputValue(inputName, e.target.value);
+        // setInputValue(inputName, e.target.value);
          
       }} 
       onBlur={(e) => {
