@@ -24,6 +24,8 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
 
+  console.log(userCheck, "test bla bla bla");
+
   const [openOrderModal, setOpenOrderModal] = useState(false);
   // const [timeDifference, setTimeDifference] = useState(null);
 
@@ -129,7 +131,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       userCheck.orders.reduce(
         (total, item) => total + item.order.price * item.orderCount,
         0
-      ) + parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2));
+      ) +
+      parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2)) +
+      parseFloat(
+        userCheck.sets
+          .reduce((total, item) => total + item.set.price * item.setCount, 0)
+          .toFixed(2)
+      );
 
     if (deposit && deposit > ordersPrice) {
       dispatch({
@@ -142,7 +150,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         payload: { totalPayment: ordersPrice },
       });
     }
-  }, [userCheck.orders, userCheck.table, userCheck.totalDate]);
+  }, [userCheck.orders, userCheck.table, userCheck.totalDate, userCheck.sets]);
 
   console.log(userCheck, "bla bla bla");
   return (
@@ -254,7 +262,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   <p>Setə daxildir:</p>
 
                   {userCheck.sets.map((setItem) => (
-                    <div className="sets-list" key={setItem._id}>
+                    <div className="sets-list" key={setItem.set._id}>
                       {setItem.set.products.map((productItem) => (
                         <p key={productItem._id}>
                           {productItem.product.productName}
