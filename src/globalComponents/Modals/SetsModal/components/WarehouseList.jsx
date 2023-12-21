@@ -51,7 +51,7 @@ const WarehouseLists = ({
     });
     console.log(selectedWarehouseName);
   };
-  // console.log(selectedWarehouseName)
+  // console.log(dropdownName)
   return (
     <>
       <div className="class-input">
@@ -129,6 +129,7 @@ const WarehouseLists = ({
         <>
           {products.map((item, i) => {
             const { productCount, productUnitAmount } = item;
+            // console.log(productUnitAmount)
             return (
               <div key={i}>
                 <div className="sets-product">

@@ -32,7 +32,7 @@ export default function WareHouseInputField({
     },
     {
       inputName: "productUnitAmount",
-      label: "Məhsulun miqdarı",
+      label: `Məhsulun miqdarı / ${value} ilə`,
       type: "number",
       marginTop: "24px",
       marginBottom: "0",
@@ -40,6 +40,8 @@ export default function WareHouseInputField({
     },
  
   ];
+
+
   return (
     <div onClick={() => setData(item)} style={{width:"80%",display:"flex",justifyContent:"center"}}>
       
@@ -76,7 +78,7 @@ export default function WareHouseInputField({
       //   inputName ==="name" ?
       //   selectedWarehouseName.name:'' :''
       // }
-      value={value || ""}
+      value={value}
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
         inputName ==="price" ?
@@ -88,10 +90,10 @@ export default function WareHouseInputField({
           { ...selectedWarehouseName, products: [...products.map((data) =>{  
           return data =  data.productName === Data.productName && 
           inputName === "productCount" ?  
-          {...data,  productCount : Number(e.target.value)}  :
+          {...data,  productCount : e.target.value}  :
           data.productName === Data.productName &&
           inputName === "productUnitAmount" ?
-          {...data,  productUnitAmount : Number(e.target.value)} :
+          {...data,  productUnitAmount : e.target.value} :
           data
           } )]} 
         ) 

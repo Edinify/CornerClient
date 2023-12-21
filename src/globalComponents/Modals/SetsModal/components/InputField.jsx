@@ -95,17 +95,17 @@ export default function InputField({
         setInputValue(inputName, e.target.value);
         inputName ==="price" ?
         setSelectedWarehouseName( {...selectedWarehouseName,
-          price: Number(e.target.value)
+          price: e.target.value
         }) : inputName ==="name" ? setSelectedWarehouseName( {...selectedWarehouseName,
           name: e.target.value
         }) : setSelectedWarehouseName( 
           { ...selectedWarehouseName, products: [...products.map((data) =>{  
           return data =  data.productName === Data.productName && 
           inputName === "productCount" ?  
-          {...data,  productCount : Number(e.target.value)}  :
+          {...data,  productCount : e.target.value}  :
           data.productName === Data.productName &&
           inputName === "productUnitAmount" ?
-          {...data,  productUnitAmount : Number(e.target.value)} :
+          {...data,  productUnitAmount : e.target.value} :
           data
           } )]} 
         ) 

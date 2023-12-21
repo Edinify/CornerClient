@@ -22,7 +22,6 @@ const SetCard = ({ data, mode, cellNumber }) => {
     dispatch(deleteSetAction(data._id));
   };
 
-
   return (
     <>
       {mode === "desktop" ? (
@@ -41,9 +40,12 @@ const SetCard = ({ data, mode, cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="table-scroll-text">
-                {data.products.map((product) => (
+                {data.products.map((product) => {
+                  // console.log(product.product.unitMeasure)
+                  return(
                   <div key={product._id}>{product.productCount}</div>
-                ))}
+                  )
+                })}
               </div>
               <div className="right-fade"></div>
             </div>
@@ -58,7 +60,7 @@ const SetCard = ({ data, mode, cellNumber }) => {
             <div className="td-con">
               <div className="table-scroll-text">
                 {data.products.map((product) => (
-                  <div key={product._id}>{product.productUnitAmount}</div>
+                  <div key={product._id}>{product.productUnitAmount}  / {product.product.unitMeasure}</div>
                 ))}
               </div>
               <div className="right-fade"></div>
@@ -66,7 +68,7 @@ const SetCard = ({ data, mode, cellNumber }) => {
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.price}</div>
+              <div className="table-scroll-text phone">{data.price} AZN</div>
               <div className="right-fade"></div>
             </div>
           </td>

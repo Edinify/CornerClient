@@ -19,7 +19,6 @@ const initialState = {
 export const setsModalReducer = (state = initialState, action) => {
   switch (action.type) {
     case SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL:
-      console.log(action.payload)
       return {
         ...state,
         setsModalData: action.payload.data,

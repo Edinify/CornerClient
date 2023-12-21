@@ -38,10 +38,7 @@ const SetsModal = () => {
     setClassIcon(false);
   };
   const warehouseNameAddData = (item) => {
-    // console.log(item)
-    // setInputValue("product", item._id);
-    // updateModalState("product", item._id);
-    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+    // console.log(item.unitMeasure)
     setWarehouseNameOpen(false);
     setSelectedWarehouseName({
       ...selectedWarehouseName,
@@ -51,7 +48,7 @@ const SetsModal = () => {
           product: item._id,
           productName: item.productName,
           productCount: '',
-          productUnitAmount: '',
+          productUnitAmount:item.unitMeasure,
         },
       ],
     });
@@ -64,8 +61,6 @@ const SetsModal = () => {
       payload: { data: {}, openModal: false },
     });
   };
-
-  console.log(setsModalData,"Data")
 
   useEffect(() => {
     if(setsModalData._id){
@@ -117,8 +112,7 @@ const SetsModal = () => {
       ]),
     [formik]
   );
-
-
+      // console.log(allWarehouses)
   return (
     <div className="create-update-modal-con bonus-modal">
       <div className="create-update-modal ">
