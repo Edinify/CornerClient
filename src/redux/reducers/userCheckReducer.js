@@ -4,10 +4,7 @@ const initialState = {
   userCheck: {
     table: {},
     orders: [],
-    sets: {
-      set:[],
-      count:0
-    },
+    sets: [],
     totalDate: 0,
     totalPayment: 0,
     status: "open",
@@ -99,11 +96,10 @@ export const userCheckReducer = (state = initialState, action) => {
       } else {
         newSets = [
           ...state.userCheck.sets,
-          {set: action.payload, setCount:1},
+          { set: action.payload, setCount: 1 },
         ];
-       
       }
-      console.log(action.payload)
+      console.log(action.payload);
       return {
         ...state,
         userCheck: { ...state.userCheck, sets: newSets },

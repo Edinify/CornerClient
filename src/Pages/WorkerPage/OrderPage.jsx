@@ -24,6 +24,8 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
 
+  console.log(userCheck, "test bla bla bla");
+
   const [openOrderModal, setOpenOrderModal] = useState(false);
   // const [timeDifference, setTimeDifference] = useState(null);
 
@@ -129,7 +131,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       userCheck.orders.reduce(
         (total, item) => total + item.order.price * item.orderCount,
         0
-      ) + parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2));
+      ) +
+      parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2)) +
+      parseFloat(
+        userCheck.sets
+          .reduce((total, item) => total + item.set.price * item.setCount, 0)
+          .toFixed(2)
+      );
 
     if (deposit && deposit > ordersPrice) {
       dispatch({
@@ -142,7 +150,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         payload: { totalPayment: ordersPrice },
       });
     }
-  }, [userCheck.orders, userCheck.table, userCheck.totalDate]);
+  }, [userCheck.orders, userCheck.table, userCheck.totalDate, userCheck.sets]);
 
   console.log(userCheck, "bla bla bla");
   return (
@@ -218,7 +226,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
               <div className="product-list">
                 {userCheck.sets.length > 0 && <b>Setlər</b>}
-                <ul>
+                {/* <ul>
                   {userCheck.sets.map((item) => {
                     return (
                       <li key={item.set._id}>
@@ -249,12 +257,39 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                       </li>
                     );
                   })}
-                </ul>
+                </ul> */}
                 <div>
-                  <p>Setə daxildir:</p>
+                  
 
                   {userCheck.sets.map((setItem) => (
-                    <div className="sets-list" key={setItem._id}>
+                    <div className="sets-list" key={setItem.set._id}>
+                      <li className="set-list"  >
+                        <span>
+                          Setin adı: {setItem.set.name} -{" "}
+                          <div
+                            style={{
+                              color: "white",
+                              backgroundColor: "#05a5ea",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            <span>{setItem.setCount}</span>
+                          </div>{" "}
+                          - {setItem.set.price * setItem.setCount}AZN {"   "}
+                        </span>
+                        <button
+                          className="decrease-btn"
+                          onClick={() => removeSet(setItem.set)}
+                        >
+                          Azalt
+                        </button>
+                      </li>
+                      <p>Setə daxildir:</p>
                       {setItem.set.products.map((productItem) => (
                         <p key={productItem._id}>
                           {productItem.product.productName}

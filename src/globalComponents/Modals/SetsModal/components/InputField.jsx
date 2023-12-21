@@ -92,7 +92,7 @@ export default function InputField({
       value={value}
       onWheel={(e) => e.target.blur()}
       onChange={(e) => {  
-        setInputValue(inputName, e.target.value);
+        // setInputValue(inputName, e.target.value);
         inputName ==="price" ?
         setSelectedWarehouseName( {...selectedWarehouseName,
           price: e.target.value
