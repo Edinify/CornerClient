@@ -134,6 +134,13 @@
   display: flex;
   margin-top: 18px;
 }
+.main-nav-icons .profile-img-con .logout-func-user {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
 .main-nav-icons .profile-img-con .user-func .logout-func p {
   color: var(--error-500);
 }

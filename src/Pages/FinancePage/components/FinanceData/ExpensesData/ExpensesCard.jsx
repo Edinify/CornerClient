@@ -20,6 +20,27 @@ const ExpensesCard = ({ data, mode, cellNumber, page }) => {
     dispatch(deleteExpensesAction(data._id));
   };
 
+
+  const listData = [
+
+    {
+      key: "Miqdarı",
+      value: data.amount ? data.amount : "boş",
+      className: "",
+    },
+    {
+      key: "Məbləği",
+      value: data.price ? data.price : "boş",
+    },
+    {
+      key: "Tarix",
+      value: data.createdAt
+        ? `${moment(data.createdAt).format("YYYY-MM-DD")}`
+        : "boş",
+      className: "",
+    },
+  ];
+
   return (
     <>
       {mode === "desktop" ? (
@@ -64,21 +85,13 @@ const ExpensesCard = ({ data, mode, cellNumber, page }) => {
           <div className="left">
             <h3>{data.name}</h3>
             <ul>
-              <li className="payment">
-                <span className="type">Miqdarı:</span>
-                <p>{data.amount ? data.amount : "boş"}</p>
-              </li>
-              <li className="payment">
-                <span className="type">Məbləği:</span>
-                <p>{data.price ? data.price : "boş"}</p>
-              </li>
-              <li>
-                <span className="type"> Tarix:</span>
-                <p>
-                  {data.date ? moment(data.date).format("YYYY-MM-DD") : "boş"}
-                </p>
-              </li>
-            </ul>
+           {listData.map((item, index) => (
+                <li key={index} className={item.className} >
+                  <span className="type">{item.key}:</span>
+                  <p>{item.value}</p>
+                </li>
+              ))}
+           </ul>
           </div>
           <div className="right">
             <UpdateDeleteModal

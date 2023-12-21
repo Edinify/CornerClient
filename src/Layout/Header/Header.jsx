@@ -32,8 +32,12 @@ export const Header = () => {
         return "Masalar";
       case "/warehouse":
         return "Anbar";
-        case "/menu":
-          return "Menyu"
+        case "/menus":
+          return "Menyu";
+          case "/menus/menu":
+            return "Menyu"
+            case "/menus/set":
+              return "Menyu"
           case "/workers":
             return "İstifadəçi"
             case "/checks":

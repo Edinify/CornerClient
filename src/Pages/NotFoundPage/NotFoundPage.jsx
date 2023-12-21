@@ -15,16 +15,9 @@ const NotFoundPage = ({setNotFound}) => {
     if(user.role==="admin"){
       navigate("/finance/expenses")
     }
-    else if (user.role==="super-admin"){
-      navigate("/")
-    }
-    else if (user.role==="teacher"){
-      navigate("/teacher-panel")
-    }
-    else if (user.role==="student"){
-      navigate("/student-panel")
-    }
   }
+
+  // 
 
   useEffect(() => {
     changeShowNav(false)

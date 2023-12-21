@@ -15,6 +15,7 @@ const initialState = {
 export const menuModalReducer = (state = initialState, action) => {
   switch (action.type) {
     case MENU_M0DAL_ACTION_TYPE.GET_MENU_MODAL:
+      console.log("salam");
       return {
         ...state,
         menusModalData: action.payload.data,
@@ -25,12 +26,12 @@ export const menuModalReducer = (state = initialState, action) => {
         ...state,
         menuOpenModal: action.payload,
       };
-      case MENU_M0DAL_ACTION_TYPE.MENU_MODAL_LOADING:
-        return{
-            ...state,
-            menuModalLoading:action.payload
-        }
-        default:
-          return state;
+    case MENU_M0DAL_ACTION_TYPE.MENU_MODAL_LOADING:
+      return {
+        ...state,
+        menuModalLoading: action.payload,
+      };
+    default:
+      return state;
   }
 };

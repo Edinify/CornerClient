@@ -4,31 +4,35 @@ import { getMenusUserAction } from "../../redux/actions/menusAction";
 import OrderModal from "../../globalComponents/Modals/OrderModal/OrderModal";
 import {
   addOrderAction,
+  addSetAction,
   createCheckAction,
   getCheckUserAction,
   removeOrderAction,
+  removeSetAction,
   updateCheckAction,
 } from "../../redux/actions/checkAction";
 import { ReactComponent as BackIcon } from "../../assets/icons/back-icon.svg";
 import { CHECK_ACTION_TYPE, USER_ACTION_TYPE } from "../../redux/actions-type";
 import { toast } from "react-toastify";
 import LoadingBtn from "../../globalComponents/Loading/components/LoadingBtn/LoadingBtn";
+import { getMenuSetsForUser } from "../../redux/actions/setsAction";
 
 const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
+  const { menuSet } = useSelector((state) => state.menuSet);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
-  console.log(userCheck, "loading");
+
+  console.log(userCheck, "test bla bla bla");
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
-  const [timeDifference, setTimeDifference] = useState(null);
+  // const [timeDifference, setTimeDifference] = useState(null);
 
   const [totalMin, setTotalMin] = useState(0);
 
   const [status, setStatus] = useState(null);
 
-  // console.log(totalMin);
   const toastSuccess = (message) => {
     toast.success(message, {
       position: "top-right",
@@ -41,6 +45,15 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       theme: "colored",
     });
   };
+
+  const listData = [
+    { key: "Otağın depositi:", value: `${userCheck.table.deposit} AZN ` },
+    {
+      key: "1 saatlıq qiymət:",
+      value: `${userCheck.table.oneMinutePrice || 0} AZN`,
+    },
+    { key: "Keçən müddət:", value: `${totalMin} dəqiqə` },
+  ];
 
   const createOrder = () => {
     if (userCheck._id) {
@@ -60,9 +73,18 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     dispatch(removeOrderAction(order));
   };
 
+  const addSet = (set) => {
+    console.log(set);
+    dispatch(addSetAction(set));
+  };
+
+  const removeSet = (set) => {
+    dispatch(removeSetAction(set));
+  };
+  //
   useEffect(() => {
     dispatch(getMenusUserAction());
-
+    dispatch(getMenuSetsForUser());
     if (selectedTable.checkId) {
       dispatch(getCheckUserAction(selectedTable.checkId));
     } else {
@@ -72,7 +94,7 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       });
     }
   }, []);
-
+  console.log(menuSet);
   useEffect(() => {
     const calcMinute = () => {
       const currentDate = new Date();
@@ -89,7 +111,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
       const intervalId = setInterval(() => {
         // console.log(data, "data");("salam");
         setTotalMin(calcMinute());
-        
       }, 60000);
 
       if (!userCheck.createdAt) {
@@ -104,13 +125,19 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     const deposit = userCheck.table.deposit;
     const oneMinutePrice = userCheck.table.oneMinutePrice / 60 || 0;
 
-    console.log(oneMinutePrice * 10);
+    // console.log(oneMinutePrice * 10);
 
     const ordersPrice =
       userCheck.orders.reduce(
         (total, item) => total + item.order.price * item.orderCount,
         0
-      ) + parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2));
+      ) +
+      parseFloat((oneMinutePrice * userCheck.totalDate).toFixed(2)) +
+      parseFloat(
+        userCheck.sets
+          .reduce((total, item) => total + item.set.price * item.setCount, 0)
+          .toFixed(2)
+      );
 
     if (deposit && deposit > ordersPrice) {
       dispatch({
@@ -123,9 +150,9 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
         payload: { totalPayment: ordersPrice },
       });
     }
-  }, [userCheck.orders, userCheck.table, userCheck.totalDate]);
+  }, [userCheck.orders, userCheck.table, userCheck.totalDate, userCheck.sets]);
 
-  // console.log(userCheck, "bla bla bla");
+  console.log(userCheck, "bla bla bla");
   return (
     <div className="order-page">
       <div className="order-page-container">
@@ -154,16 +181,18 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               </div>
 
               <div className="table-data-container">
-                <div>Otağın depositi: {userCheck.table.deposit} AZN </div>
-                <div>
-                  1 saatlıq qiymət: {userCheck.table.oneMinutePrice || 0} AZN
-                </div>
-                <div>Keçən müddət: {totalMin} dəqiqə</div>
+                {listData.map((item) => (
+                  <div key={item.key}>
+                    {" "}
+                    {item.key} {item.value}
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className="product-order-container">
               <div className="product-list">
+                {userCheck.orders.length > 0 && <b> Məhsullar </b>}
                 <ul>
                   {userCheck.orders.map((item) => (
                     <li key={item.order._id}>
@@ -195,6 +224,81 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   ))}
                 </ul>
               </div>
+              <div className="product-list">
+                {userCheck.sets.length > 0 && <b>Setlər</b>}
+                {/* <ul>
+                  {userCheck.sets.map((item) => {
+                    return (
+                      <li key={item.set._id}>
+                        <span>
+                          {item.set.name} -{" "}
+                          <div
+                            style={{
+                              color: "white",
+                              backgroundColor: "#05a5ea",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            <span>{item.setCount}</span>
+                          </div>{" "}
+                          - {item.set.price * item.setCount}AZN {"   "}
+                        </span>
+                        <button
+                          className="decrease-btn"
+                          onClick={() => removeSet(item.set)}
+                        >
+                          Azalt
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul> */}
+                <div>
+                  
+
+                  {userCheck.sets.map((setItem) => (
+                    <div className="sets-list" key={setItem.set._id}>
+                      <li className="set-list"  >
+                        <span>
+                          Setin adı: {setItem.set.name} -{" "}
+                          <div
+                            style={{
+                              color: "white",
+                              backgroundColor: "#05a5ea",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            <span>{setItem.setCount}</span>
+                          </div>{" "}
+                          - {setItem.set.price * setItem.setCount}AZN {"   "}
+                        </span>
+                        <button
+                          className="decrease-btn"
+                          onClick={() => removeSet(setItem.set)}
+                        >
+                          Azalt
+                        </button>
+                      </li>
+                      <p>Setə daxildir:</p>
+                      {setItem.set.products.map((productItem) => (
+                        <p key={productItem._id}>
+                          {productItem.product.productName}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
               {userCheck?.data?.orders
                 ? userCheck?.data?.orders.map((item) => (
                     <ul key={item.order._id}>
@@ -205,19 +309,12 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
               <div className="product-bottom-container">
                 {/* <div className="product-price"> */}
 
-                <div
-                  style={{
-                    backgroundColor: "#05a5ea",
-                    width: "200px",
-                    textAlign: "center",
-                    padding: "10px 0",
-                    borderRadius: "8px",
-                  }}
-                >
+                <div className="total-price">
                   <p style={{ color: "white" }}>
                     Hesab: {userCheck.totalPayment} AZN{" "}
                   </p>
                 </div>
+
                 <div className="product-bottom-btns">
                   <button
                     className="open-table"
@@ -276,6 +373,27 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                 <span>{order.product.productName}</span>
               </div>
             ))}
+          </div>
+          <br />
+          <h1> Setlər </h1>
+          <br />
+          <div className="menus">
+            {menuSet.map((set) => {
+              // console.log(set)
+              const { name, price } = set;
+              return (
+                <div
+                  key={set._id}
+                  className="menu-content"
+                  onClick={() => addSet(set)}
+                >
+                  <span>{name}</span>
+                  <p>
+                    qiymət: <span>{price}</span> AZN
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

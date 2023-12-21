@@ -1,10 +1,55 @@
-import { deleteMenusAction } from "../../../redux/actions/menusAction";
-import { useDispatch } from "react-redux";
-import { MENU_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
-import UpdateDeleteModal from "../../../globalComponents/Modals/UpdateDeleteModal/UpdateDeleteModal";
+import moment from "moment";
 
-const ChecksCard = ({ data, mode, cellNumber }) => {
-  console.log(data.table.oneMinutePrice, "data");
+const ChecksCard = ({
+  data,
+  mode,
+  cellNumber,
+  setOpenMoreModal,
+  openMoreDetails,
+}) => {
+  // console.log(data.orders);
+
+  let orders =
+    Array.isArray(data.orders) && data.orders.length > 0
+      ? data.orders
+          .map((order) => {
+            return `${order.order.product.productName} - ${order.orderCount}`;
+          })
+          .join(", ")
+      : "";
+
+  const listData = [
+    {
+      key: "Kateqoriya",
+      value: data.table.category ? data.table.category : "boş",
+    },
+    {
+      key: "Masa adı",
+      value: data.table
+        ? `${data.table.name ? data.table.name : ""} - ${
+            data.table?.tableNumber
+          }`
+        : "boş",
+    },
+    { key: "Sifarişlər", value: orders },
+    {
+      key: "Depozit",
+      value: data.table.deposit ? data.table.deposit : "yoxdur",
+    },
+    { key: "Ümumi məbləğ", value: data.totalPayment },
+    { key: "Ümumi vaxt", value: data.totalDate },
+    {
+      key: "1 saatlıq qiymət",
+      value: data.table
+        ? `${data.table.oneMinutePrice ? data.table.oneMinutePrice : ""} `
+        : "yoxdur",
+    },
+  ];
+
+  const openMoreModal = () => {
+    setOpenMoreModal(true);
+    openMoreDetails(data);
+  };
   return (
     <>
       {mode === "desktop" ? (
@@ -26,18 +71,7 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">
-                {data.orders.map((item) => (
-                  <ul key={item._id}>
-                    {/* <li> */}
-                      <span>
-                        {item.order.product.productName} - {item.orderCount}{" "}
-                        ədəd{" "}
-                      </span>
-                    {/* </li> */}
-                  </ul>
-                ))}
-              </div>
+              <div className="table-scroll-text">{orders}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -70,13 +104,17 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
               <div className="right-fade"></div>
             </div>
           </td>
-          {/* <td className="more-options">
-            <UpdateDeleteModal
-              updateItem={updateItem}
-              deleteItem={deleteItem}
-              data={data}
-            />
-          </td> */}
+          <td>
+            <div className="td-con">
+              <div className="table-scroll-text phone">
+                {moment(data.createdAt).format("YYYY.MM.DD")}
+              </div>
+              <div className="right-fade"></div>
+            </div>
+          </td>
+          <td className="more" onClick={() => openMoreModal()}>
+            Ətraflı
+          </td>
         </tr>
       ) : (
         <div className="content-box">
@@ -95,17 +133,11 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
               </li>
               <li>
                 <span className="type">Sifarişlər :</span>
-                <div>
-                  {data.orders.map((item) => (
-                    <ul key={item._id}>
-                      <li>{item.order.product.productName}</li>
-                    </ul>
-                  ))}
-                </div>
+                <div>{orders}</div>
               </li>
               <li>
                 <span className="type">Depozit:</span>
-                <p>{data.table.deposit}</p>
+                <p>{data.table.deposit ? data.table.deposit : "yoxdur"}</p>
               </li>
               <li>
                 <span className="type">Ümumi məbləğ:</span>
@@ -116,9 +148,23 @@ const ChecksCard = ({ data, mode, cellNumber }) => {
                 <p>{data.totalDate}</p>
               </li>
               <li>
-                <span className="type">1 dəq-lik qiymət:</span>
-                <p>{data.table.oneMinutePrice}</p>
+                <span className="type">1 saatlıq qiymət:</span>
+                <p>
+                  {data.table.oneMinutePrice
+                    ? data.table.oneMinutePrice
+                    : "yoxdur"}
+                </p>
               </li>
+              <div className="right">
+                <span
+                  className="type"
+                  onClick={() => {
+                    openMoreModal();
+                  }}
+                >
+                  Ətraflı
+                </span>
+              </div>
             </ul>
           </div>
         </div>

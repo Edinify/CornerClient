@@ -9,44 +9,38 @@ import { useDispatch, useSelector } from "react-redux";
 import InputField from "./components/InputField";
 import SubmitBtn from "./components/SubmitBtn";
 import CategoryLists from "./components/CategoryList";
-import { getCategoryAction } from "../../../redux/actions/categoryAction";
-import { getWarehouseAction, getWarehouseActionList } from "../../../redux/actions/wareHouseAction";
 import WarehouseLists from "./components/WarehouseLists";
 import { useFormik } from "formik";
-import {ValidationSchema} from "./components/ValidationSchema"
+import { ValidationSchema } from "./components/ValidationSchema";
 
 export const MenuModal = () => {
   const dispatch = useDispatch();
   const { menusModalData } = useSelector((state) => state.menuModal);
   const { category } = useSelector((state) => state.category);
-  const {warehouses} = useSelector(state=>state.warehouses);
+  const { warehouses } = useSelector((state) => state.warehouses);
   const categoryList = category?.filter((category) => category?.name);
-  const [selectedCategoryName, setSelectedCategoryName] = useState({
-    name:""
-  });
+  const [selectedCategoryName, setSelectedCategoryName] = useState();
   const [categoryNameOpen, setCategoryNameOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
-  const inputArr = [ "price", "unitAmount"];
+  const inputArr = ["price", "unitAmount"];
 
-
-  const warehousesList = warehouses?.filter(ware=>ware.productName)
+  const warehousesList = warehouses?.filter((ware) => ware.productName);
   const [selectedWarehouseName, setSelectedWarehouseName] = useState({
-    productName:""
+    productName: "",
   });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
 
 
-
   const formik = useFormik({
-    initialValues:{
-      category:menusModalData?.category ? menusModalData.category:"",
-      productName:menusModalData?.product ? menusModalData.product :"",
-      price:menusModalData?.price ? menusModalData.price : "",
-      unitAmount : menusModalData?.unitAmount ? menusModalData.unitAmount  :""
+    initialValues: {
+      category: menusModalData?.category ? menusModalData.category : "",
+      productName: menusModalData?.product ? menusModalData.product : "",
+      price: menusModalData?.price ? menusModalData.price : "",
+      unitAmount: menusModalData?.unitAmount ? menusModalData.unitAmount : "",
     },
-    validationSchema:ValidationSchema
-  })
+    validationSchema: ValidationSchema,
+  });
 
   const setInputValue = useCallback(
     (key, value) =>
@@ -57,30 +51,29 @@ export const MenuModal = () => {
     [formik]
   );
 
-
   const categoryNameDropdown = () => {
     setCategoryNameOpen(!categoryNameOpen);
     setClassIcon(false);
   };
 
-  const warehouseNameDropdown=()=>{
-    setWarehouseNameOpen(!warehouseNameOpen)
-    setClassIcon(false)
-  }
+  const warehouseNameDropdown = () => {
+    setWarehouseNameOpen(!warehouseNameOpen);
+    setClassIcon(false);
+  };
   const categoryNameAddData = (item) => {
-    setInputValue("category",item.key)
+    setInputValue("category", item._id);
     updateModalState("category", item.name);
-    dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
     setSelectedCategoryName(item);
   };
-  const warehouseNameAddData=(item)=>{
-    setInputValue("product",item._id)
-    updateModalState("product",item._id);
-    dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+  const warehouseNameAddData = (item) => {
+    setInputValue("product", item._id);
+    updateModalState("product", item._id);
+    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setWarehouseNameOpen(false);
-    setSelectedWarehouseName(item)
-  }
+    setSelectedWarehouseName(item);
+  };
 
   const updateModalState = (keyName, value) => {
     dispatch({
@@ -88,7 +81,6 @@ export const MenuModal = () => {
       payload: {
         data: {
           ...menusModalData,
-          category: selectedCategoryName?.name,
           [keyName]: value,
         },
         openModal: true,
@@ -105,10 +97,7 @@ export const MenuModal = () => {
   useEffect(() => {
     if (menusModalData?._id) {
       if (menusModalData?.category) {
-        setSelectedCategoryName({
-          ...selectedCategoryName,
-          name: menusModalData.category,
-        });
+        setSelectedCategoryName(menusModalData.category);
       }
     }
   }, []);
@@ -123,12 +112,11 @@ export const MenuModal = () => {
     }
   }, []);
 
-
-
   useEffect(() => {
-    dispatch(getCategoryAction(""));
-    dispatch(getWarehouseActionList())
-  }, []);
+    setSelectedWarehouseName({
+      productName: "",
+    });
+  }, [selectedCategoryName]);
 
   return (
     <div className="create-update-modal-con bonus-modal">
@@ -160,15 +148,15 @@ export const MenuModal = () => {
               formik={formik}
             />
             <WarehouseLists
-            setSelectedWarehouseName={setSelectedWarehouseName}
-            selectedWarehouseName = {selectedWarehouseName}
-            warehouseNameDropdown={warehouseNameDropdown}
-            warehouseNameOpen={warehouseNameOpen}
-            setWarehouseNameOpen={setWarehouseNameOpen}
-            warehouseNameAddData={warehouseNameAddData}
-            warehousesList={warehousesList}
-            formik={formik}
-
+              setSelectedWarehouseName={setSelectedWarehouseName}
+              selectedWarehouseName={selectedWarehouseName}
+              warehouseNameDropdown={warehouseNameDropdown}
+              warehouseNameOpen={warehouseNameOpen}
+              setWarehouseNameOpen={setWarehouseNameOpen}
+              warehouseNameAddData={warehouseNameAddData}
+              warehousesList={warehousesList}
+              selectedCategoryName={selectedCategoryName}
+              formik={formik}
             />
 
             {inputArr.map((name, index) => (
@@ -186,7 +174,7 @@ export const MenuModal = () => {
 
         {menusModalData?._id ? (
           <SubmitBtn
-          formik={formik}
+            formik={formik}
             funcType="update"
             menusModalData={menusModalData}
             closeModal={closeModal}
@@ -194,7 +182,7 @@ export const MenuModal = () => {
           />
         ) : (
           <SubmitBtn
-          formik={formik}
+            formik={formik}
             funcType="create"
             menusModalData={menusModalData}
             closeModal={closeModal}

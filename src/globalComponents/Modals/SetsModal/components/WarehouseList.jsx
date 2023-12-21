@@ -1,37 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getWarehouseAction,
-  getWarehouseActionList,
-} from "../../../../redux/actions/wareHouseAction";
-
+import { getAllWarehouseAction } from "../../../../redux/actions/wareHouseAction";
+import { ReactComponent as MinusIcon } from "../../../../assets/icons/minus-cirlce.svg";
+import InputField from "./InputField";
+import WareHouseInputField from "./WareHouseInputField";
 const WarehouseLists = ({
   setSelectedWarehouseName,
+  products,
   selectedWarehouseName,
+  setCountData,
+  countData,
   warehouseNameDropdown,
   warehouseNameOpen,
   setWarehouseNameOpen,
   warehouseNameAddData,
   warehousesList,
-  selectedCategoryName,
   formik,
+  setInputValue,
+  setsModalData,
+  updateModalState,
 }) => {
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
+  const inputArr = ["productCount", "productUnitAmount"];
+  const [data, setData] = useState({});
   const dispatch = useDispatch();
 
   const searchData = (e) => {
     setSearcherValue(e.target.value);
-    setSelectedWarehouseName("");
+    // setSelectedWarehouseName("");
     setWarehouseNameOpen(true);
   };
 
   useEffect(() => {
-    if (warehouseNameOpen) {
-      dispatch(getWarehouseActionList(selectedCategoryName?._id));
-    }
-  }, [warehouseNameOpen]);
+    dispatch(getAllWarehouseAction());
+  }, []);
+
 
   const changeOpenDropdown = () => {
     if (!selectedWarehouseName && dropdownName) {
@@ -39,6 +44,14 @@ const WarehouseLists = ({
     setWarehouseNameOpen(!warehouseNameOpen);
   };
 
+  const setFunction = (data) => {
+    setSelectedWarehouseName({
+      ...selectedWarehouseName,
+      products: products.filter((set) => set.product !== data),
+    });
+    console.log(selectedWarehouseName);
+  };
+  // console.log(dropdownName)
   return (
     <>
       <div className="class-input">
@@ -104,12 +117,63 @@ const WarehouseLists = ({
             .map((item, i) => {
               return (
                 <li key={i} onClick={() => warehouseNameAddData(item)}>
-                  <h4>{item.productName}</h4>
+                  <h4>
+                    {item.productName} <span> + </span>
+                  </h4>
                 </li>
               );
             })}
         </ul>
       </div>
+      {products?.length > 0 && (
+        <>
+          {products.map((item, i) => {
+            const { productCount, productUnitAmount } = item;
+            // console.log(productUnitAmount)
+            return (
+              <div key={i}>
+                <div className="sets-product">
+                  <h2>
+                    {item.productName
+                      ? item.productName
+                      : item.product.productName}
+                  </h2>
+                  <MinusIcon onClick={() => setFunction(item.product)} />
+                </div>
+                {/* <div>
+                    
+                  </div> */}
+                <div className="sets-product-inputs">
+                  {inputArr.map((name, index) => (
+                    <WareHouseInputField
+                      setSelectedWarehouseName={setSelectedWarehouseName}
+                      item={item}
+                      products={products}
+                      selectedWarehouseName={selectedWarehouseName}
+                      setCountData={setCountData}
+                      countData={countData}
+                      value={
+                        name === "productCount"
+                          ? productCount
+                          : name === "productUnitAmount"
+                          ? productUnitAmount
+                          : ""
+                      }
+                      // ---
+                      key={index}
+                      inputName={name}
+                      setInputValue={setInputValue}
+                      formik={formik}
+                      setsModalData={setsModalData}
+                      updateModalState={updateModalState}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </>
+      )}
     </>
   );
 };

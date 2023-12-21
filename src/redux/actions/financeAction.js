@@ -97,7 +97,6 @@ export const getFinanceDataAction =
               endDate || ""
             }&monthCount=${monthCount}`
           );
-          // // console.log(data, "data");(data)
           dispatch({
             type: FINANCE_ACTIONS_TYPE.GET_FINANCE_DATA,
             payload: data,

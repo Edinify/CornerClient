@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MENU_M0DAL_ACTION_TYPE } from "../../redux/actions-type";
 import GlobalHead from "../../globalComponents/GlobalHead/GlobalHead";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
-import { getMenusAction } from "../../redux/actions/menusAction";
 import { getCheckAction } from "../../redux/actions/checkAction";
 import ChecksData from "./components/ChecksData";
+import {DatePick} from "../../globalComponents/DatePicker/DatePicker"
+
 
 const ChecksPage = () => {
   const dispatch = useDispatch();
@@ -41,6 +41,7 @@ const ChecksPage = () => {
         DATA_SEARCH_VALUE={"COURSES_SEARCH_VALUE"}
         statusType="check"
       />
+      {/* <DatePick/> */}
       <ChecksData menusPageNum={menusPageNum} getPageNumber={getPageNumber} />
     </div>
   );

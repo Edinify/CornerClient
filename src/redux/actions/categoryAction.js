@@ -64,6 +64,7 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
+    console.log(data)
 
     dispatch({
       type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
@@ -71,25 +72,21 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
     });
     dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
   } catch (error) {
-    // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingCategoryAction(false));
   }
 };
 
-export const getCategoryProductAction = (pageNumber) => async (dispatch) => {
+export const getCategoryBaseAction = (categoryKey) => async (dispatch) => {
+  console.log(categoryKey,"key")
   dispatch(setLoadingCategoryAction(true));
   try {
-    console.log('getCategoryProductAction')
-    const { data } = await API.get('/product');
+    const { data } = await API.get(`/all?categoryKey=${categoryKey}`);
 
-    dispatch({
-      type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
-      payload: pageNumber,
-    });
-    dispatch({ type: CATEGORY_ACTION_TYPE.GET_CATEGORY, payload: data });
+    console.log(data,"base")
+
+    dispatch({ type: CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY, payload: data });
   } catch (error) {
-    // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingCategoryAction(false));
   }

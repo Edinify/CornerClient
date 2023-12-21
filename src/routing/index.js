@@ -7,11 +7,9 @@ import { Header } from "../Layout/Header/Header";
 import LoginRoute from "./LoginRoute";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import Sidebar from "../Layout/Sidebar/Sidebar";
-import UserPanelRoute from "./UserPanelRoute";
 import AdminPanelRoute from "./AdminPanelRoute";
 import { LoginUser } from "../Pages/LoginPage/LoginUser";
 import WorkersPage from "../Pages/WorkerPage/WorkerPage";
-import { getUserAction } from "../redux/actions/userAuthAction";
 
 export const Routing = () => {
   const dispatch = useDispatch();

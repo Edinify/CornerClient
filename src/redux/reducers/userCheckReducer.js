@@ -4,6 +4,7 @@ const initialState = {
   userCheck: {
     table: {},
     orders: [],
+    sets: [],
     totalDate: 0,
     totalPayment: 0,
     status: "open",
@@ -78,11 +79,62 @@ export const userCheckReducer = (state = initialState, action) => {
         userCheck: { ...state.userCheck, orders: newOrders },
       };
     }
+    // ------
+    case CHECK_ACTION_TYPE.ADD_SET_ACTION: {
+      const checkSet = state.userCheck.sets.find(
+        (item) => item.set._id === action.payload._id
+      );
+
+      let newSets;
+
+      if (checkSet) {
+        newSets = state.userCheck.sets.map((item) =>
+          item.set._id === action.payload._id
+            ? { ...item, setCount: item.setCount + 1 }
+            : item
+        );
+      } else {
+        newSets = [
+          ...state.userCheck.sets,
+          { set: action.payload, setCount: 1 },
+        ];
+      }
+      console.log(action.payload);
+      return {
+        ...state,
+        userCheck: { ...state.userCheck, sets: newSets },
+      };
+    }
+    case CHECK_ACTION_TYPE.REMOVE_SET_ACTION: {
+      const currentSet = state.userCheck.sets.find(
+        (item) => item.set._id === action.payload._id
+      );
+
+      let newSets;
+      if (currentSet.setCount > 1) {
+        newSets = state.userCheck.sets.map((item) =>
+          item.set._id === action.payload._id
+            ? { ...item, setCount: item.setCount - 1 }
+            : item
+        );
+      } else {
+        newSets = state.userCheck.sets.filter(
+          (item) => item.set._id !== action.payload._id
+        );
+      }
+
+      return {
+        ...state,
+        userCheck: { ...state.userCheck, sets: newSets },
+      };
+    }
+    // -------
     case CHECK_ACTION_TYPE.RESET_USER_CHECK: {
       return {
         userCheck: {
           table: {},
           orders: [],
+          sets: [],
           totalDate: 0,
           totalPayment: null,
           status: "open",

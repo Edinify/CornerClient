@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryAction } from "../../../../redux/actions/categoryAction";
-import { getWarehouseActionList } from "../../../../redux/actions/wareHouseAction";
-import { json } from "react-router-dom";
 
 const CategoryLists = ({
   selectedCategoryName,
@@ -24,7 +22,7 @@ const CategoryLists = ({
   };
 
   useEffect(() => {
-    dispatch(getCategoryAction());
+    dispatch(getCategoryAction(""));
   }, []);
 
   return (
@@ -46,7 +44,7 @@ const CategoryLists = ({
             label="Kateqoriya "
             name="class"
             autoComplete="off"
-            value={selectedCategoryName ? selectedCategoryName.name : ""}
+            value={selectedCategoryName}
             onBlur={() => formik.setFieldTouched("category", true)}
             onClick={categoryNameDropdown}
           />

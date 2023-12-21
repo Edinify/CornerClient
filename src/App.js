@@ -9,6 +9,7 @@ import { WarehouseModal } from "./globalComponents/Modals/WarehouseModal/Warehou
 import { MenuModal } from "./globalComponents/Modals/MenuModal/MenuModal";
 import {TablesModal} from "./globalComponents/Modals/TablesModal/TablesModal"
 import {UserModal} from "./globalComponents/Modals/UserModal/UserModal"
+import SetsModal from "./globalComponents/Modals/SetsModal/SetsModal";
 
 function App() {
   const { expensesOpenModal } = useSelector((state) => state.expensesModal);
@@ -17,6 +18,8 @@ function App() {
   const {tablesOpenModal} = useSelector(state=>state.tablesModal)
   const {categoryOpenModal} = useSelector(state=>state.categoryModal)
   const {userOpenModal} = useSelector(state=>state.userModal)
+  const {setOpenModal} = useSelector(state=>state.menuSetModal)
+
 
 
 
@@ -48,6 +51,7 @@ function App() {
       {tablesOpenModal && <TablesModal/>}
       {categoryOpenModal && <CategoryModal/>}
       {userOpenModal && <UserModal/>}
+      {setOpenModal && <SetsModal/>}
       <ToastContainer />
     </div>
   );

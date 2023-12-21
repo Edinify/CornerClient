@@ -7,13 +7,14 @@ import { WAREHOUSE_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import { getWarehouseAction } from "../../../redux/actions/wareHouseAction";
 import WarehouseCard from "./WarehouseCard";
 
-const WarehouseData = ({ warehousePageNum,getPageNumber }) => {
+const WarehouseData = ({ warehousePageNum, getPageNumber }) => {
   const dispatch = useDispatch();
   const { warehouses, loading, totalPages } = useSelector(
     (state) => state.warehouses
   );
 
   const tableHead = [
+    { id: 5, label: "Kateqoriya" },
     { id: 1, label: "Məhsulun adı" },
     { id: 3, label: "Məhsulun miqdarı" },
     { id: 2, label: "Ölçü vahidi" },
@@ -40,7 +41,7 @@ const WarehouseData = ({ warehousePageNum,getPageNumber }) => {
             <tbody>
               {warehouses.map((item, i) => (
                 <WarehouseCard
-                  key={i}
+                  key={item._id}
                   data={item}
                   mode="desktop"
                   cellNumber={i + 1 + (warehousePageNum - 1) * 10}
@@ -52,7 +53,7 @@ const WarehouseData = ({ warehousePageNum,getPageNumber }) => {
           <div className="details-list-tablet with-more">
             {warehouses.map((item, i) => (
               <WarehouseCard
-                key={i}
+                key={item._id}
                 data={item}
                 mode="tablet"
                 cellNumber={i + 1 + (warehousePageNum - 1) * 10}

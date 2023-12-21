@@ -131,6 +131,22 @@
   position: relative;
 }
 
+  .sets-product {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sets-product-inputs {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sets-product-inputs .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 100%;
+}
 .create-update-modal-form .class-field {
   display: flex;
   position: relative;

@@ -49,9 +49,11 @@
   border-right: none;
 }
 .details-table.check-table tr td:last-child,
-.details-table.checl-table tr th:last-child {
+.details-table.check-table tr th:last-child {
   /* width: 200px; */
+  text-align: start;
   border-right: none;
+  width: 150px;
 }
 
 
@@ -99,6 +101,9 @@
   display: flex;
   align-items: center;
   position: relative;
+}
+.details-table .more{
+  cursor: pointer;
 }
 .details-table tr td:last-child .delete-modal {
   display: flex;

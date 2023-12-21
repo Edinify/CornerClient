@@ -1,4 +1,4 @@
-import { CHECK_ACTION_TYPE } from "../actions-type";
+import { CHECK_ACTION_TYPE } from "../actions-type/index";
 import axios from "axios";
 import { apiRoot } from "../../apiRoot";
 import { toast } from "react-toastify";
@@ -18,7 +18,6 @@ API.interceptors.request.use((req) => {
 });
 
 export const setLoadingCheckction = (loadingValue) => (
-  console.log(loadingValue, "loadinggggg"),
   {
     type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
     payload: loadingValue,
@@ -26,7 +25,6 @@ export const setLoadingCheckction = (loadingValue) => (
 );
 
 export const setLoadingSubmitCheckction = (loadingValue) => (
-  console.log(loadingValue, "loadinggggg"),
   {
     type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
     payload: loadingValue,
@@ -46,7 +44,6 @@ const toastSuccess = (message) => {
   });
 };
 export const createCheckAction = (checkData) => async (dispatch) => {
-  console.log(checkData, "test 111111");
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.post("/", checkData);
@@ -65,7 +62,7 @@ export const getCheckUserAction = (_id) => async (dispatch) => {
   dispatch(setLoadingCheckction(true))
   try {
     const { data } = await API.get(`/${_id}`);
-    console.log(data)
+    // console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
@@ -100,13 +97,29 @@ export const removeOrderAction = (order) => async (dispatch) => {
   }
 };
 
+export const addSetAction = (set) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.ADD_SET_ACTION, payload: set });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const removeSetAction = (set) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_ACTION_TYPE.REMOVE_SET_ACTION, payload: set });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // admin check action
 
 export const getCheckAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data)
+    // console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
     dispatch({
       type: CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,
@@ -126,10 +139,8 @@ export const updateCheckAction = (_id, checkData) => async (dispatch) => {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
   } catch (error) {
-    // console.log(data, "data");(error);
+    console.log(error);
+  } finally {
+    dispatch(setLoadingCheckction(false));
   }
-  // finally{
-  //   dispatch(setLoadingCheckction(false));
-
-  // }
 };
