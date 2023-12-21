@@ -98,12 +98,6 @@ export default function WareHouseInputField({
           data
           } )]} 
         ) 
-        // : inputName ==="name" ?  setSelectedWarehouseName( {...selectedWarehouseName,
-        //   name: e.target.value
-        // }) :
-
-        // setInputValue(inputName, e.target.value);
-         
       }} 
       onBlur={(e) => {
         formik.setFieldTouched(inputName, true);
