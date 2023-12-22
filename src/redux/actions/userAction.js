@@ -10,7 +10,7 @@ import { apiRoot } from "../../apiRoot";
 
 const API = axios.create({
   baseURL: `${apiRoot}/admin`,
-   // withCredentials: true,
+   withCredentials: true,
 });
 
 API.interceptors.request.use((req) => {

@@ -19,7 +19,7 @@ API.interceptors.request.use((req) => {
 
 const APIUSER = axios.create({
   baseURL: `${apiRoot}/menu/all`,
-   // withCredentials: true,
+   withCredentials: true,
 });
 
 export const setLoadingMenuAction = (loadingValue) => ({
