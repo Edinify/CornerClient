@@ -40,6 +40,7 @@ export const loginAction = (authData) => async (dispatch) => {
     dispatch({ type: AUTH_ALL_ACTION_TYPE.LOGIN, payload: { data: data } });
     // dispatch({ type: AUTH_ALL_ACTION_TYPE.AUTH_LOADING, payload: true });
   } catch (error) {
+    console.log(error)
     if (error?.response?.status === 404) {
       toastError("Email və ya şifrə yalnışdır");
     }
