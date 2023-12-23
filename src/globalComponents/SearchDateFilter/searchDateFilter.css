@@ -6,7 +6,6 @@
   padding-bottom: 16px;
 }
 .stimulation-search-head{
-  /* margin-top: 20px; */
   background-color: var(--neutrals-200);
 }
 
@@ -48,6 +47,11 @@
   justify-content: space-between;
   margin: 10px 0;
   
+}
+
+.search-date-filter > .right.warehouse {
+  justify-content: flex-end;
+  margin: 0;
 }
 .search-date-filter > .right .date-container .from,
 .search-date-filter > .right .date-container .to {
@@ -136,6 +140,7 @@
 .search-date-filter.category > .left {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin: 10px 0;
 }
 .search-date-filter.category > .left .search-form {
   margin-right: 6px;

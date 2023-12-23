@@ -28,12 +28,6 @@ const GlobalHead = ({
             </button>
            } 
           </div>
-          {statusType === "teacher" && (
-            <StatusDropdown statusType="teacher" deviceType="mobile" />
-          )}
-          {statusType === "student" && (
-            <StatusDropdown statusType="student" deviceType="mobile" />
-          )}
         </div>
       </div>
     </div>

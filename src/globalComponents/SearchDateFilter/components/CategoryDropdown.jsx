@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ReactComponent as ArrowIcon } from "../../../assets/icons/arrow-down-dropdown.svg";
 
 const CategoryDropdown = ({categoryData, changeCategory}) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const getCategory = (category) => {
+
     setSelectedCategory(category);
     setOpenDropdown(false);
     changeCategory(category)
   };
+  
 
   return (
     <div className={`global-category-dropdown category-dropdown ${openDropdown ? "active" : ""}`}>
@@ -28,7 +30,7 @@ const CategoryDropdown = ({categoryData, changeCategory}) => {
         <ul>
           {categoryData.map((item, index) => (
             <li key={index} onClick={() => getCategory(item)}>
-              {item.name}
+              {item?.name}
             </li>
           ))}
         </ul>

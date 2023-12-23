@@ -42,6 +42,7 @@ import { setsReducer } from "./reducers/setsReducer";
 import { setsModalReducer } from "./reducers/setsModalReducer";
 import { allWarehousesReducer } from "./reducers/allWarehousesReducer";
 import { orderModalReducer } from "./reducers/userOrderModalReducer";
+import { warehouseFilterReducer } from "./reducers/warehouseFilterReducer";
 
 const initialState = {};
 const reducers = combineReducers({
@@ -84,6 +85,7 @@ const reducers = combineReducers({
   menuSetModal: setsModalReducer,
   allWarehouses: allWarehousesReducer,
   orderModal: orderModalReducer,
+  wareCategory:warehouseFilterReducer
 });
 // test
 
