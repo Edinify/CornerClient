@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import {
-  DROPDOWN_NAME_ACTION_TYPE,
   WAREHOUSE_M0DAL_ACTION_TYPE,
 } from "../../../redux/actions-type";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
@@ -33,6 +32,7 @@ export const WarehouseModal = () => {
     { key: "litr", name: "litr" },
     { key: "ədəd", name: "ədəd" },
   ];
+
 
   const formik = useFormik({
     initialValues: {

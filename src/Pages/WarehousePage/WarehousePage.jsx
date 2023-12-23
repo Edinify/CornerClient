@@ -39,7 +39,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         1,
         warehouseSearchValues,
-        wareCategory ? wareCategory : ""
+        wareCategory ? (wareCategory !== "all" ? wareCategory : "") : ""
       )
     );
     setWarehousePageNum(1);
@@ -50,7 +50,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         1,
         warehouseSearchValues ? warehouseSearchValues : "",
-        wareCategory ? wareCategory : ""
+        wareCategory ? (wareCategory !== "all" ? wareCategory : "") : ""
       )
     );
   };
@@ -82,7 +82,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         pageNumber,
         warehouseSearchValues ? warehouseSearchValues : "",
-        wareCategory ? wareCategory : ""
+        wareCategory ? (wareCategory !== "all" ? wareCategory : "") : ""
       )
     );
   };
