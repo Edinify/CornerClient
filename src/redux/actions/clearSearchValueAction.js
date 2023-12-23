@@ -1,7 +1,6 @@
 import {  
     DATEPICKER_ACTION_TYPE, 
     SEARCH_VALUES_ACTION_TYPES,
-    FINE_FILTER_ACTION_TYPE,
     WAREHOUSE_FILTER_ACTION_TYPE,
   } from "../actions-type";
 

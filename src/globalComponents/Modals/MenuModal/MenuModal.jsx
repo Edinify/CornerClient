@@ -31,6 +31,8 @@ export const MenuModal = () => {
   });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
 
+  console.log(selectedCategoryName,"selected")
+
 
   const formik = useFormik({
     initialValues: {
