@@ -86,20 +86,20 @@ const ChecksCard = ({
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.totalPayment}</div>
+              <div className="table-scroll-text phone">{data.totalPayment} / AZN</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.totalDate}</div>
+              <div className="table-scroll-text phone">{data.totalDate} / dəqiqə</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
               <div className="table-scroll-text phone">
-                {data.table.oneMinutePrice}
+                {data.table.oneMinutePrice} AZN
               </div>
               <div className="right-fade"></div>
             </div>

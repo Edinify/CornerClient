@@ -17,6 +17,8 @@ const TablesData = ({ tablePageNum, getPageNumber }) => {
     { id: 3, label: "", type: "more-options-head" },
   ];
 
+  // console.log(tables.sort((a, b) => a.tableNumber - b.tableNumber))
+
   return (
     <>
       {loading ? (
@@ -35,7 +37,7 @@ const TablesData = ({ tablePageNum, getPageNumber }) => {
             </thead>
 
             <tbody>
-              {tables?.map((table, i) => (
+              {tables.sort((a, b) => a.tableNumber - b.tableNumber)?.map((table, i) => (
                 <TablesCard
                   key={i}
                   data={table}
