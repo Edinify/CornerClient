@@ -17,19 +17,15 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const setLoadingCheckction = (loadingValue) => (
-  {
-    type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
-    payload: loadingValue,
-  }
-);
+export const setLoadingCheckction = (loadingValue) => ({
+  type: CHECK_ACTION_TYPE.CHECK_USER_LOADING,
+  payload: loadingValue,
+});
 
-export const setLoadingSubmitCheckction = (loadingValue) => (
-  {
-    type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
-    payload: loadingValue,
-  }
-);
+export const setLoadingSubmitCheckction = (loadingValue) => ({
+  type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
+  payload: loadingValue,
+});
 
 const toastSuccess = (message) => {
   toast.success(message, {
@@ -47,28 +43,27 @@ export const createCheckAction = (checkData) => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.post("/", checkData);
+    console.log(data, "create table");
     // console.log(data, "data");(data, "create check");
     toastSuccess("Yeni masa açıldı");
     dispatch({ type: CHECK_ACTION_TYPE.CREAT_USER_CHECK, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
-  }
-  finally{
-    dispatch(setLoadingCheckction(false)) 
+  } finally {
+    dispatch(setLoadingCheckction(false));
   }
 };
 
 export const getCheckUserAction = (_id) => async (dispatch) => {
-  dispatch(setLoadingCheckction(true))
+  dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.get(`/${_id}`);
     // console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_USER_CHECK, payload: data });
   } catch (error) {
     // console.log(data, "data");(error);
-  }
-  finally{
-    dispatch(setLoadingCheckction(false)) 
+  } finally {
+    dispatch(setLoadingCheckction(false));
   }
 };
 
@@ -115,22 +110,31 @@ export const removeSetAction = (set) => async (dispatch) => {
 
 // admin check action
 
-export const getCheckAction = (pageNumber) => async (dispatch) => {
-  dispatch(setLoadingCheckction(true));
-  try {
-    const { data } = await API.get(`/?page=${pageNumber}`);
-    // console.log(data)
-    dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
-    dispatch({
-      type: CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,
-      payload: pageNumber,
-    });
-  } catch (error) {
-    // console.log(data, "data");(error);
-  } finally {
-    dispatch(setLoadingCheckction(false));
-  }
-};
+export const getCheckAction =
+  (pageNumber, startDate = "", endDate = "") =>
+  async (dispatch) => {
+    dispatch(setLoadingCheckction(true));
+    console.log(startDate, "start");
+    console.log(endDate, "end");
+    try {
+      const { data } = await API.get(
+        `/?page=${pageNumber}&startDate=${startDate || ""}&endDate=${
+          endDate || ""
+        }`
+      );
+      // console.log(data)
+      dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
+      dispatch({
+        type: CHECK_ACTION_TYPE.GET_CHECK_LAST_PAGE,
+        payload: pageNumber,
+      });
+    } catch (error) {
+      console.log(error);
+      // console.log(data, "data");(error);
+    } finally {
+      dispatch(setLoadingCheckction(false));
+    }
+  };
 
 export const updateCheckAction = (_id, checkData) => async (dispatch) => {
   dispatch(setLoadingSubmitCheckction(true));
@@ -138,6 +142,15 @@ export const updateCheckAction = (_id, checkData) => async (dispatch) => {
   try {
     const { data } = await API.patch(`/${_id}`, checkData);
     dispatch({ type: CHECK_ACTION_TYPE.UPDATE_CHECK, payload: data });
+
+    console.log(data, "salam necesen data");
+    if (data?.status === "confirmed" || data?.status === "cancelled") {
+      dispatch({
+        type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
+        payload: false,
+      });
+      dispatch({ type: CHECK_ACTION_TYPE.ORDER_MODAL, payload: false });
+    }
   } catch (error) {
     console.log(error);
   } finally {

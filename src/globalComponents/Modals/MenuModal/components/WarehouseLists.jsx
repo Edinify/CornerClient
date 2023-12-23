@@ -27,6 +27,8 @@ const WarehouseLists = ({
     setWarehouseNameOpen(true);
   };
 
+  console.log(selectedCategoryName,"Category name")
+
   useEffect(() => {
     if (warehouseNameOpen) {
       dispatch(getWarehouseActionList(selectedCategoryName?._id));

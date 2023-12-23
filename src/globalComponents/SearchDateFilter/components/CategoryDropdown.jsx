@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ReactComponent as ArrowIcon } from "../../../assets/icons/arrow-down-dropdown.svg";
 
-const CategoryDropdown = ({categoryData, changeCategory}) => {
+const CategoryDropdown = ({ changeCategory,categoryData}) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const getCategory = (category) => {
-    setSelectedCategory(category);
+
+    setSelectedCategory(category.name);
     setOpenDropdown(false);
-    changeCategory(category)
+    changeCategory(category._id)
   };
+  
 
   return (
     <div className={`global-category-dropdown category-dropdown ${openDropdown ? "active" : ""}`}>
@@ -17,7 +19,7 @@ const CategoryDropdown = ({categoryData, changeCategory}) => {
         onClick={() => setOpenDropdown(!openDropdown)}
       >
         <h2>
-          {selectedCategory ? selectedCategory.name : "Bütün kateqoriyalar"}
+          {selectedCategory ? selectedCategory : "Bütün kateqoriyalar"}
         </h2>{" "}
         <div className="arrow-icon">
           <ArrowIcon />
@@ -27,7 +29,7 @@ const CategoryDropdown = ({categoryData, changeCategory}) => {
       <div className="dropdown-body">
         <ul>
           {categoryData.map((item, index) => (
-            <li key={index} onClick={() => getCategory(item)}>
+            <li key={item._id} onClick={() => getCategory(item)}>
               {item.name}
             </li>
           ))}
