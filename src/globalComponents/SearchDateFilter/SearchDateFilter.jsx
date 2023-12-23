@@ -16,7 +16,7 @@ const SearchDateFilter = ({
   changeSearchValue,
   searchData,
   category = false,
-  categoryData = [],
+  categoryData,
   changeCategory = () => {},
 }) => {
   const [datePickModal, setDatePickModal] = useState(false);
@@ -58,16 +58,16 @@ const SearchDateFilter = ({
               />
               {category && (
                 <CategoryDropdown
-                  categoryData={categoryData}
                   changeCategory={changeCategory}
+                  categoryData={categoryData}
                 />
               )}
             </div>
             <div className="right warehouse ">
               {category && (
                 <CategoryDropdown
-                  categoryData={categoryData}
                   changeCategory={changeCategory}
+                  categoryData={categoryData}
                 />
               )}
               <ApplyClearBtns clearAll={clearAll} applyFilter={applyFilter} />

@@ -11,21 +11,20 @@ import WarehouseData from "./components/WarehouseData";
 import { getWarehouseAction } from "../../redux/actions/wareHouseAction";
 import SearchDateFilter from "../../globalComponents/SearchDateFilter/SearchDateFilter";
 import { clearSearchValue } from "../../redux/actions/clearSearchValueAction";
+import { getCategoryAction } from "../../redux/actions/categoryAction";
 
 const WarehousePage = () => {
   const dispatch = useDispatch();
   const { lastPage } = useSelector((state) => state.warehouses);
   const { warehouseSearchValues } = useSelector((state) => state.searchValues);
   const [warehousePageNum, setWarehousePageNum] = useState(1);
-  const { warehouses } = useSelector((state) => state.warehouses);
+  const { category } = useSelector((state) => state.category);
+  const { changeShowNav } = useCustomHook();
   const { wareCategory } = useSelector((state) => state.wareCategory);
 
-  const category = warehouses.map((item) => item.category);
-
-  console.log(category, "category");
-  console.log(category._id, "category id");
-
-  const { changeShowNav } = useCustomHook();
+  useEffect(() => {
+    dispatch(getCategoryAction(1));
+  }, []);
 
   const clearAll = () => {
     dispatch(clearSearchValue());
@@ -40,8 +39,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         1,
         warehouseSearchValues,
-        // wareCategory? wareCategory :""
-        category._id ? category._id : ""
+        wareCategory ? wareCategory : ""
       )
     );
     setWarehousePageNum(1);
@@ -52,8 +50,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         1,
         warehouseSearchValues ? warehouseSearchValues : "",
-        // wareCategory ? wareCategory : ""
-        category._id ? category._id : ""
+        wareCategory ? wareCategory : ""
       )
     );
   };
@@ -69,7 +66,7 @@ const WarehousePage = () => {
     console.log(wareType, "type");
     dispatch({
       type: WAREHOUSE_FILTER_ACTION_TYPE.GET_WAREHOUSE_CATEGORY,
-      payload: wareType.name,
+      payload: wareType,
     });
   };
 
@@ -85,8 +82,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         pageNumber,
         warehouseSearchValues ? warehouseSearchValues : "",
-        category._id ? category._id : ""
-        // wareCategory ? wareCategory : ""
+        wareCategory ? wareCategory : ""
       )
     );
   };
@@ -102,6 +98,10 @@ const WarehousePage = () => {
       changeShowNav(true);
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    getPageNumber(1);
+  }, [wareCategory]);
 
   return (
     <div className="details-page  ">

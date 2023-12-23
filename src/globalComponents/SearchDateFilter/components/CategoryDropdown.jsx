@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { ReactComponent as ArrowIcon } from "../../../assets/icons/arrow-down-dropdown.svg";
 
-const CategoryDropdown = ({categoryData, changeCategory}) => {
+const CategoryDropdown = ({ changeCategory,categoryData}) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const getCategory = (category) => {
 
-    setSelectedCategory(category);
+    setSelectedCategory(category.name);
     setOpenDropdown(false);
-    changeCategory(category)
+    changeCategory(category._id)
   };
   
 
@@ -19,7 +19,7 @@ const CategoryDropdown = ({categoryData, changeCategory}) => {
         onClick={() => setOpenDropdown(!openDropdown)}
       >
         <h2>
-          {selectedCategory ? selectedCategory.name : "Bütün kateqoriyalar"}
+          {selectedCategory ? selectedCategory : "Bütün kateqoriyalar"}
         </h2>{" "}
         <div className="arrow-icon">
           <ArrowIcon />
@@ -30,7 +30,7 @@ const CategoryDropdown = ({categoryData, changeCategory}) => {
         <ul>
           {categoryData.map((item, index) => (
             <li key={index} onClick={() => getCategory(item)}>
-              {item?.name}
+              {item.name}
             </li>
           ))}
         </ul>
