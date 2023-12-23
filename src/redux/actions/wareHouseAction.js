@@ -59,10 +59,11 @@ const toastError = (message) => {
   });
 };
 
-export const getWarehouseAction = (pageNumber) => async (dispatch) => {
+export const getWarehouseAction = (pageNumber,searchQuery,categoryId) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
-    const { data } = await API.get(`/?page=${pageNumber}`);
+    console.log(searchQuery,"cat")
+    const { data } = await API.get(`/?page=${pageNumber}&searchQuery=${searchQuery}&categroyId=${categoryId}`);
     // console.log(data)
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE, payload: data });
     dispatch({
@@ -78,7 +79,6 @@ export const getWarehouseAction = (pageNumber) => async (dispatch) => {
 
 export const getWarehouseActionList = (categoryId) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
-  console.log(categoryId, "categoryId");
   try {
     const { data } = await API.get(`/list?categoryId=${categoryId}`);
 
@@ -108,7 +108,7 @@ export const createWarehouseAction = (warehouseData) => async (dispatch) => {
     const { data } = await API.post("/", warehouseData);
     dispatch({ type: WAREHOUSE_ACTION_TYPE.CREATE_WAREHOUSE, payload: data });
     dispatch(warehouseModalOpen(false));
-    dispatch(getWarehouseAction());
+    dispatch(getWarehouseAction("","",""));
     toastSuccess("Yeni məhsul yarandı");
   } catch (error) {
     console.log(error);

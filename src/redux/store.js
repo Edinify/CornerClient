@@ -41,6 +41,7 @@ import { checkLoadingReducer } from "./reducers/checkLoadingReducer";
 import { setsReducer } from "./reducers/setsReducer";
 import { setsModalReducer } from "./reducers/setsModalReducer";
 import { allWarehousesReducer } from "./reducers/allWarehousesReducer";
+import { warehouseFilterReducer } from "./reducers/warehouseFilterReducer";
 
 const initialState = {};
 const reducers = combineReducers({
@@ -81,7 +82,8 @@ const reducers = combineReducers({
   checkLoading:checkLoadingReducer,
   menuSet:setsReducer,
   menuSetModal:setsModalReducer,
-  allWarehouses:allWarehousesReducer
+  allWarehouses:allWarehousesReducer,
+  wareCategory:warehouseFilterReducer
 });
 // test
 

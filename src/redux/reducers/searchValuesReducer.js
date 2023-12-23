@@ -10,6 +10,7 @@ const initialState = {
   fineSearchValues: "",
   feedbackSearchValues: "",
   studentFeedbackSearchValues: "",
+  warehouseSearchValues:""
 };
 
 export const searchValuesReducer = (state = initialState, action) => {
@@ -61,6 +62,11 @@ export const searchValuesReducer = (state = initialState, action) => {
         ...state,
         adminsSearchValues: action.payload,
       };
+      case SEARCH_VALUES_ACTION_TYPES.WAREHOUSE_SEARCH_VALUE:
+        return{
+          ...state,
+          warehouseSearchValues:action.payload
+        }
     default:
       return state;
   }
