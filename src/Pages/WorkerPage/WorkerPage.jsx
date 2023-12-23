@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTablesUserAction } from "../../redux/actions/tablesAction";
 import WorkersData from "./components/WorkersData";
 import { useCustomHook } from "../../globalComponents/GlobalFunctions/globalFunctions";
@@ -7,7 +7,8 @@ import { CHECK_ACTION_TYPE } from "../../redux/actions-type";
 
 const WorkersPage = () => {
   const dispatch = useDispatch();
-  const [orderModal, setOrderModal] = useState(false);
+  const { open } = useSelector((state) => state.orderModal);
+
   const { changeShowNav } = useCustomHook();
   useEffect(() => {
     changeShowNav(false);
@@ -17,14 +18,14 @@ const WorkersPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!orderModal) {
+    if (!open) {
       dispatch({ type: CHECK_ACTION_TYPE.RESET_USER_CHECK });
       dispatch(getTablesUserAction());
     }
-  }, [orderModal]);
+  }, [open]);
   return (
     <div className="details-page ">
-      <WorkersData orderModal={orderModal} setOrderModal={setOrderModal} />
+      <WorkersData />
     </div>
   );
 };

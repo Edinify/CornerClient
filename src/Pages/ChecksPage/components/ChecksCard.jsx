@@ -79,20 +79,20 @@ const ChecksCard = ({
           <td>
             <div className="td-con">
               <div className="table-scroll-text phone">
-                {data.table.deposit}
+                {data.table.deposit} AZN
               </div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.totalPayment} / AZN</div>
+              <div className="table-scroll-text phone">{data.totalPayment} AZN</div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.totalDate} / dəqiqə</div>
+              <div className="table-scroll-text phone">{data.totalDate} Dəq </div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -137,21 +137,21 @@ const ChecksCard = ({
               </li>
               <li>
                 <span className="type">Depozit:</span>
-                <p>{data.table.deposit ? data.table.deposit : "yoxdur"}</p>
+                <p>{data.table.deposit ?` ${data.table.deposit} AZN` : "yoxdur" }</p>
               </li>
               <li>
                 <span className="type">Ümumi məbləğ:</span>
-                <p>{data.totalPayment}</p>
+                <p>{data.totalPayment} AZN  </p>
               </li>
               <li>
                 <span className="type">Ümumi vaxt:</span>
-                <p>{data.totalDate}</p>
+                <p>{data.totalDate} Dəq</p>
               </li>
               <li>
                 <span className="type">1 saatlıq qiymət:</span>
                 <p>
                   {data.table.oneMinutePrice
-                    ? data.table.oneMinutePrice
+                    ? `${data.table.oneMinutePrice} AZN`
                     : "yoxdur"}
                 </p>
               </li>

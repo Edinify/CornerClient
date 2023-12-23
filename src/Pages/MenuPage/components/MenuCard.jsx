@@ -17,6 +17,7 @@ const MenuCard = ({ data, mode, cellNumber }) => {
     });
   };
 
+
   const deleteItem = () => {
     dispatch(deleteMenusAction(data._id));
   };
@@ -35,7 +36,7 @@ const MenuCard = ({ data, mode, cellNumber }) => {
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text">{data.category.name}</div>
+              <div className="table-scroll-text">{data.category}</div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -73,7 +74,7 @@ const MenuCard = ({ data, mode, cellNumber }) => {
               </li>
               <li>
                 <span className="type">Kateqoriya:</span>
-                <p>{data.category ? data.category.name : "boş"}</p>
+                <p>{data.category ? data.category : "boş"}</p>
               </li>
               <li>
                 <span className="type">Məhsulun qiyməti:</span>
