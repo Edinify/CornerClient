@@ -5,7 +5,7 @@ import { USER_AUTH_ACTION_TYPE, USER_M0DAL_ACTION_TYPE } from "../actions-type";
 
 const API = axios.create({
   baseURL: `${apiRoot}/user`,
-   withCredentials: true,
+   withCredentials: true
 });
 
 API.interceptors.request.use((req) => {

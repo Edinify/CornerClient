@@ -5,7 +5,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: `${apiRoot}/menu/set`,
-  withCredentials: true,
+  withCredentials: true
 });
 
 API.interceptors.request.use((req) => {

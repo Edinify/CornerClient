@@ -37,7 +37,7 @@ const TablesData = ({ tablePageNum, getPageNumber }) => {
             </thead>
 
             <tbody>
-              {tables.sort((a, b) => a.tableNumber - b.tableNumber)?.map((table, i) => (
+              {tables.map((table, i) => (
                 <TablesCard
                   key={i}
                   data={table}

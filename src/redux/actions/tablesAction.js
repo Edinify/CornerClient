@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 
 const API = axios.create({
   baseURL: `${apiRoot}/table`,
-   withCredentials: true,
+   withCredentials: true
 });
 
 const APIUSER = axios.create({
   baseURL: `${apiRoot}/table/all`,
-   withCredentials: true,
+   withCredentials: true
 });
 
 API.interceptors.request.use((req) => {
@@ -73,6 +73,7 @@ const toastError = (message) => {
 };
 
 export const getTablesAction = (pageNumber) => async (dispatch) => {
+  
   dispatch(setLoadingTablesAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
@@ -82,7 +83,7 @@ export const getTablesAction = (pageNumber) => async (dispatch) => {
       payload: pageNumber,
     });
   } catch (error) {
-    // console.log(data, "data");(error);
+    console.log(error, "data")
   } finally {
     dispatch(setLoadingTablesAction(false));
   }

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const API = axios.create({
   baseURL: `${apiRoot}/category`,
-   withCredentials: true,
+   withCredentials: true
 });
 
 API.interceptors.request.use((req) => {
