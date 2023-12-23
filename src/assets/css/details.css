@@ -177,6 +177,19 @@
   border-bottom: 0.5px solid var(--neutrals-300, #ddd);
 }
 
+
+/* datepick */
+
+.datepick{
+  background-color: var(--neutrals-200);
+  margin-bottom: 20px;
+}
+.datepick .datepick-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media screen and (max-width: 1280px) {
   .details-table {
     display: none;

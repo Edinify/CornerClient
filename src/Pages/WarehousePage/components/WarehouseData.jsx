@@ -6,12 +6,25 @@ import Loading from "../../../globalComponents/Loading/Loading";
 import { WAREHOUSE_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import { getWarehouseAction } from "../../../redux/actions/wareHouseAction";
 import WarehouseCard from "./WarehouseCard";
+import { clearSearchValue } from "../../../redux/actions/clearSearchValueAction";
 
 const WarehouseData = ({ warehousePageNum, getPageNumber }) => {
   const dispatch = useDispatch();
   const { warehouses, loading, totalPages } = useSelector(
     (state) => state.warehouses
   );
+  const { warehouseSearchValues } = useSelector((state) => state.searchValues);
+
+  useEffect(() => {
+    if (warehouseSearchValues) {
+      dispatch(getWarehouseAction(1, warehouseSearchValues, ""));
+    } else {
+      dispatch(getWarehouseAction(1, "", ""));
+    }
+    return()=>{
+      dispatch(clearSearchValue())
+    }
+  }, []);
 
   const tableHead = [
     { id: 5, label: "Kateqoriya" },

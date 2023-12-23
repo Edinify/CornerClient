@@ -23,7 +23,7 @@ const CategoryLists = ({
 
   useEffect(() => {
     dispatch(getCategoryAction(""));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

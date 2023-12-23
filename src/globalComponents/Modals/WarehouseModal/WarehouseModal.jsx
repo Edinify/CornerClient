@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import {
-  DROPDOWN_NAME_ACTION_TYPE,
   WAREHOUSE_M0DAL_ACTION_TYPE,
 } from "../../../redux/actions-type";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
@@ -34,11 +33,12 @@ export const WarehouseModal = () => {
     { key: "ədəd", name: "ədəd" },
   ];
 
+
   const formik = useFormik({
     initialValues: {
-      productName: warehouseModalData?.productName
-        ? warehouseModalData?.productName
-        : "",
+      // productName: warehouseModalData?.productName
+      //   ? warehouseModalData?.productName
+      //   : "",
       totalAmount: warehouseModalData?.totalAmount
         ? warehouseModalData?.totalAmount
         : "",
@@ -58,6 +58,7 @@ export const WarehouseModal = () => {
     setCategoryOpen(!categoryOpen);
   };
   const categoryAddData = (item) => {
+    setInputValue("category", item._id);
     updateModalState("unitMeasure", item.key);
     setCategoryOpen(false);
     setSelectedCategory(item);
@@ -97,11 +98,9 @@ export const WarehouseModal = () => {
   // category list
 
   const categoryNameAddData = (item) => {
-    console.log(item, "category name add data");
-    console.log(item.key, "key");
     setInputValue("category", item._id);
     updateModalState("category", item);
-    dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
     setSelectedCategoryName(item.name);
   };
@@ -119,7 +118,7 @@ export const WarehouseModal = () => {
     }
   }, []);
 
-  console.log(selectedCategoryName, "selected category");
+  // console.log(selectedCategoryName, "selected category");
 
   return (
     <div className="create-update-modal-con bonus-modal">
