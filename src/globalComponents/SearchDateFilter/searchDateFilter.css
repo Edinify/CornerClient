@@ -5,9 +5,11 @@
   background: var(--neutrals-200);
   padding-bottom: 16px;
 }
-.stimulations-page .stimulation-search-head {
-  padding: 24px 0;
+.stimulation-search-head{
+  /* margin-top: 20px; */
+  background-color: var(--neutrals-200);
 }
+
 .search-date-filter {
   display: flex;
   align-items: center;
@@ -42,6 +44,10 @@
 .search-date-filter > .right {
   display: flex;
   align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin: 10px 0;
+  
 }
 .search-date-filter > .right .date-container .from,
 .search-date-filter > .right .date-container .to {
@@ -196,7 +202,7 @@
 }
 @media screen and (max-width: 1100px) {
   .search-date-filter.none-category {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 1fr 1fr;
     align-items: flex-start;
   }

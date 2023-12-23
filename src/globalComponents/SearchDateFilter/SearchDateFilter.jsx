@@ -11,9 +11,6 @@ const SearchDateFilter = ({
   className,
   clearAll,
   applyFilter,
-  searchValue,
-  changeSearchValue,
-  searchData,
   color,
   category = false,
   categoryData = [],
@@ -25,14 +22,6 @@ const SearchDateFilter = ({
     <div className={className}>
       <div className="container">
         <div className={`search-date-filter ${color} ${category ? 'category' : 'none-category'}`}>
-          <div className="left">
-            <Search
-              searchData={searchData}
-              changeSearchValue={changeSearchValue}
-              searchValue={searchValue}
-            />
-            {category && <CategoryDropdown categoryData={categoryData} changeCategory={changeCategory}/>}
-          </div>
           <div className="right">
             <DatePick />
             {category && <CategoryDropdown categoryData={categoryData} changeCategory={changeCategory}/>}

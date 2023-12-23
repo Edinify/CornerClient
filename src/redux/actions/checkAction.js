@@ -47,6 +47,7 @@ export const createCheckAction = (checkData) => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
   try {
     const { data } = await API.post("/", checkData);
+    console.log(data,"create table")
     // console.log(data, "data");(data, "create check");
     toastSuccess("Yeni masa açıldı");
     dispatch({ type: CHECK_ACTION_TYPE.CREAT_USER_CHECK, payload: data });
@@ -115,10 +116,12 @@ export const removeSetAction = (set) => async (dispatch) => {
 
 // admin check action
 
-export const getCheckAction = (pageNumber) => async (dispatch) => {
+export const getCheckAction = (pageNumber,startDate="",endDate="") => async (dispatch) => {
   dispatch(setLoadingCheckction(true));
+  console.log(startDate,"start");
+  console.log(endDate,"end")
   try {
-    const { data } = await API.get(`/?page=${pageNumber}`);
+    const { data } = await API.get(`/?page=${pageNumber}&startDate=${startDate || ""}&endDate=${endDate|| ""}`);
     // console.log(data)
     dispatch({ type: CHECK_ACTION_TYPE.GET_CHECK, payload: data });
     dispatch({
@@ -126,6 +129,7 @@ export const getCheckAction = (pageNumber) => async (dispatch) => {
       payload: pageNumber,
     });
   } catch (error) {
+    console.log(error)
     // console.log(data, "data");(error);
   } finally {
     dispatch(setLoadingCheckction(false));
