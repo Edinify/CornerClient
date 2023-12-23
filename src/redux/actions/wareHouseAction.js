@@ -62,7 +62,9 @@ const toastError = (message) => {
 export const getWarehouseAction = (pageNumber,searchQuery,categoryId) => async (dispatch) => {
   dispatch(setLoadingWarehouseAction(true));
   try {
-    console.log(searchQuery,"cat")
+    console.log(categoryId,"catttttt")
+    console.log(searchQuery,"seacrhQuery")
+    console.log(pageNumber,"pagenuber")
     const { data } = await API.get(`/?page=${pageNumber}&searchQuery=${searchQuery}&categroyId=${categoryId}`);
     // console.log(data)
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE, payload: data });

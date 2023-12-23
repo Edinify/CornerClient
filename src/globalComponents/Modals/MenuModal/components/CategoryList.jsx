@@ -23,8 +23,10 @@ const CategoryLists = ({
   };
 
   useEffect(() => {
-    dispatch(getCategoryAction());
+    dispatch(getCategoryAction(""));
   }, []);
+
+  console.log(selectedCategoryName,"cat")
 
   return (
     <>

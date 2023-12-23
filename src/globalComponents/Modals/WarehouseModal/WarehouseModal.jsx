@@ -58,6 +58,7 @@ export const WarehouseModal = () => {
     setCategoryOpen(!categoryOpen);
   };
   const categoryAddData = (item) => {
+    setInputValue("category", item._id);
     updateModalState("unitMeasure", item.key);
     setCategoryOpen(false);
     setSelectedCategory(item);
@@ -97,11 +98,9 @@ export const WarehouseModal = () => {
   // category list
 
   const categoryNameAddData = (item) => {
-    console.log(item, "category name add data");
-    console.log(item.key, "key");
     setInputValue("category", item._id);
     updateModalState("category", item);
-    dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
+    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
     setSelectedCategoryName(item.name);
   };
@@ -119,7 +118,7 @@ export const WarehouseModal = () => {
     }
   }, []);
 
-  console.log(selectedCategoryName, "selected category");
+  // console.log(selectedCategoryName, "selected category");
 
   return (
     <div className="create-update-modal-con bonus-modal">
