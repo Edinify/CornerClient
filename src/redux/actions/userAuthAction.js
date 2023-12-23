@@ -58,6 +58,7 @@ const userModalLoading = (loadingValue)=>({
 })
 
 export const userLoginAction = (authData) => async (dispatch,navigate) => {
+  console.log(authData)
   // setLoadingAction(true)
   try {
     const { data } = await API.post("/login",{accessCode:authData});
