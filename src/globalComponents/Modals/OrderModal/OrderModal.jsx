@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCheckAction } from "../../../redux/actions/checkAction";
 import { toast } from "react-toastify";
 import LoadingBtn from "../../Loading/components/LoadingBtn/LoadingBtn";
-import { CHECK_ACTION_TYPE } from "../../../redux/actions-type";
 
 const OrderModal = ({
   setOpenOrderModal,
-  setOrderModal,
   selectedTable,
   status,
   setStatus,
@@ -54,11 +52,6 @@ const OrderModal = ({
             className="delete-btn"
             onClick={() => {
               changeCheckStatus();
-              setTimeout(() => {
-                setOrderModal(false);
-                dispatch({type: CHECK_ACTION_TYPE.CHECK_SUBMIT_LOADING,
-                  payload: false,})
-              }, 3000);
             }}
           >
             {submitLoading ? (

@@ -32,7 +32,7 @@ import { categoryModalReducer } from "./reducers/categoryModalReducer";
 import { userAuthReducer } from "./reducers/userAuthReducer";
 import { funcComponentReducer } from "./reducers/funcComponentReducer";
 import { userCodeReducer } from "./reducers/userCodeReducer";
-import {UserModalReducer} from "./reducers/userModalReducer"
+import { UserModalReducer } from "./reducers/userModalReducer";
 import { userTablesReducer } from "./reducers/userTablesReducer";
 import { menuUserReducer } from "./reducers/menuUserReducer";
 import { checkReducer } from "./reducers/checkReducer";
@@ -41,6 +41,7 @@ import { checkLoadingReducer } from "./reducers/checkLoadingReducer";
 import { setsReducer } from "./reducers/setsReducer";
 import { setsModalReducer } from "./reducers/setsModalReducer";
 import { allWarehousesReducer } from "./reducers/allWarehousesReducer";
+import { orderModalReducer } from "./reducers/userOrderModalReducer";
 import { warehouseFilterReducer } from "./reducers/warehouseFilterReducer";
 
 const initialState = {};
@@ -60,7 +61,7 @@ const reducers = combineReducers({
   allCourses: allCoursesReducer,
   expensesModal: expensesModalReducer,
   openSidebar: sidebarOpenReducer,
-  funcComponent:funcComponentReducer,
+  funcComponent: funcComponentReducer,
   financeDateFilter: financeFilterReducer,
 
   // corner
@@ -73,16 +74,17 @@ const reducers = combineReducers({
   category: categoryReducer,
   categoryModal: categoryModalReducer,
   userAuth: userAuthReducer,
-  userCode:userCodeReducer,
-  userModal:UserModalReducer,
-  userTables:userTablesReducer,
-  menuUser:menuUserReducer,
-  checks:checkReducer,
-  userCheck:userCheckReducer,
-  checkLoading:checkLoadingReducer,
-  menuSet:setsReducer,
-  menuSetModal:setsModalReducer,
-  allWarehouses:allWarehousesReducer,
+  userCode: userCodeReducer,
+  userModal: UserModalReducer,
+  userTables: userTablesReducer,
+  menuUser: menuUserReducer,
+  checks: checkReducer,
+  userCheck: userCheckReducer,
+  checkLoading: checkLoadingReducer,
+  menuSet: setsReducer,
+  menuSetModal: setsModalReducer,
+  allWarehouses: allWarehousesReducer,
+  orderModal: orderModalReducer,
   wareCategory:warehouseFilterReducer
 });
 // test
