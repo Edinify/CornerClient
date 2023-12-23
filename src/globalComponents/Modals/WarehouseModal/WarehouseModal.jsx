@@ -36,9 +36,9 @@ export const WarehouseModal = () => {
 
   const formik = useFormik({
     initialValues: {
-      productName: warehouseModalData?.productName
-        ? warehouseModalData?.productName
-        : "",
+      // productName: warehouseModalData?.productName
+      //   ? warehouseModalData?.productName
+      //   : "",
       totalAmount: warehouseModalData?.totalAmount
         ? warehouseModalData?.totalAmount
         : "",

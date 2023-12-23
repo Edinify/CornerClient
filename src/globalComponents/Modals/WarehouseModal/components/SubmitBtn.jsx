@@ -26,13 +26,13 @@ export default function SubmitBtn({ warehouseModalData, funcType, formik }) {
   return (
     <div className="create-update-modal-btn">
       <button
-        // disabled={
-        //   !(
-        //     formik.isValid &&
-        //     warehouseModalData?.totalAmount &&
-        //     !warehouseModalLoading
-        //   )
-        // }
+        disabled={
+          !(
+            formik.isValid &&
+            warehouseModalData?.totalAmount &&
+            !warehouseModalLoading
+          )
+        }
         onClick={classCreate}
       >
         {warehouseModalLoading ? (
