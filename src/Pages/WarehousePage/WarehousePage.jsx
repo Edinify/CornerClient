@@ -26,6 +26,7 @@ const WarehousePage = () => {
     dispatch(getCategoryAction(1));
   }, []);
 
+
   const clearAll = () => {
     dispatch(clearSearchValue());
 
@@ -39,7 +40,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         1,
         warehouseSearchValues,
-        wareCategory ? (wareCategory !== "all" ? wareCategory : "") : ""
+        wareCategory ? (wareCategory !== "6586fcd50c32a92e17315180" ? wareCategory : "") : ""
       )
     );
     setWarehousePageNum(1);
@@ -50,7 +51,7 @@ const WarehousePage = () => {
       getWarehouseAction(
         1,
         warehouseSearchValues ? warehouseSearchValues : "",
-        wareCategory ? (wareCategory !== "all" ? wareCategory : "") : ""
+        wareCategory ? (wareCategory !== "6586fcd50c32a92e17315180" ? wareCategory : "") : ""
       )
     );
   };
@@ -82,10 +83,12 @@ const WarehousePage = () => {
       getWarehouseAction(
         pageNumber,
         warehouseSearchValues ? warehouseSearchValues : "",
-        wareCategory ? (wareCategory !== "all" ? wareCategory : "") : ""
+        wareCategory ? (wareCategory !== "6586fcd50c32a92e17315180" ? wareCategory : "") : ""
       )
     );
   };
+
+  console.log(wareCategory,"ware")
   useEffect(() => {
     if (lastPage) {
       setWarehousePageNum(lastPage);

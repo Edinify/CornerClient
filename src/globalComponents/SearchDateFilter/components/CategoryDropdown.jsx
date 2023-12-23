@@ -29,7 +29,7 @@ const CategoryDropdown = ({ changeCategory,categoryData}) => {
       <div className="dropdown-body">
         <ul>
           {categoryData.map((item, index) => (
-            <li key={index} onClick={() => getCategory(item)}>
+            <li key={item._id} onClick={() => getCategory(item)}>
               {item.name}
             </li>
           ))}

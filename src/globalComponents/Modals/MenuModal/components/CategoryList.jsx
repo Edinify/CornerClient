@@ -26,7 +26,6 @@ const CategoryLists = ({
     dispatch(getCategoryAction(""));
   }, []);
 
-  console.log(selectedCategoryName,"cat")
 
   return (
     <>
@@ -47,7 +46,7 @@ const CategoryLists = ({
             label="Kateqoriya "
             name="class"
             autoComplete="off"
-            value={selectedCategoryName ? selectedCategoryName : ""}
+            value={selectedCategoryName ? selectedCategoryName.name : ""}
             onBlur={() => formik.setFieldTouched("category", true)}
             onClick={categoryNameDropdown}
           />
