@@ -18,16 +18,12 @@ import LoadingBtn from "../../globalComponents/Loading/components/LoadingBtn/Loa
 import { getMenuSetsForUser } from "../../redux/actions/setsAction";
 import moment from "moment";
 
-
 const OrderPage = ({ selectedTable, setOrderModal }) => {
   const dispatch = useDispatch();
   const { menuUser } = useSelector((state) => state.menuUser);
   const { menuSet } = useSelector((state) => state.menuSet);
   const { userCheck } = useSelector((state) => state.userCheck);
   const { loading } = useSelector((state) => state.checkLoading);
-
-
-
 
   const [openOrderModal, setOpenOrderModal] = useState(false);
   // const [timeDifference, setTimeDifference] = useState(null);
@@ -59,11 +55,10 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
     {
       key: "Masanın açılma tarixi:",
       value: userCheck.createdAt
-        ? moment(userCheck.createdAt).format("DD-MM-YYYY HH-mm")
+        ? moment(userCheck.createdAt).format("DD-MM-YYYY / HH:mm")
         : "",
     },
   ];
-  
 
   const createOrder = () => {
     if (userCheck._id) {
@@ -132,6 +127,13 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
   }, [userCheck]);
 
   useEffect(() => {
+    dispatch({
+      type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
+      payload: { totalDate: totalMin },
+    });
+  }, [totalMin]);
+
+  useEffect(() => {
     const deposit = userCheck.table.deposit;
     const oneMinutePrice = userCheck.table.oneMinutePrice / 60 || 0;
 
@@ -170,22 +172,18 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
             <div className="order-side-head-container">
               <div className="order-side-head">
                 <div className="order-side-content">
-                  <div className="back" onClick={() => setOrderModal(false)}>
+                  <div
+                    className="back"
+                    onClick={() =>
+                      dispatch({
+                        type: CHECK_ACTION_TYPE.ORDER_MODAL,
+                        payload: false,
+                      })
+                    }
+                  >
                     <BackIcon />
                   </div>
                   <h4>Masa nömrəsi: {selectedTable.tableNumber}</h4>
-                </div>
-                <div className="order-side-input">
-                  <input
-                    type="number"
-                    value={userCheck.totalDate}
-                    onChange={(e) =>
-                      dispatch({
-                        type: CHECK_ACTION_TYPE.UPDATE_USER_CHECK,
-                        payload: { totalDate: e.target.value },
-                      })
-                    }
-                  />
                 </div>
               </div>
 
@@ -268,11 +266,9 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
                   })}
                 </ul> */}
                 <div>
-                  
-
                   {userCheck.sets.map((setItem) => (
                     <div className="sets-list" key={setItem.set._id}>
-                      <li className="set-list"  >
+                      <li className="set-list">
                         <span>
                           Setin adı: {setItem.set.name} -{" "}
                           <div
@@ -413,7 +409,6 @@ const OrderPage = ({ selectedTable, setOrderModal }) => {
           status={status}
           setStatus={setStatus}
           setOpenOrderModal={setOpenOrderModal}
-          setOrderModal={setOrderModal}
         />
       )}
     </div>
