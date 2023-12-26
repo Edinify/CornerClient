@@ -71,7 +71,7 @@ const SearchDateFilter = ({
                 />
               )}
               <ApplyClearBtns clearAll={clearAll} applyFilter={applyFilter} />
-              <DatePickBtn setDatePickModal={setDatePickModal} />
+             {location.pathname==="/checks" && <DatePickBtn setDatePickModal={setDatePickModal} />}
             </div>
           </div>
         )}

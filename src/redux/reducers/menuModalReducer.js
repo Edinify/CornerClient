@@ -4,9 +4,8 @@ const initialState = {
   menusModalData: {
     category: "",
     product: "",
-    inPrice: "",
-    outPrice: "",
     unitAmount: "",
+    price:"",
   },
   menuOpenModal: false,
   menuModalLoading: false,
@@ -15,7 +14,6 @@ const initialState = {
 export const menuModalReducer = (state = initialState, action) => {
   switch (action.type) {
     case MENU_M0DAL_ACTION_TYPE.GET_MENU_MODAL:
-      console.log("salam");
       return {
         ...state,
         menusModalData: action.payload.data,

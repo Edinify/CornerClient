@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import {
-  DROPDOWN_NAME_ACTION_TYPE,
   MENU_M0DAL_ACTION_TYPE,
 } from "../../../redux/actions-type";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
@@ -31,7 +30,10 @@ export const MenuModal = () => {
   });
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
 
-  console.log(selectedCategoryName,"selected")
+
+
+  console.log(selectedWarehouseName,"warehouse")
+
 
 
   const formik = useFormik({
@@ -53,6 +55,7 @@ export const MenuModal = () => {
     [formik]
   );
 
+
   const categoryNameDropdown = () => {
     setCategoryNameOpen(!categoryNameOpen);
     setClassIcon(false);
@@ -65,14 +68,12 @@ export const MenuModal = () => {
   const categoryNameAddData = (item) => {
     setInputValue("category", item._id);
     updateModalState("category", item.name);
-    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setCategoryNameOpen(false);
-    setSelectedCategoryName(item);
+    setSelectedCategoryName(item.name);
   };
   const warehouseNameAddData = (item) => {
     setInputValue("product", item._id);
     updateModalState("product", item._id);
-    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setWarehouseNameOpen(false);
     setSelectedWarehouseName(item);
   };

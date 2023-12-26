@@ -46,7 +46,7 @@ const CategoryLists = ({
             label="Kateqoriya "
             name="class"
             autoComplete="off"
-            value={selectedCategoryName ? selectedCategoryName.name : ""}
+            value={selectedCategoryName ? selectedCategoryName : ""}
             onBlur={() => formik.setFieldTouched("category", true)}
             onClick={categoryNameDropdown}
           />

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getWarehouseAction,
   getWarehouseActionList,
 } from "../../../../redux/actions/wareHouseAction";
 
@@ -27,7 +26,6 @@ const WarehouseLists = ({
     setWarehouseNameOpen(true);
   };
 
-  console.log(selectedCategoryName,"Category name")
 
   useEffect(() => {
     if (warehouseNameOpen) {
