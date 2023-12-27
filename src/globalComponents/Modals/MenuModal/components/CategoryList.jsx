@@ -3,7 +3,6 @@ import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryAction } from "../../../../redux/actions/categoryAction";
 
-
 const CategoryLists = ({
   selectedCategoryName,
   categoryNameDropdown,
@@ -13,7 +12,7 @@ const CategoryLists = ({
   categoryList,
   formik,
 }) => {
-  const { dropdownName } = useSelector((state) => state);
+  const { dropdownName } = useSelector((state) => state.dropdownName);
   const dispatch = useDispatch();
 
   const changeOpenDropdown = () => {
@@ -22,10 +21,11 @@ const CategoryLists = ({
     setCategoryNameOpen(!categoryNameOpen);
   };
 
-  useEffect(() => {
-    dispatch(getCategoryAction(""));
-  }, []);
+  console.log(selectedCategoryName, "Category name");
 
+  useEffect(() => {
+    dispatch(getCategoryAction(1));
+  }, []);
 
   return (
     <>
@@ -46,7 +46,11 @@ const CategoryLists = ({
             label="Kateqoriya "
             name="class"
             autoComplete="off"
-            value={selectedCategoryName ? selectedCategoryName : ""}
+            value={
+              selectedCategoryName && selectedCategoryName.name
+                ? selectedCategoryName.name
+                : ""
+            }
             onBlur={() => formik.setFieldTouched("category", true)}
             onClick={categoryNameDropdown}
           />

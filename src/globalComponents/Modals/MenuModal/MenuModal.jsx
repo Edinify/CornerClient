@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import {
-  MENU_M0DAL_ACTION_TYPE,
-} from "../../../redux/actions-type";
+import { MENU_M0DAL_ACTION_TYPE } from "../../../redux/actions-type";
 import { ReactComponent as CloseBtn } from "../../../assets/icons/Icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import InputField from "./components/InputField";
@@ -17,24 +15,14 @@ export const MenuModal = () => {
   const { menusModalData } = useSelector((state) => state.menuModal);
   const { category } = useSelector((state) => state.category);
   const { warehouses } = useSelector((state) => state.warehouses);
-  const categoryList = category?.filter((category) => category?.name);
   const [selectedCategoryName, setSelectedCategoryName] = useState();
   const [categoryNameOpen, setCategoryNameOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [classIcon, setClassIcon] = useState(false);
   const inputArr = ["price", "unitAmount"];
 
-  const warehousesList = warehouses?.filter((ware) => ware.productName);
-  const [selectedWarehouseName, setSelectedWarehouseName] = useState({
-    productName: "",
-  });
+  const [selectedWarehouseName, setSelectedWarehouseName] = useState();
   const [warehouseNameOpen, setWarehouseNameOpen] = useState(false);
-
-
-
-  console.log(selectedWarehouseName,"warehouse")
-
-
 
   const formik = useFormik({
     initialValues: {
@@ -55,7 +43,6 @@ export const MenuModal = () => {
     [formik]
   );
 
-
   const categoryNameDropdown = () => {
     setCategoryNameOpen(!categoryNameOpen);
     setClassIcon(false);
@@ -69,13 +56,13 @@ export const MenuModal = () => {
     setInputValue("category", item._id);
     updateModalState("category", item.name);
     setCategoryNameOpen(false);
-    setSelectedCategoryName(item.name);
+    setSelectedCategoryName(item);
   };
   const warehouseNameAddData = (item) => {
     setInputValue("product", item._id);
     updateModalState("product", item._id);
     setWarehouseNameOpen(false);
-    setSelectedWarehouseName(item);
+    setSelectedWarehouseName(item.productName);
   };
 
   const updateModalState = (keyName, value) => {
@@ -100,26 +87,22 @@ export const MenuModal = () => {
   useEffect(() => {
     if (menusModalData?._id) {
       if (menusModalData?.category) {
-        setSelectedCategoryName(menusModalData.category);
-      }
-    }
-  }, []);
-  useEffect(() => {
-    if (menusModalData?._id) {
-      if (menusModalData?.product) {
-        setSelectedWarehouseName({
-          ...selectedWarehouseName,
-          productName: menusModalData.product.productName,
-        });
+        setSelectedCategoryName(menusModalData?.category);
+        console.log(selectedCategoryName,"categoryyyy")
       }
     }
   }, []);
 
+
   useEffect(() => {
-    setSelectedWarehouseName({
-      productName: "",
-    });
-  }, [selectedCategoryName]);
+    if (menusModalData?._id) {
+      if (menusModalData?.product) {
+        setSelectedWarehouseName(menusModalData.product.productName);
+      }
+    }
+  }, []);
+
+ 
 
   return (
     <div className="create-update-modal-con bonus-modal">
@@ -141,13 +124,12 @@ export const MenuModal = () => {
         >
           <div className="create-update-modal-form">
             <CategoryLists
-              setSelectedCategoryName={setSelectedCategoryName}
               selectedCategoryName={selectedCategoryName}
               categoryNameDropdown={categoryNameDropdown}
               categoryNameOpen={categoryNameOpen}
               setCategoryNameOpen={setCategoryNameOpen}
               categoryNameAddData={categoryNameAddData}
-              categoryList={categoryList}
+              categoryList={category}
               formik={formik}
             />
             <WarehouseLists
@@ -157,7 +139,7 @@ export const MenuModal = () => {
               warehouseNameOpen={warehouseNameOpen}
               setWarehouseNameOpen={setWarehouseNameOpen}
               warehouseNameAddData={warehouseNameAddData}
-              warehousesList={warehousesList}
+              warehousesList={warehouses}
               selectedCategoryName={selectedCategoryName}
               formik={formik}
             />
@@ -193,9 +175,6 @@ export const MenuModal = () => {
           />
         )}
       </div>
-      {/* {deleteModal && (
-        <DeleteBonusModal type="bonus" menusModalData={menusModalData} deleteMod={handleDeleteModal} />
-      )} */}
     </div>
   );
 };

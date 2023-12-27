@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./financeDataHead.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
-  INCOMES_MODAL_ACTION_TYPE,
   EXPENSES_MODAL_ACTION_TYPE,
 } from "../../../../redux/actions-type";
 import { ReactComponent as PlusIcon } from "../../../../assets/icons/finance/Plus.svg";
-import FinanceDropdown from "./FinanceDropdown";
 
 const FinanceDataHead = () => {
   const dispatch = useDispatch();
@@ -35,10 +33,10 @@ const FinanceDataHead = () => {
           Mədaxil
         </Link> */}
         <Link
-          to="/finance/expenses"
+          to="/"
           onClick={() => setSelectedType("Xərc")}
           className={`data-type ${
-            location.pathname === "/finance/expenses" ? "active" : ""
+            location.pathname === "/" ? "active" : ""
           }`}
         >
           Xərc

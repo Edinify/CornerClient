@@ -43,7 +43,7 @@ export const Routing = () => {
       }
       if (user.role === "admin" && !notFound) {
         if (location.pathname.startsWith("/login")) {
-          navigate("/finance/expenses");
+          navigate("/");
         } else {
           return () => {};
         }

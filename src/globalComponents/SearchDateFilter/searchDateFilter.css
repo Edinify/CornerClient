@@ -162,9 +162,7 @@
   }
 }
 @media screen and (max-width: 1320px) {
-  .search-date-filter.category {
-    flex-direction: column;
-  }
+ 
   .search-date-filter.category > .left {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -204,8 +202,14 @@
   .search-date-filter.category > .right .date-container .from {
     margin-right: 7px;
   }
+
+  .search-date-filter > .right .buttons-con{
+    margin: 10px 0;
+  }
 }
 @media screen and (max-width: 1100px) {
+
+
   .search-date-filter.none-category {
     /* display: grid; */
     grid-template-columns: 1fr 1fr;
@@ -236,6 +240,12 @@
     width: 100%;
   }
 }
+
+@media screen and (max-width:800px) {
+  .search-date-filter.category {
+    flex-direction: column;
+  }
+}
 @media screen and (max-width: 500px) {
   .search-date-filter.category > .left {
     grid-template-columns: auto;
@@ -248,14 +258,16 @@
     margin-right: 0;
   }
   .search-date-filter.category > .right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
     margin-left: 0;
   }
   .search-date-filter.category > .right .category-dropdown {
-    margin-right: 4px;
-    width: auto;
+    /* margin-right: 4px; */
+    margin: 10px 0;
+    /* width: auto; */
     display: inline-block;
+    width: 100%;
   }
   .search-date-filter.category > .right .datepicker-filter-modal-btn {
     margin-left: 4px;

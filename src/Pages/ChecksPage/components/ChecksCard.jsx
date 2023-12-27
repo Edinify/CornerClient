@@ -13,7 +13,7 @@ const ChecksCard = ({
     Array.isArray(data.orders) && data.orders.length > 0
       ? data.orders
           .map((order) => {
-            return `${order.order.product.productName} - ${order.orderCount}`;
+            return `${order.order.product.productName} - ${order.orderCount} ədəd`;
           })
           .join(", ")
       : "";
@@ -24,7 +24,7 @@ const ChecksCard = ({
       value: data.table.category ? data.table.category : "boş",
     },
     {
-      key: "Masa adı",
+      key: "Masa adı və nömrəsi ",
       value: data.table
         ? `${data.table.name ? data.table.name : ""} - ${
             data.table?.tableNumber
@@ -86,13 +86,17 @@ const ChecksCard = ({
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.totalPayment} AZN</div>
+              <div className="table-scroll-text phone">
+                {data.totalPayment} AZN
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
           <td>
             <div className="td-con">
-              <div className="table-scroll-text phone">{data.totalDate} Dəq </div>
+              <div className="table-scroll-text phone">
+                {data.totalDate} Dəq{" "}
+              </div>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -120,52 +124,16 @@ const ChecksCard = ({
         <div className="content-box">
           <div className="left">
             <ul>
-              <li>
-                <span className="type">Kateqoriya :</span>
-                <p>{data.table?.category ? data.table?.category : "boş"}</p>
-              </li>
-              <li>
-                <span className="type">Masa adı :</span>
-                <p>
-                  {data.table?.name ? data.table?.name : "boş"} -{" "}
-                  {data.table.tableNumber}
-                </p>
-              </li>
-              <li>
-                <span className="type">Sifarişlər :</span>
-                <div>{orders}</div>
-              </li>
-              <li>
-                <span className="type">Depozit:</span>
-                <p>{data.table.deposit ?` ${data.table.deposit} AZN` : "yoxdur" }</p>
-              </li>
-              <li>
-                <span className="type">Ümumi məbləğ:</span>
-                <p>{data.totalPayment} AZN  </p>
-              </li>
-              <li>
-                <span className="type">Ümumi vaxt:</span>
-                <p>{data.totalDate} Dəq</p>
-              </li>
-              <li>
-                <span className="type">1 saatlıq qiymət:</span>
-                <p>
-                  {data.table.oneMinutePrice
-                    ? `${data.table.oneMinutePrice} AZN`
-                    : "yoxdur"}
-                </p>
-              </li>
-              <div className="right">
-                <span
-                  className="type"
-                  onClick={() => {
-                    openMoreModal();
-                  }}
-                >
-                  Ətraflı
-                </span>
-              </div>
+              {listData.map((item, index) => (
+                <li key={index} className={item.className}>
+                  <span className="type">{item.key}:</span>
+                  <p>{item.value}</p>
+                </li>
+              ))}
             </ul>
+          </div>
+          <div className="right">
+            <span onClick={() => openMoreModal()}>Ətraflı</span>
           </div>
         </div>
       )}

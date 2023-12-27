@@ -6,14 +6,13 @@ import { SETS_M0DAL_ACTION_TYPE } from "../../../../redux/actions-type";
 const SetCard = ({ data, mode, cellNumber }) => {
   const dispatch = useDispatch();
 
-
   const updateItem = () => {
-    const { products, _id, price,name } = data;
+    const { products, _id, price, name } = data;
 
     dispatch({
       type: SETS_M0DAL_ACTION_TYPE.GET_SETS_MODAL,
       payload: {
-        data: { products, _id, price,name },
+        data: { products, _id, price, name },
         openModal: true,
       },
     });
@@ -22,6 +21,23 @@ const SetCard = ({ data, mode, cellNumber }) => {
     dispatch(deleteSetAction(data._id));
   };
 
+  let products =
+    Array.isArray(data.products) && data.products.length > 0
+      ? data.products
+          .map((product) => {
+            return `${product.product.productName} -${product.productCount} ədəd `;
+          })
+          .join(", ")
+      : "";
+
+  let productsUnitAmount =
+    Array.isArray(data.products) && data.products.length > 0
+      ? data.products
+          .map((product) => {
+            return `${product.productUnitAmount}`;
+          })
+          .join(", ")
+      : "";
 
   return (
     <>
@@ -30,21 +46,7 @@ const SetCard = ({ data, mode, cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="cell-number">{cellNumber}.</div>
-              <div className="table-scroll-text">
-                {data.products.map((product) => (
-                  <div key={product._id}>{product.product.productName}</div>
-                ))}
-              </div>
-              <div className="right-fade"></div>
-            </div>
-          </td>
-          <td>
-            <div className="td-con">
-              <div className="table-scroll-text">
-                {data.products.map((product) => (
-                  <div key={product._id}>{product.productCount}</div>
-                ))}
-              </div>
+              <ul className="table-scroll-text">{products}</ul>
               <div className="right-fade"></div>
             </div>
           </td>
@@ -57,9 +59,7 @@ const SetCard = ({ data, mode, cellNumber }) => {
           <td>
             <div className="td-con">
               <div className="table-scroll-text">
-                {data.products.map((product) => (
-                  <div key={product._id}>{product.productUnitAmount}</div>
-                ))}
+                {productsUnitAmount}
               </div>
               <div className="right-fade"></div>
             </div>
@@ -83,21 +83,12 @@ const SetCard = ({ data, mode, cellNumber }) => {
           <div className="left">
             <ul>
               <li>
-                <span className="type">Məhsul :</span>
+                <span className="type">Məhsul və sayı :</span>
                 <div className="table-scroll-text">
-                  {data.products.map((product) => (
-                    <p key={product._id}>{product.product.productName}</p>
-                  ))}
+                  {products}
                 </div>
               </li>
-              <li>
-                <span className="type">Məhsulun sayı:</span>
-                <div className="table-scroll-text">
-                  {data.products.map((product) => (
-                    <p key={product._id}>{product.productCount}</p>
-                  ))}
-                </div>
-              </li>
+             
               <li>
                 <span className="type">Setin adı:</span>
                 <p>{data.name}</p>
@@ -105,9 +96,7 @@ const SetCard = ({ data, mode, cellNumber }) => {
               <li>
                 <span className="type"> Məhsulun miqdarı:</span>
                 <div className="table-scroll-text">
-                  {data.products.map((product) => (
-                    <p key={product._id}>{product.productUnitAmount}</p>
-                  ))}
+                 {productsUnitAmount}
                 </div>
               </li>
               <li>

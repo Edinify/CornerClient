@@ -1,4 +1,3 @@
-import { useState, React } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { EXPENSES_MODAL_ACTION_TYPE } from "../../../../../redux/actions-type";
@@ -7,7 +6,6 @@ import UpdateDeleteModal from "../../../../../globalComponents/Modals/UpdateDele
 
 const ExpensesCard = ({ data, mode, cellNumber, page }) => {
   const dispatch = useDispatch();
-  const [deleteExpensesModal, setDeleteExpensesModal] = useState(false);
 
   const updateItem = () => {
     const { price, amount, name, date, _id } = data;
@@ -20,9 +18,7 @@ const ExpensesCard = ({ data, mode, cellNumber, page }) => {
     dispatch(deleteExpensesAction(data._id));
   };
 
-
   const listData = [
-
     {
       key: "Miqdarı",
       value: data.amount ? data.amount : "boş",
@@ -85,13 +81,13 @@ const ExpensesCard = ({ data, mode, cellNumber, page }) => {
           <div className="left">
             <h3>{data.name}</h3>
             <ul>
-           {listData.map((item, index) => (
-                <li key={index} className={item.className} >
+              {listData.map((item, index) => (
+                <li key={index} className={item.className}>
                   <span className="type">{item.key}:</span>
                   <p>{item.value}</p>
                 </li>
               ))}
-           </ul>
+            </ul>
           </div>
           <div className="right">
             <UpdateDeleteModal

@@ -19,12 +19,12 @@ const SetsModal = () => {
   const inputArr = ["price", "name"];
 
   const { allWarehouses } = useSelector((state) => state.allWarehouses);
-  const warehousesList = allWarehouses?.filter((ware) => ware.productName);
   const [selectedWarehouseName, setSelectedWarehouseName] = useState({
     products: [],
     price: '',
     name: "",
   });
+
 
 
   const [countData, setCountData] = useState({
@@ -38,10 +38,6 @@ const SetsModal = () => {
     setClassIcon(false);
   };
   const warehouseNameAddData = (item) => {
-    // console.log(item)
-    // setInputValue("product", item._id);
-    // updateModalState("product", item._id);
-    // dispatch({ type: DROPDOWN_NAME_ACTION_TYPE.GET_DROPDOWN, payload: item });
     setWarehouseNameOpen(false);
     setSelectedWarehouseName({
       ...selectedWarehouseName,
@@ -65,7 +61,7 @@ const SetsModal = () => {
     });
   };
 
-  console.log(setsModalData,"Data")
+  // console.log(setsModalData,"Data")
 
   useEffect(() => {
     if(setsModalData._id){
@@ -148,7 +144,7 @@ const SetsModal = () => {
               warehouseNameOpen={warehouseNameOpen}
               setWarehouseNameOpen={setWarehouseNameOpen}
               warehouseNameAddData={warehouseNameAddData}
-              warehousesList={warehousesList}
+              warehousesList={allWarehouses}
               formik={formik}
               setInputValue={setInputValue}
               setsModalData={setsModalData}

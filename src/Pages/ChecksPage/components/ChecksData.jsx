@@ -13,7 +13,7 @@ const ChecksData = ({ menusPageNum, getPageNumber }) => {
 
   const tableHead = [
     { id: 1, label: "Kateqoriya" },
-    { id: 2, label: "Masa adı" },
+    { id: 2, label: "Masa adı və nömrəsi" },
     { id: 3, label: "Sifarişlər" },
     { id: 4, label: "Depozit" },
     { id: 6, label: "Ümumi məbləğ" },

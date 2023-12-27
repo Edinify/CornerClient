@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  COURSES_MODAL_ACTION_TYPE,
   SEARCH_VALUES_ACTION_TYPES,
 } from "../../../../redux/actions-type";
 import {

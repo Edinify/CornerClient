@@ -3,7 +3,6 @@ import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllWarehouseAction } from "../../../../redux/actions/wareHouseAction";
 import { ReactComponent as MinusIcon } from "../../../../assets/icons/minus-cirlce.svg";
-import InputField from "./InputField";
 import WareHouseInputField from "./WareHouseInputField";
 const WarehouseLists = ({
   setSelectedWarehouseName,
@@ -24,8 +23,11 @@ const WarehouseLists = ({
   const [searchedValue, setSearcherValue] = useState("");
   const { dropdownName } = useSelector((state) => state.dropdownName);
   const inputArr = ["productCount", "productUnitAmount"];
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
   const dispatch = useDispatch();
+
+
+  console.log(products,"ware house")
 
   const searchData = (e) => {
     setSearcherValue(e.target.value);
@@ -35,7 +37,7 @@ const WarehouseLists = ({
 
   useEffect(() => {
     dispatch(getAllWarehouseAction());
-  }, []);
+  }, [dispatch]);
 
 
   const changeOpenDropdown = () => {
@@ -49,7 +51,6 @@ const WarehouseLists = ({
       ...selectedWarehouseName,
       products: products.filter((set) => set.product !== data),
     });
-    console.log(selectedWarehouseName);
   };
   // console.log(selectedWarehouseName)
   return (

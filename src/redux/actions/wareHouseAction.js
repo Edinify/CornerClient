@@ -63,9 +63,6 @@ export const getWarehouseAction =
   (pageNumber, searchQuery, categoryId) => async (dispatch) => {
     dispatch(setLoadingWarehouseAction(true));
     try {
-      console.log(categoryId, "catttttt");
-      console.log(searchQuery, "seacrhQuery");
-      console.log(pageNumber, "pagenuber");
       const { data } = await API.get(
         `/?page=${pageNumber}&searchQuery=${searchQuery}&categoryId=${categoryId}`
       );
@@ -87,7 +84,7 @@ export const getWarehouseActionList = (categoryId) => async (dispatch) => {
   try {
     const { data } = await API.get(`/list?categoryId=${categoryId}`);
 
-    console.log(data, "products by categoryId");
+    // console.log(data, "products by categoryId");
     dispatch({ type: WAREHOUSE_ACTION_TYPE.GET_WAREHOUSE_LIST, payload: data });
   } catch (error) {
     console.log(error);

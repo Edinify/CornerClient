@@ -64,7 +64,6 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   dispatch(setLoadingCategoryAction(true));
   try {
     const { data } = await API.get(`/?page=${pageNumber}`);
-    console.log(data)
 
     dispatch({
       type: CATEGORY_ACTION_TYPE.GET_CATEGORY_LAST_PAGE,
@@ -77,20 +76,19 @@ export const getCategoryAction = (pageNumber) => async (dispatch) => {
   }
 };
 
-export const getCategoryBaseAction = (categoryKey) => async (dispatch) => {
-  console.log(categoryKey,"key")
-  dispatch(setLoadingCategoryAction(true));
-  try {
-    const { data } = await API.get(`/all?categoryKey=${categoryKey}`);
+// export const getCategoryBaseAction = (categoryKey) => async (dispatch) => {
+//   dispatch(setLoadingCategoryAction(true));
+//   try {
+//     const { data } = await API.get(`/all?categoryKey=${categoryKey}`);
 
-    console.log(data,"base")
+//     console.log(data,"base")
 
-    dispatch({ type: CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY, payload: data });
-  } catch (error) {
-  } finally {
-    dispatch(setLoadingCategoryAction(false));
-  }
-};
+//     dispatch({ type: CATEGORY_ACTION_TYPE.GET_BASE_CATEGORY, payload: data });
+//   } catch (error) {
+//   } finally {
+//     dispatch(setLoadingCategoryAction(false));
+//   }
+// };
 
 export const createCategoryAction = (categoryData) => async (dispatch) => {
   dispatch(categoryModalLoading(true));

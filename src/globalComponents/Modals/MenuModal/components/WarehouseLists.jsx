@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getWarehouseActionList,
-} from "../../../../redux/actions/wareHouseAction";
+import { getWarehouseActionList } from "../../../../redux/actions/wareHouseAction";
 
 const WarehouseLists = ({
   setSelectedWarehouseName,
@@ -25,6 +23,7 @@ const WarehouseLists = ({
     setSelectedWarehouseName("");
     setWarehouseNameOpen(true);
   };
+
 
 
   useEffect(() => {
@@ -60,7 +59,7 @@ const WarehouseLists = ({
             autoComplete="off"
             value={
               selectedWarehouseName
-                ? selectedWarehouseName.productName
+                ? selectedWarehouseName
                 : searchedValue
             }
             onChange={(e) => searchData(e)}

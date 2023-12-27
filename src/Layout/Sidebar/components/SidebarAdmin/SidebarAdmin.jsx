@@ -36,7 +36,7 @@ const SidebarAdmin = ({ closeSidebar }) => {
       </li>
 
       <li>
-        <NavLink to="/finance/expenses" onClick={closeSidebar}>
+        <NavLink to="/" onClick={closeSidebar}>
           <ExpensesIcon />
           Maliyyə
         </NavLink>
